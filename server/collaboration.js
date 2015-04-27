@@ -197,6 +197,9 @@ collaboration = module.exports = {
 			socket.on('toggleAudio', function(boardId, data) {
 				this.broadcast.to(boardId).emit('toggleAudio');
 			});
+			socket.on('raiseHand', function(){
+				this.emit('raiseHand');
+			});
         });
     }
 }

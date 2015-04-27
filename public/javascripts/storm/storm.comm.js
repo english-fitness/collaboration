@@ -53,6 +53,10 @@ define(["storm","storm.ui","storm.util"], function (storm, ui, util) {
         this.socket.on('kickUser', function() {
         	storm.comm.socket.disconnect();
         });
+		
+		this.socket.on('raiseHand', function(){
+			console.log('raise hand');
+		});
 	}
 	(function () {
 		// Handler functions
