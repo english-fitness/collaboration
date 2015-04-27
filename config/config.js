@@ -1,28 +1,8 @@
 module.exports = {
     development: {
-        db: {host:'127.0.0.1', port: 6379},
-        app: {
-			name: 'tutor1'
-        },
-        port: 8000,
-        media: true,
-        p2p: true,
-        sessionType: 0,
-        expressErrorHandlerOptions: {},
-        phpUrl:  "http://dev.tutor.vn:28020/api",
-        nuves:  [{
-				serviceId: "55096554ae6d0ecfc290a641",
-				serviceKey: "31519",
-				host:"http://27.118.29.245:3000/"
-			}],
-        baseUrl: "/vsr/",
-        optimized: false,
-        googleTag: "GTM-KFNXRL"
-    },
-    staging: {
         db: {host:'localhost', port: 6379},
         app: {
-            name: 'tutor2'
+            name: 'Daykem123'
         },
         port: 8000,
         media: true,
@@ -32,33 +12,65 @@ module.exports = {
             dumpExceptions:true,
             showStack:true
         },
-        phpUrl: "http://dev.tutor.vn:28020/api",
-        nuves:  [{
-            serviceId: "55096554ae6d0ecfc290a641",
-            serviceKey: "31519",
-            host:"http://27.118.29.245:3000/"
+        phpUrl: "http://daykem11.local/api",
+        nuves:  [{          
+	 serviceId: "539bb13a9af7a9ebbc72abf5",
+         serviceKey: "31770",
+         host: "http://123.30.151.88:3000/"
 
+        }, {
+            serviceId: "53edb4a977ab06dceedcbdd4",
+            serviceKey: "553",
+            host: "http://123.30.42.241:3000/"
         }],
-        baseUrl: "/vsr/",
+        baseUrl: "/",
         optimized: false,
-        googleTag: "GTM-KFNXRL"
+        googleTag: "GTM-KN8TPZ"
     },
-    production: {
-        db: {host:'127.0.0.1', port: 6379},
+    staging: {
+        db: {host:'localhost', port: 6379},
         app: {
-			name: 'tutor'
+            name: 'Daykem123'
         },
         port: 8000,
         media: true,
         p2p: true,
         sessionType: 0,
-        expressErrorHandlerOptions: {},
-        phpUrl:  "http://dev.tutor.vn:28020/api",
+        expressErrorHandlerOptions: {
+            dumpExceptions:true,
+            showStack:true
+        },
+        phpUrl: "http://daykem11.com/api",
         nuves:  [{
-				serviceId: "55096554ae6d0ecfc290a641",
-				serviceKey: "31519",
-				host:"http://27.118.29.245:3000/"
-			}],
+            serviceId: "539bb13a9af7a9ebbc72abf5",
+            serviceKey: "31770",
+            host: "http://123.30.151.88:3000/"
+
+        }, {
+            serviceId: "53edb4a977ab06dceedcbdd4",
+            serviceKey: "553",
+            host: "http://123.30.42.241:3000/"
+        }],
+        baseUrl: "/vsr/",
+        optimized: false,
+        googleTag: "GTM-KN8TPZ"
+    },
+    production: {
+        db: {host:'127.0.0.1', port: 6379},
+        app: {
+          name: 'Onschool'
+        },
+        port: 8000,
+        media: true,
+        p2p: false,
+        sessionType: 0,
+        expressErrorHandlerOptions: {},
+        phpUrl: "http://101.99.3.195/api",
+        nuves:  [{
+	   serviceId: "55388ad11eed7105af72a500",
+           serviceKey: "2083",
+           host: "http://127.0.0.1:3000/"
+        }],
         baseUrl: "/vsr/",
         optimized: true,
         googleTag: "GTM-KFNXRL"

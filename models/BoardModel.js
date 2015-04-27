@@ -140,6 +140,6 @@ boardModel.loadByBoardId = function(boardId, callback) {
             }
         });
     } else {
-        callback("invalid boardId, the requested boardID was: " + boardId);
+        callback("invalid boardId");
     }
 };

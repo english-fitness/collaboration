@@ -1,210 +1,377 @@
-[2015-03-29 22:39:34.390] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-29 22:39:34.393] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-29 22:45:15.491] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-29 22:45:15.501] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-29 23:31:07.972] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-29 23:31:07.972] [DEBUG] debug - Board ID: 7156
-[2015-03-29 23:31:07.973] [DEBUG] debug - Board ID: v5485bwadyx1
-[2015-03-29 23:31:07.976] [DEBUG] debug - Created Board v5485bwadyx1 for licode
-[2015-03-29 23:31:09.777] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-29 23:31:09.780] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:13:22.273] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:13:22.277] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:13:44.910] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:13:44.912] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:13:54.282] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:13:54.283] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:14:12.821] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:14:12.822] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:14:25.315] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 01:14:25.315] [DEBUG] debug - Board ID: 7148
-[2015-03-30 01:14:25.315] [DEBUG] debug - Board ID: u7gal4y5fmsv
-[2015-03-30 01:14:25.317] [DEBUG] debug - Created Board u7gal4y5fmsv for licode
-[2015-03-30 01:14:29.275] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:14:29.277] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:15:07.517] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 01:15:20.128] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 01:15:25.955] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:15:25.956] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:15:43.350] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 01:15:50.537] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:15:50.540] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:16:03.508] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:16:03.510] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:17:07.826] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 01:17:07.828] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:19:33.415] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 01:19:43.774] [DEBUG] debug - User test_tutor01@tutor.vn has logged in
-[2015-03-30 01:19:43.778] [DEBUG] debug - Saved new user to DB
-[2015-03-30 01:20:40.186] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-30 01:20:40.188] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 01:20:55.079] [DEBUG] debug - startSession::Start session successfully with sessionId:7143
-[2015-03-30 01:21:35.143] [DEBUG] debug - endSession::End session successfully with sessionId:7143
-[2015-03-30 01:21:35.160] [DEBUG] debug - endSession::End session successfully with sessionId:7143
-[2015-03-30 08:43:29.458] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 08:43:29.468] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 08:57:58.768] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 08:57:58.772] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 08:59:43.466] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 09:02:49.592] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 09:03:06.888] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 09:03:19.364] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-30 09:03:19.366] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 09:03:47.524] [DEBUG] debug - User free_test1@gmail.com has logged in
-[2015-03-30 09:03:47.528] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 09:04:01.609] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-30 09:04:01.611] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 09:04:05.444] [DEBUG] debug - startSession::Start session successfully with sessionId:7147
-[2015-03-30 09:05:04.229] [DEBUG] debug - endSession::End session successfully with sessionId:7147
-[2015-03-30 09:12:27.844] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-30 09:12:27.846] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 11:33:08.925] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 11:33:08.927] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 12:58:52.863] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 12:58:52.865] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 14:16:15.261] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 14:16:15.271] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 15:00:29.372] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 15:00:29.386] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 15:54:42.853] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 15:54:42.856] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 15:59:52.421] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 15:59:52.425] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 16:01:13.883] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 16:01:13.885] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 16:01:24.852] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 16:01:24.852] [DEBUG] debug - Board ID: 7159
-[2015-03-30 16:01:24.853] [DEBUG] debug - Board ID: ky3gvcegn0vf
-[2015-03-30 16:01:24.858] [DEBUG] debug - Created Board ky3gvcegn0vf for licode
-[2015-03-30 16:01:30.474] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 16:01:30.474] [DEBUG] debug - Board ID: 7159
-[2015-03-30 16:01:30.475] [DEBUG] debug - Board ID: cks81tpzesoo
-[2015-03-30 16:01:30.477] [DEBUG] debug - Created Board cks81tpzesoo for licode
-[2015-03-30 16:01:32.499] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 16:01:32.501] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 16:03:06.273] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-30 16:03:06.274] [DEBUG] debug - Board ID: 7145
-[2015-03-30 16:03:06.274] [DEBUG] debug - Board ID: ekomn1slkbf5
-[2015-03-30 16:03:06.276] [DEBUG] debug - Created Board ekomn1slkbf5 for licode
-[2015-03-30 16:03:07.302] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 16:03:07.304] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 16:34:42.828] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 16:34:42.830] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 16:39:29.899] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 16:39:29.901] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 16:48:13.018] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 16:48:13.020] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 17:12:39.053] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 17:12:39.056] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 17:13:42.300] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 17:13:42.302] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 17:13:54.654] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 17:13:54.656] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 17:23:52.665] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 17:23:52.666] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-30 17:25:31.486] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-30 17:25:31.488] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 08:24:58.124] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 08:24:58.140] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 08:56:10.233] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 08:56:10.237] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:00:42.198] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:00:42.201] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:00:53.018] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:00:53.021] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:01:01.721] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:01:01.723] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:01:12.039] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:01:12.041] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:07:03.492] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
-[2015-03-31 09:07:03.926] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
-[2015-03-31 09:07:04.664] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
-[2015-03-31 09:41:30.891] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:41:30.907] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:41:37.105] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-31 09:41:37.105] [DEBUG] debug - Board ID: 7160
-[2015-03-31 09:41:37.106] [DEBUG] debug - Board ID: 0at11d33axfb
-[2015-03-31 09:41:37.113] [DEBUG] debug - Created Board 0at11d33axfb for licode
-[2015-03-31 09:41:46.032] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:41:46.039] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:48:58.867] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:48:58.872] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:50:40.352] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:50:40.358] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 09:54:45.477] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 09:54:45.481] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 10:18:34.644] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 10:18:34.648] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:08:29.342] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 11:08:29.346] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:09:23.765] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 11:09:23.769] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:09:34.862] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 11:09:34.866] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:20:17.406] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 11:20:17.408] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:21:48.480] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 11:21:48.484] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:21:58.883] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 11:21:58.886] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 11:23:35.935] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-31 11:27:26.880] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-31 11:27:26.880] [DEBUG] debug - Board ID: 7180
-[2015-03-31 11:27:26.881] [DEBUG] debug - Board ID: f032e3yw1bbx
-[2015-03-31 11:27:26.884] [DEBUG] debug - Created Board f032e3yw1bbx for licode
-[2015-03-31 11:27:31.650] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-31 11:27:31.653] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 12:17:49.909] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 12:17:49.913] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 12:18:25.003] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-31 12:18:25.007] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:03:36.932] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:03:36.935] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:04:14.852] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:04:14.856] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:12:53.793] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:12:53.795] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:15:14.938] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:15:14.941] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:46:38.538] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:46:38.542] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:48:22.159] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:48:22.162] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:49:37.812] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:49:37.830] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:51:29.853] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-31 14:51:29.854] [DEBUG] debug - Board ID: 7181
-[2015-03-31 14:51:29.854] [DEBUG] debug - Board ID: 5lxgu115e9m7
-[2015-03-31 14:51:29.859] [DEBUG] debug - Created Board 5lxgu115e9m7 for licode
-[2015-03-31 14:51:35.683] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-31 14:51:35.687] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:53:10.433] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-31 14:53:10.438] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:53:19.464] [DEBUG] debug - User minhcc@daykem123.vn has logged in
-[2015-03-31 14:53:19.469] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:55:24.907] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-31 14:55:24.912] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:56:42.806] [DEBUG] debug - IP: ::ffff:127.0.0.1
-[2015-03-31 14:57:07.225] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 14:57:07.230] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 14:57:11.888] [DEBUG] debug - startSession::Start session successfully with sessionId:7181
-[2015-03-31 15:03:03.638] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 15:03:03.648] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:03:38.101] [DEBUG] debug - endSession::End session successfully with sessionId:7181
-[2015-03-31 15:03:47.739] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 15:03:47.750] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:04:04.439] [DEBUG] debug - startSession::Start session successfully with sessionId:7181
-[2015-03-31 15:04:48.135] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 15:04:48.141] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:05:05.500] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 15:05:05.505] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:05:33.874] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 15:05:33.891] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:16:12.826] [DEBUG] debug - endSession::End session successfully with sessionId:7181
-[2015-03-31 15:16:14.980] [DEBUG] debug - startSession::Start session successfully with sessionId:7181
-[2015-03-31 15:27:14.481] [DEBUG] debug - endSession::End session successfully with sessionId:7181
-[2015-03-31 15:27:30.881] [DEBUG] debug - User Sunday@tutor.vn has logged in
-[2015-03-31 15:27:30.887] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:27:41.647] [DEBUG] debug - User test_student02@tutor.vn has logged in
-[2015-03-31 15:27:41.650] [DEBUG] debug - Updated existed dayyyyyyyyyy user to DB
-[2015-03-31 15:27:48.356] [DEBUG] debug - startSession::Start session successfully with sessionId:7181
+[2015-01-22 17:43:13.453] [ERROR] debug - create token error: 401 Unauthorized
+[2015-01-22 17:55:30.751] [DEBUG] debug - User Hocmai.HSC.002@gmail.com has logged in
+[2015-01-22 17:55:30.756] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 17:59:30.326] [DEBUG] debug - User Hocmai.ESC.002@gmail.com has logged in
+[2015-01-22 17:59:30.331] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 17:59:40.576] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 17:59:40.580] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 17:59:59.622] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 17:59:59.626] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:04:01.804] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 18:04:01.808] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:06:25.662] [DEBUG] debug - endSession::End session successfully with sessionId:6973
+[2015-01-22 18:07:09.225] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 18:07:09.230] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:07:24.152] [DEBUG] debug - startSession::Start session successfully with sessionId:7063
+[2015-01-22 18:09:47.650] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 18:09:47.654] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:10:04.279] [DEBUG] debug - startSession::Start session successfully with sessionId:6983
+[2015-01-22 18:11:21.562] [DEBUG] debug - endSession::End session successfully with sessionId:6983
+[2015-01-22 18:11:40.079] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 18:11:40.082] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:11:51.490] [DEBUG] debug - startSession::Start session successfully with sessionId:6983
+[2015-01-22 18:13:00.291] [DEBUG] debug - endSession::End session successfully with sessionId:6983
+[2015-01-22 18:13:33.460] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 18:13:33.463] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:28:07.410] [DEBUG] debug - Create subtab successfully
+[2015-01-22 18:33:19.703] [DEBUG] debug - endSession::End session successfully with sessionId:7063
+[2015-01-22 18:43:26.353] [DEBUG] debug - User Hocmai.ESC.003@gmail.com has logged in
+[2015-01-22 18:43:26.357] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:43:39.224] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 18:43:39.228] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 18:43:44.885] [DEBUG] debug - startSession::Start session successfully with sessionId:7073
+[2015-01-22 18:54:06.370] [DEBUG] debug - User Hocmai.ESC.004@gmail.com has logged in
+[2015-01-22 18:54:06.375] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:09:57.679] [DEBUG] debug - User Hocmai.ESC.003@gmail.com has logged in
+[2015-01-22 19:09:57.683] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:16:04.418] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 19:16:04.436] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:17:10.011] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 19:17:10.015] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:17:45.326] [DEBUG] debug - User Hocmai.HSC.003@gmail.com has logged in
+[2015-01-22 19:17:45.330] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:18:25.482] [DEBUG] debug - User Hocmai.HSC.003@gmail.com has logged in
+[2015-01-22 19:18:25.486] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:19:43.126] [DEBUG] debug - endSession::End session successfully with sessionId:7073
+[2015-01-22 19:19:52.004] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 19:19:52.081] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:19:55.130] [DEBUG] debug - startSession::Start session successfully with sessionId:7083
+[2015-01-22 19:20:27.083] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 19:20:27.087] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:20:35.913] [DEBUG] debug - startSession::Start session successfully with sessionId:6993
+[2015-01-22 19:21:48.381] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 19:21:48.386] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:22:39.870] [DEBUG] debug - Create subtab successfully
+[2015-01-22 19:24:23.830] [ERROR] debug - Nohm::error:Expected 1, found 0shapes for (shapeId):c8lKfJIM1421929471490
+[2015-01-22 19:44:06.162] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 19:44:06.167] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:44:09.269] [ERROR] debug - create token error: 404 ErrorRoom does not exist
+[2015-01-22 19:44:41.500] [DEBUG] debug - User Hocmai.HSC.005@gmail.com has logged in
+[2015-01-22 19:44:41.504] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:47:01.023] [DEBUG] debug - endSession::End session successfully with sessionId:7083
+[2015-01-22 19:48:11.151] [DEBUG] debug - User Hocmai.HSC.005@gmail.com has logged in
+[2015-01-22 19:48:11.154] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:49:51.684] [DEBUG] debug - endSession::End session successfully with sessionId:6993
+[2015-01-22 19:49:59.645] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 19:49:59.648] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:50:20.703] [DEBUG] debug - User Hocmai.HSC.005@gmail.com has logged in
+[2015-01-22 19:50:20.707] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 19:58:06.297] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 19:58:06.301] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 20:15:00.538] [DEBUG] debug - User Hocmai.ESC.006@gmail.com has logged in
+[2015-01-22 20:15:00.542] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 20:18:54.328] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 20:18:54.331] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 20:31:36.816] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 20:31:36.820] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 20:31:40.684] [DEBUG] debug - startSession::Start session successfully with sessionId:7103
+[2015-01-22 20:52:22.530] [DEBUG] debug - User Hocmai.ESC.007@gmail.com has logged in
+[2015-01-22 20:52:22.534] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 20:58:27.974] [DEBUG] debug - endSession::End session successfully with sessionId:7103
+[2015-01-22 21:01:38.635] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 21:01:38.639] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:01:42.789] [DEBUG] debug - startSession::Start session successfully with sessionId:7113
+[2015-01-22 21:16:37.907] [DEBUG] debug - User Hocmai.ESC.007@gmail.com has logged in
+[2015-01-22 21:16:37.910] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:25:07.797] [DEBUG] debug - User Hocmai.ESC.008@gmail.com has logged in
+[2015-01-22 21:25:07.801] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:25:15.975] [DEBUG] debug - User Hocmai.HSC.008@gmail.com has logged in
+[2015-01-22 21:25:15.979] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:25:18.073] [ERROR] debug - create token error: 404 ErrorRoom does not exist
+[2015-01-22 21:30:56.719] [DEBUG] debug - endSession::End session successfully with sessionId:7113
+[2015-01-22 21:31:13.994] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 21:31:13.998] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:35:48.207] [DEBUG] debug - User Hocmai.HSC.008@gmail.com has logged in
+[2015-01-22 21:35:48.212] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:37:19.365] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 21:37:19.369] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:37:42.658] [DEBUG] debug - startSession::Start session successfully with sessionId:7123
+[2015-01-22 21:39:55.037] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-22 21:39:55.041] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 21:40:15.605] [DEBUG] debug - startSession::Start session successfully with sessionId:7043
+[2015-01-22 21:54:08.836] [DEBUG] debug - Create subtab successfully
+[2015-01-22 22:04:58.373] [DEBUG] debug - endSession::End session successfully with sessionId:7123
+[2015-01-22 22:05:54.841] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-22 22:05:54.846] [DEBUG] debug - Updated existed user to DB
+[2015-01-22 22:08:28.126] [DEBUG] debug - endSession::End session successfully with sessionId:7043
+[2015-01-23 17:23:03.438] [DEBUG] debug - User Hocmai.HSC.001@gmail.com has logged in
+[2015-01-23 17:23:03.982] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 17:30:16.198] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 17:30:16.252] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 17:32:15.519] [DEBUG] debug - User Hocmai.HSC.001@gmail.com has logged in
+[2015-01-23 17:32:15.522] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 17:36:44.010] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 17:36:44.118] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 17:37:23.593] [DEBUG] debug - startSession::Start session successfully with sessionId:6974
+[2015-01-23 17:40:16.999] [DEBUG] debug - endSession::End session successfully with sessionId:6974
+[2015-01-23 17:40:44.904] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 17:40:44.969] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 17:53:05.002] [DEBUG] debug - User Hocmai.HSC.002@gmail.com has logged in
+[2015-01-23 17:53:05.008] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:02:04.851] [DEBUG] debug - User Hocmai.ESC.002@gmail.com has logged in
+[2015-01-23 18:02:04.859] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:09:51.453] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 18:09:51.474] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:10:55.444] [DEBUG] debug - startSession::Start session successfully with sessionId:6984
+[2015-01-23 18:11:13.611] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 18:11:13.670] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:11:52.810] [DEBUG] debug - startSession::Start session successfully with sessionId:7064
+[2015-01-23 18:11:56.844] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 18:11:56.849] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:12:35.064] [DEBUG] debug - Create subtab successfully
+[2015-01-23 18:34:36.571] [DEBUG] debug - User Hocmai.HSC.004@gmail.com has logged in
+[2015-01-23 18:34:36.680] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:35:50.555] [DEBUG] debug - endSession::End session successfully with sessionId:6984
+[2015-01-23 18:36:06.393] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 18:36:06.535] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:37:56.945] [DEBUG] debug - endSession::End session successfully with sessionId:7064
+[2015-01-23 18:40:38.298] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 18:40:38.303] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:41:00.367] [DEBUG] debug - User Hocmai.ESC.003@gmail.com has logged in
+[2015-01-23 18:41:00.371] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:42:28.239] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 18:42:28.243] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:45:20.742] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 18:45:20.746] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:45:22.900] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 18:45:22.903] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:45:28.207] [DEBUG] debug - startSession::Start session successfully with sessionId:7074
+[2015-01-23 18:45:30.880] [DEBUG] debug - startSession::Start session successfully with sessionId:7004
+[2015-01-23 18:50:27.308] [DEBUG] debug - Create subtab successfully
+[2015-01-23 18:52:50.441] [DEBUG] debug - User Hocmai.ESC.004@gmail.com has logged in
+[2015-01-23 18:52:50.446] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 18:53:32.202] [DEBUG] debug - Create subtab successfully
+[2015-01-23 18:54:20.797] [DEBUG] debug - Create subtab successfully
+[2015-01-23 19:02:49.066] [ERROR] debug - drawOnBoard::createShape::invalid
+[2015-01-23 19:08:18.774] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 19:08:18.778] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:11:53.659] [DEBUG] debug - endSession::End session successfully with sessionId:7074
+[2015-01-23 19:14:19.559] [DEBUG] debug - endSession::End session successfully with sessionId:7004
+[2015-01-23 19:20:48.740] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 19:20:48.744] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:20:51.950] [DEBUG] debug - startSession::Start session successfully with sessionId:7084
+[2015-01-23 19:21:37.860] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 19:21:38.070] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:27:32.193] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 19:27:32.199] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:29:27.277] [DEBUG] debug - User Hocmai.HSC.003@gmail.com has logged in
+[2015-01-23 19:29:27.284] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:29:46.516] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 19:29:46.524] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:29:54.785] [DEBUG] debug - startSession::Start session successfully with sessionId:6994
+[2015-01-23 19:44:08.202] [DEBUG] debug - endSession::End session successfully with sessionId:6994
+[2015-01-23 19:50:14.399] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 19:50:14.403] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:51:02.367] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 19:51:02.371] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:53:15.687] [DEBUG] debug - User Hocmai.HSC.005@gmail.com has logged in
+[2015-01-23 19:53:15.692] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:54:08.655] [DEBUG] debug - endSession::End session successfully with sessionId:7084
+[2015-01-23 19:54:43.826] [DEBUG] debug - User Hocmai.ESC.005@gmail.com has logged in
+[2015-01-23 19:54:43.914] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:55:42.084] [DEBUG] debug - User Hocmai.ESC.005@gmail.com has logged in
+[2015-01-23 19:55:42.089] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 19:56:57.869] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 19:56:57.876] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 20:13:47.586] [DEBUG] debug - User Hocmai.ESC.006@gmail.com has logged in
+[2015-01-23 20:13:47.604] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 20:18:41.660] [DEBUG] debug - User Hocmai.ESC.006@gmail.com has logged in
+[2015-01-23 20:18:41.663] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 20:18:44.375] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 20:18:44.379] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 20:29:22.376] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 20:29:22.380] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 20:30:15.943] [DEBUG] debug - startSession::Start session successfully with sessionId:7104
+[2015-01-23 20:48:04.044] [DEBUG] debug - Create subtab successfully
+[2015-01-23 20:57:33.119] [DEBUG] debug - endSession::End session successfully with sessionId:7104
+[2015-01-23 21:01:38.936] [DEBUG] debug - User Hocmai.ESC.008@gmail.com has logged in
+[2015-01-23 21:01:38.940] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:02:23.746] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 21:02:23.750] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:07:14.519] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 21:07:14.523] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:07:20.447] [DEBUG] debug - startSession::Start session successfully with sessionId:7124
+[2015-01-23 21:21:29.496] [DEBUG] debug - User Hocmai.HSC.008@gmail.com has logged in
+[2015-01-23 21:21:29.534] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:21:42.575] [ERROR] debug - drawOnBoard::createShape::invalid
+[2015-01-23 21:26:28.230] [ERROR] debug - Nohm::error:Expected 1, found 0shapes for (shapeId):lXvtS1Rk1422023206316
+[2015-01-23 21:33:01.287] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 21:33:01.292] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:33:08.247] [DEBUG] debug - endSession::End session successfully with sessionId:7124
+[2015-01-23 21:36:58.431] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 21:36:58.437] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:39:46.985] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-01-23 21:39:46.989] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:40:38.871] [DEBUG] debug - startSession::Start session successfully with sessionId:7044
+[2015-01-23 21:40:43.307] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 21:40:43.311] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:41:04.323] [DEBUG] debug - endSession::End session successfully with sessionId:7044
+[2015-01-23 21:41:27.686] [DEBUG] debug - startSession::Start session successfully with sessionId:7044
+[2015-01-23 21:44:58.143] [DEBUG] debug - User Hocmai.ESC.007@gmail.com has logged in
+[2015-01-23 21:44:58.147] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:46:25.312] [DEBUG] debug - User Hocmai.ESC.007@gmail.com has logged in
+[2015-01-23 21:46:25.316] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:49:42.270] [DEBUG] debug - User Andie@tutor.vn has logged in
+[2015-01-23 21:49:42.273] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 21:49:51.229] [DEBUG] debug - startSession::Start session successfully with sessionId:7114
+[2015-01-23 22:03:16.460] [ERROR] debug - stopSession load board error:invalid boardId
+[2015-01-23 22:05:27.636] [DEBUG] debug - Created Board n55nw4ir1ksz for licode
+[2015-01-23 22:06:43.813] [DEBUG] debug - User test_tutor01@tutor.vn has logged in
+[2015-01-23 22:06:43.818] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 22:07:29.963] [DEBUG] debug - endSession::End session successfully with sessionId:7044
+[2015-01-23 22:09:22.074] [DEBUG] debug - User test_tutor01@tutor.vn has logged in
+[2015-01-23 22:09:22.093] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 22:09:53.116] [DEBUG] debug - User Hocmai.HSC.002@gmail.com has logged in
+[2015-01-23 22:09:53.132] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 22:09:54.088] [DEBUG] debug - endSession::End session successfully with sessionId:7114
+[2015-01-23 22:10:01.340] [DEBUG] debug - startSession::Start session successfully with sessionId:6851
+[2015-01-23 22:13:18.078] [DEBUG] debug - User Hocmai.HSC.002@gmail.com has logged in
+[2015-01-23 22:13:18.082] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 22:15:10.670] [DEBUG] debug - User test_tutor01@tutor.vn has logged in
+[2015-01-23 22:15:10.673] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 22:21:01.925] [DEBUG] debug - Create subtab successfully
+[2015-01-23 22:23:29.953] [DEBUG] debug - User Hocmai.HSC.008@gmail.com has logged in
+[2015-01-23 22:23:29.956] [DEBUG] debug - Updated existed user to DB
+[2015-01-23 22:29:46.127] [DEBUG] debug - endSession::End session successfully with sessionId:6851
+[2015-01-23 22:29:46.593] [DEBUG] debug - endSession::End session successfully with sessionId:6851
+[2015-01-25 22:36:52.169] [DEBUG] debug - Created Board 1wrg411f19h8 for licode
+[2015-01-25 22:36:56.855] [DEBUG] debug - Created Board py8s4ksn6tgu for licode
+[2015-01-26 14:50:16.261] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-04-23 00:42:18.063] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 00:42:18.083] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 00:42:18.657] [ERROR] debug - create token error: 503 ErrorError: connect ECONNREFUSED
+    at exports._errnoException (util.js:746:11)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:983:19)
+[2015-04-23 11:03:07.330] [DEBUG] debug - Created Board vbhvnyvkcmc1 for licode
+[2015-04-23 11:03:11.580] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 11:03:11.592] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 11:38:09.859] [DEBUG] debug - Created Board mfeupecvz2t6 for licode
+[2015-04-23 11:39:25.427] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 11:39:25.453] [DEBUG] debug - Saved new user to DB
+[2015-04-23 12:17:50.574] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:17:50.588] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:19:28.161] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:19:28.175] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:28:49.100] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:28:49.115] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:29:29.687] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:29:29.690] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:30:41.507] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:30:41.510] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:30:58.552] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:30:58.556] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:31:03.182] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:31:03.188] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:39:22.394] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:39:22.411] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:39:34.957] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:39:34.960] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:39:55.542] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:39:55.545] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:42:52.898] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:42:52.912] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:43:07.337] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:43:07.340] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:43:16.278] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:43:16.281] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:48:35.068] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 12:48:35.072] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:48:47.106] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:48:47.111] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 12:59:26.555] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 12:59:26.563] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 13:25:00.529] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 13:25:00.546] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 13:25:13.687] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 13:25:13.690] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 13:33:21.527] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 13:33:21.543] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 13:33:37.622] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 13:33:37.625] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 13:34:30.687] [DEBUG] debug - User admin@fitness.hocmai.vn has logged in
+[2015-04-23 13:34:30.694] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:33:15.367] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-04-23 15:34:03.011] [DEBUG] debug - Created Board 3wvrndyuxkde for licode
+[2015-04-23 15:34:06.026] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 15:34:06.036] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:35:14.909] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 15:35:14.924] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:39:16.272] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 15:39:16.276] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:42:25.421] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-04-23 15:42:25.422] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-04-23 15:44:09.058] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 15:44:09.071] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:45:07.148] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 15:45:07.153] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:46:26.260] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 15:46:26.269] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 15:52:59.647] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-04-23 15:52:59.648] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-04-23 16:47:52.528] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-23 16:47:52.552] [DEBUG] debug - Updated existed user to DB
+[2015-04-23 16:49:16.247] [DEBUG] debug - User Sunday@tutor.vn has logged in
+[2015-04-23 16:49:16.251] [DEBUG] debug - Updated existed user to DB
+[2015-04-24 10:30:12.004] [DEBUG] debug - Created Board t9dlirmmcu57 for licode
+[2015-04-24 10:30:14.072] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:30:21.401] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:30:24.910] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:30:28.766] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:37:37.344] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:37:42.542] [DEBUG] debug - Created Board beh52hku1dit for licode
+[2015-04-24 10:37:43.875] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:38:37.090] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:38:50.650] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 10:39:02.681] [ERROR] debug - getLoggedInUser: not able to request
+[2015-04-24 17:02:04.905] [DEBUG] debug - not found
+[2015-04-24 17:02:07.918] [DEBUG] debug - Created Board fpdf7xznh0oo for licode
+[2015-04-24 17:03:44.161] [DEBUG] debug - Created Board af9t2wao7ggk for licode
+[2015-04-24 17:04:45.575] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-24 17:04:45.591] [DEBUG] debug - Updated existed user to DB
+[2015-04-24 17:05:48.892] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-24 17:05:48.896] [DEBUG] debug - Updated existed user to DB
+[2015-04-24 17:34:40.704] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-24 17:34:40.709] [DEBUG] debug - Updated existed user to DB
+[2015-04-24 22:15:34.722] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-24 22:15:34.726] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:37:39.913] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-26 18:37:39.918] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:40:02.715] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-26 18:40:02.731] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:40:16.837] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-26 18:40:16.843] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:40:21.932] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 18:40:21.941] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:44:43.750] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 18:44:43.754] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:45:18.393] [DEBUG] debug - User test_student01@tutor.vn has logged in
+[2015-04-26 18:45:18.397] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:55:01.830] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 18:55:01.834] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 18:59:23.887] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 18:59:23.903] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 19:07:04.018] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 19:07:04.033] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 20:41:24.880] [ERROR] debug - create token error: 401 Unauthorized
+[2015-04-26 20:59:02.042] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 20:59:02.050] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 21:03:23.292] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-26 21:03:23.299] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 21:12:28.312] [DEBUG] debug - User tutor.esc.004@tutor.vn has logged in
+[2015-04-26 21:12:28.320] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 21:15:38.523] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-26 21:15:38.527] [DEBUG] debug - Updated existed user to DB
+[2015-04-26 21:59:31.102] [ERROR] debug - create token error: 401 Unauthorized
+[2015-04-26 21:59:31.103] [ERROR] debug - create token error: 401 Unauthorized
+[2015-04-27 08:04:52.325] [DEBUG] debug - User minhcc@daykem123.vn has logged in
+[2015-04-27 08:04:52.331] [DEBUG] debug - Updated existed user to DB

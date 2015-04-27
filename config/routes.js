@@ -1,5 +1,6 @@
 var path = require('path');
 module.exports = function(app, passport, config){
+
     var ConnectRoles = require('connect-roles'),
         roles = new ConnectRoles({failureHandler: function (req, res, action) {
                 if(req.params['boardId']) {

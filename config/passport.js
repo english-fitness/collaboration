@@ -44,7 +44,7 @@ module.exports = function (passport, config) {
                     var user = users[0];
                     delete data.userId;
                     user.store(data, function (err) {
-                        if (!err) logger.debug("Updated existed aaaaaaaaaaaaaaaaaaaaaaa user to DB");
+                        if (!err) logger.debug("Updated existed user to DB");
                         else logger.error('Could not update user to DB:' + err);
                     });
                 }
@@ -71,7 +71,7 @@ module.exports = function (passport, config) {
                     } else {
                         var user = users[0];
                         user.store(data, function (err) {
-                            if (!err) logger.debug("Updated existed dayyyyyyyyyy user to DB");
+                            if (!err) logger.debug("Updated existed user to DB");
                             else logger.error('Could not update user to DB:' + err);
                         });
                     }

@@ -8,6 +8,7 @@ var events = require('events');
 var fs = require('fs');
 var path = require("path");
 var _ = require('underscore');
+
 var logger = require('log4js').getLogger('debug');
 var config = null;
 module.exports = {
@@ -338,9 +339,8 @@ module.exports = {
                     sessionPlanStart: sessionPlanStart,
                     nuve: nuve
                 };
-		logger.debug('Board ID: ' + sessionId);
                 createBoard(data, p2p, function(err, board) {
-                    var response = {'success': false, 'sessionId' : sessionId};
+                    var response = {'success': false};
                     if(!err) {
                         response = {'success': true, 'boardId': board.p('boardId'),'data':board.allProperties()};
                     }
@@ -565,7 +565,6 @@ var createBoard = function(data, p2p, callback) {
     data.files = [];
     data.p2p = p2p;
     var board = new BoardModel();
-    logger.debug('Board ID: ' + boardId);
 
     board.store(data, function (err) {
         if (err) {
@@ -610,8 +609,7 @@ var removeMessages = function(boardId, callback) {
 
 var isAuthorizedForApi = function(req) {
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	logger.debug('IP: '+ ip);
-    if(ip.indexOf('127.0.0.1') < 0) {
+    if(ip !== '127.0.0.1') {
         return false;
     }
     return true;

@@ -1,5 +1,5 @@
 #!/bin/bash
 export NODE_ENV=production
-cd /home/tutor/collaboration
+cd /home/administrator/collaboration
 forever stop app.js
 forever start app.js
