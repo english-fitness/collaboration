@@ -1,0 +1,100 @@
+[class^="emoticon-"] {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url("../images/emoticon.png");
+    background-repeat: no-repeat;
+}
+
+.emoticon-smile {
+    background-position: 0px 0px;
+}
+
+.emoticon-sad {
+    background-position: -15px 0px;
+}
+
+.emoticon-tongue {
+    background-position: -31px 0px;
+}
+
+.emoticon-big-smile {
+    background-position: -47px 0px;
+}
+
+.emoticon-gasp {
+    background-position: -63px 0px;
+}
+
+.emoticon-wink {
+    background-position: -79px 0px;
+}
+
+.emoticon-glasses {
+    background-position: -95px 0px;
+}
+
+.emoticon-sunglasses {
+    background-position: -111px 0px;
+}
+
+.emoticon-grumpy {
+    background-position: -127px 0px;
+}
+
+.emoticon-unsure {
+    background-position: -143px 0px;
+}
+
+.emoticon-cry {
+    background-position: -159px 0px;
+}
+
+.emoticon-devil {
+    background-position: -175px 0px;
+}
+
+.emoticon-angel {
+    background-position: -192px 0px;
+}
+
+.emoticon-kiss {
+    background-position: -207px 0px;
+}
+
+.emoticon-heart {
+    background-position: -223px 0px;
+}
+
+.emoticon-kiki {
+    background-position: -239px 0px;
+}
+
+.emoticon-squint {
+    background-position: -255px 0px;
+}
+
+.emoticon-confused {
+    background-position: -271px 0px;
+}
+
+.emoticon-upset {
+    background-position: -287px 0px;
+}
+
+.emoticon-pacman {
+    background-position: -303px 0px;
+}
+
+.emoticon-curlylips {
+    background-position: -319px 0px;
+}
+
+.emoticon-like {
+    background-position: -335px 2px;
+}
+
+.emoticon-dislike {
+    background-position: -351px 2px;
+}
+

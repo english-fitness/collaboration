@@ -1,0 +1,28 @@
+[2015-03-30 08:40:51.706] [FATAL] error - Error: "name" and "value" are required for setHeader().
+    at ClientRequest.OutgoingMessage.setHeader (_http_outgoing.js:333:11)
+    at new ClientRequest (_http_client.js:101:14)
+    at Object.exports.request (http.js:49:10)
+    at Request.start (/home/tutor/collaboration/node_modules/request/request.js:672:30)
+    at Request.end (/home/tutor/collaboration/node_modules/request/request.js:1319:28)
+    at /home/tutor/collaboration/node_modules/request/request.js:418:14
+    at process._tickCallback (node.js:355:11)
+/home/tutor/collaboration/public/javascripts/storm/licode.client.js:1
+(function (exports, require, module, __filename, __dirname) { define(["storm",
+                                                              ^
+ReferenceError: define is not defined
+    at Object.<anonymous> (/home/tutor/collaboration/public/javascripts/storm/licode.client.js:1:63)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Function.Module.runMain (module.js:501:10)
+    at startup (node.js:129:16)
+    at node.js:814:3
+[2015-03-30 21:30:20.351] [FATAL] error - Error: "name" and "value" are required for setHeader().
+    at ClientRequest.OutgoingMessage.setHeader (_http_outgoing.js:333:11)
+    at new ClientRequest (_http_client.js:101:14)
+    at Object.exports.request (http.js:49:10)
+    at Request.start (/home/tutor/collaboration/node_modules/request/request.js:672:30)
+    at Request.end (/home/tutor/collaboration/node_modules/request/request.js:1319:28)
+    at /home/tutor/collaboration/node_modules/request/request.js:418:14
+    at process._tickCallback (node.js:355:11)

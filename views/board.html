@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Online English Tutoring tutor.vn:208020</title>
+        <script>
+          var baseUrl = "<%= baseUrl %>";
+          var require = {baseUrl: baseUrl+"javascripts/storm"};
+          function handleUpload(obj){
+              $(obj).parent().submit();
+              $('#uploadModal').modal('hide');
+	          $('#uploadPicture').modal('hide');
+          }
+          function onDisconnectWithServer(msg){
+              var result = confirm(msg);
+              if(result) {
+                  //location.reload();
+              }
+           }
+        </script>
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="stylesheet" href="<%= baseUrl %><%= cssFile %>" type="text/css"/>
+        <script data-main="<%= baseUrl %><%= jsFile %>" src="<%= baseUrl %>javascripts/thirdparty/require/require.js"type="text/javascript"></script>
+    </head>
+    <body id="_body">
+     <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=<%= googleTag %>"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','<%= googleTag %>');</script>
+        <!-- End Google Tag Manager -->
+        <!-- for indicating that the board is getting loaded -->
+        <div id="loading" style="display:none;z-index: 999999">
+          <h4>Loading</h4>
+          <img src="<%= baseUrl %>images/spinner.gif" class="spinner" alt="Loading...">
+        </div>
+
+        <div id="helpDiv" style="display:none;overflow:scroll"></div>
+        <!-- end for popup -->
+        <div id='blank'></div>
+
+        <!-- start of outer div -->
+        <div id="outer">
+            <div id="leftdiv">
+                <div class="dropdown">
+                        <a title="Upload file" data-toggle="dropdown" href="#" style="display:block; text-align: center; padding: 5px 0px 5px 1px;"><i class="board-icon-upload"></i></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li><a id="upload_pdf_image" data-toggle="modal" data-target="#uploadModal" class="upload-tool">Upload PDF, Image</a></li>
+                        <li><a id="upload_image_from_link" class="upload-tool" data-toggle="modal" data-target="#modalUploadViaLink">Upload image from folder</a></li>
+	                    <li><a id="download_docs" class="upload-tool">Download file</a></li>
+                    </ul>
+                </div>
+                <div id="accordion"></div>
+                <div style="clear: both"></div>
+                <div id="colorTools">
+                    <div id="color">
+                        <ul>
+                            <li class="background"><span class="cBg" title="Màu nền"><i class="board-icon-color-background"></i></span> <span class="mau" style="background:#eeeeee "> &nbsp;</span>
+                                <ul>
+                                    <li name="background" color="#000000" class="board-icon-empty" title="Đen" style="background: #000000"></li>
+                                    <li name="background" color="#0a008b" class="board-icon-empty" title="Xanh da trời" style="background: #0a008b"></li>
+                                    <li name="background" color="#ffffff" class="board-icon-empty" title="Trắng" style="background: #ffffff"></li>
+                                    <li name="background" color="#f50005" class="board-icon-empty" title="Đỏ" style="background: #f50005"></li>
+                                    <li name="background" color="#ff8700" class="board-icon-empty" title="Cam" style="background: #ff8700"></li>
+                                    <li name="background" color="" class="board-icon-diagonal" title="Trong suốt"></li>
+                                </ul>
+                            </li>
+                            <li class="border"><span class="cBd" title="Màu vẽ"><i class="board-icon-color-border"></i></span><span class="mau" style="background:#000000"> &nbsp;</span>
+                                <ul>
+                                    <li name="border" color="#000000" class="board-icon-empty click" title="Đen" style="background: #000000"></li>
+                                    <li name="border" color="#0a008b" class="board-icon-empty" title="Xanh da trời" style="background: #0a008b"></li>
+                                    <li name="border" color="#ffffff" class="board-icon-empty" title="Trắng" style="background: #ffffff"></li>
+                                    <li name="border" color="#f50005" class="board-icon-empty" title="Đỏ" style="background: #f50005"></li>
+                                    <li name="border" color="#ff8700" class="board-icon-empty" title="Cam" style="background: #ff8700"></li>
+                                    <li name="border" color="" class="board-icon-diagonal" title="Trong suốt"></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="border" title="Nét đậm/nhạt">
+                        <input type="text" name="input-border" value="1" />
+                        <div class="tol">
+                            <span class="minus"></span>
+                            <span class="plus"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--<div id="export" title="Xuất ảnh"><div class="board-icon-export"></div></div> !-->
+                <div id="help" title="Trợ giúp"><div class="board-icon-help"></div></div>
+
+            </div>
+            <div  id="boards">
+                    <div id="boards-tab">
+                        <ul>
+                            <li data="canvas0" class="active" data-holder="">
+                                <a class="link-board" href="#"><div class="logo"></div> </a>
+                            </li>
+                        </ul>
+                        <div class="board-icon-add"></div>
+
+                    </div>
+                    <div id="nav"></div>
+                    <div id="containerDiv" style="display:none">
+                        <div id="containerBody" style="visibility:hidden;">
+
+                            <div id="canvasId" style="overflow: hidden" >
+                                <div id="canvasAll">
+                                    <div class="canvasIdActive" name="canvas0">
+                                        <canvas id="canvas0" class="ui-corner-all"></canvas>
+                                    </div>
+
+                                </div>
+                                <div class="load-text-box"></div>
+                                <div id="remote_mouse"></div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="rightdiv">
+                <div id="webcam">
+                    <div class="title">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 178px; padding: 0px;">
+                                    <span class="colums" style="padding-left: 8px;"><a id="start-stop-calc-time" class="stoped" href="javascript:void(0);">&nbsp;<i class="board-icon-play"></i> <span class="status-text">Bắt đầu</span></a> </span>
+                                    <span class="colums" style="width: 80px;"><span id="time_hours">00</span>:<span id="time_minutes">00</span>:<span id="time_second">00</span></span>
+                                </td>
+                                <td rowspan="2" style="background: #ffffff; text-align: center;width: 60px;border-left: 1px solid #696969;"><div class="publisher"></div></td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 1px solid #696969;background: #ffffff;">
+                                    <span class="colums"> <div id="button_webcam" class="board-icon-webcam-disabled" title="Turn on/off webcam"></div>
+                            Video</span>
+                                   <span class="colums"><div id="button_mic" class="board-icon-micro-disabled" title="Turn on/off microphone"></div>
+                        Audio</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div id="video" class="video"></div>
+                </div>
+
+                <!--#webcam-->
+                <div id="teacher_area" class="title bdrT"><div class="name"></div><div class="action"><div class="micro"></div></div>
+                </div>
+
+                <div id="friendsicon" class="bottom-mid">
+                    <ul class="menu-list list-user"></ul>
+                </div>
+                <!--#friendsicon-->
+
+                <div class="ui-widget-content">
+                    <div class="bdrT">
+                        <div class="listChat"><ul id="chattext"></ul></div>
+                        <div class="title bdrT">
+                            <ul class="my-action">
+                                <li id="button_thumb_up" class="board-icon-thumb-up-ready" title="Đồng ý"></li>
+                                <li id="button_thumb_down" class="board-icon-thumb-down-ready" title="Không đồng ý"></li>
+                            </ul>
+                        </div>
+                        <div class="chatSend">
+                            <textarea  id="chat" placeholder="Enter message..."></textarea>
+                        </div>
+                        <button id="chatbutton" style="display:none;">Send</button>
+                    </div>
+                    <div id="propdiv" title="Properties"></div>
+                </div>
+                <!--.ui-widget-content-->
+      </div>
+            <!--#rightDiv-->
+    </div>
+
+    <div class="m-quick-edit">
+        <span class="delete-icon" id="delete_icon" style="padding-right: 0px" title="Xóa"></span>
+        <span class="edit-icon" id="edit_icon" style="padding-left: 0px" title="Sửa"></span>
+        <span id="visible_icon" style="padding-left: 0px" title="Sửa"></span>
+    </div>
+    <div class="m-quick-edit-group">
+        <span class="delete-icon" style="padding-right: 0px" title="Xóa"></span>
+    </div>
+	<canvas id="clip" style="display:none;"></canvas>
+
+        <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="bs-example bs-example-tabs">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active"><a data-toggle="tab" href="#uploadnewpdf">Tải lên PDF hoặc ảnh</a></li>
+                                <li class=""><a data-toggle="tab" href="#reusefiles">Tài liệu của tôi</a></li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div id="uploadnewpdf" class="tab-pane fade active in">
+                                    <form  id="form_upload_docs" action="<%= baseUrl %>upload" method = "post" enctype = "multipart/form-data">
+                                        <input type="file" name="file" id="file_upload" accept="application/pdf;image/*" onchange="handleUpload(this);">
+                                    </form>
+                                </div>
+                                <div id="reusefiles" class="tab-pane">
+                                    <div class="path-folder">path/to/the/folder</div>
+                                    <div class="delimiter"></div>
+                                    <ul class="list-files">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeUploadPdfPopup">Đóng lại</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+	     <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		     <div class="modal-dialog">
+			     <div class="modal-content">
+
+				     <div class="modal-body">
+					     <div class="bs-example bs-example-tabs">
+						     <ul class="nav nav-tabs" id="tabDownload">
+							     <li class="active"><a data-toggle="tab" href="#docs_in_board">PDF trong bảng</a></li>
+							     <li><a data-toggle="tab" href="#images_in_board">Ảnh trong bảng</a></li>
+						     </ul>
+						     <div class="tab-content" id="downloadTabContent">
+
+							     <div id="docs_in_board" class="tab-pane fade active in">
+								     <ul class="list-docs">
+
+								     </ul>
+							     </div>
+
+							     <div id="images_in_board" class="tab-pane">
+								     <ul class="list-images-board">
+
+								     </ul>
+							     </div>
+						     </div>
+					     </div>
+				     </div>
+				     <div class="modal-footer">
+					     <button type="button" class="btn btn-default" data-dismiss="modal" id="closeDownloadDocsPopup">Đóng lại</button>
+				     </div>
+			     </div><!-- /.modal-content -->
+		     </div><!-- /.modal-dialog -->
+	     </div><!-- /.modal -->
+
+        <div class="modal fade" id="modalUploadViaLink" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <p style="font-weight: bold; float: left; margin: 5px 5px 0 0">Đường dẫn ảnh:</p>
+                        <input type="text" name="file_url" id="file_url" style="width: 360px" /><br>
+                        <p style="font-weight: bold; float: left; margin: 5px 5px 0 0">Kích thước(%):</p>
+                        <span class="block1" style="margin-right: 2px; margin-left: 5px"><input style="width: 30px;" id="value_scale" value="" ></span><span style="color: #808080">( Để trống nếu muốn giữ nguyên ảnh gốc )</span>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss='modal' id='insertLinkUrl'>Thêm Ảnh</a>
+                        <a href="#" class="btn" data-dismiss='modal' id="destroyLikUrl">Hủy</a>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        <div class="math_quill">
+            <div id="mathTools"></div>
+            <div id="editable-math" class="mathquill-editable">
+
+
+            </div>
+            <textarea id="latex-source"></textarea>
+            <div class="query">
+                <input type="submit" class="math_save" value="Lưu lại">
+                <input type="submit" class="math_cancel" value="Hủy">
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="boardSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3 label-right">Tên Bảng</div>
+                            <div class="col-md-9 fix-padding"><input id="settingBoardName" type="text" name="boardName" style="width: 200px"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 label-right">Phân quyền</div>
+                            <div class="col-md-9 fix-padding" id="roleAccessBoard">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <span class="loadNotification"></span>
+                        <button type="button" class="btn btn-default"  id="saveBoardSettings">Lưu cài đặt</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeBoardSettings">Đóng lại</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+         <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="myModalFeedback" aria-hidden="true">
+             <div class="modal-dialog" style="width: 55%;height: 80%">
+                 <div class="modal-content" style="height: 100%">
+                     <div class="modal-body" style="max-width:100%;padding:0px;height: 88%">
+                         <iframe id="feedbackIF" width="100%" height="100%" border="0" src=""></iframe>
+                     </div>
+                     <div class="modal-footer" style=" eight: 10%;margin-top: 0;min-height: 49px;padding: 5px 10px;">
+                         <button type="button" class="btn btn-default" data-dismiss="modal" id="cloaseFeedback">Đóng lại</button>
+                     </div>
+                 </div><!-- /.modal-content -->
+             </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
+
+         <div class="modal fade" id="welcome" tabindex="-1" role="dialog" aria-labelledby="myModalWelcome" aria-hidden="true">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Chú ý trước khi bắt đầu buổi học</h4>
+                    </div>
+                     <div class="modal-body">
+                        <h5>
+                         <p>1. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu có lỗi xảy ra.</p>
+                         <p>2. Nhấn <span style="color: red;">Ctrl+F5</span> nếu ấn F5 nhiều lần ko được.</p>
+                         <p>3. Gọi hỗ trợ nếu thực hiện refresh, reload nhiều lần nhưng vẫn không hết lỗi.</p>
+                         <p>4. Điền đầy đủ thông tin vào bảng phản hồi ý kiến khi lớp học kết thúc.</p>
+                         <p>5. Gửi tin nhắn trên hệ thống cho Quản lý học tập nếu muốn nghỉ học, thay đổi lịch học trước 24h.</p>
+                         <p>6. Luôn kiểm tra lại loa, mic trước khi lớp học bắt đầu (<a href="/student/testCondition" target="_blank">Tại đây</a>)</p>
+                            <ul>
+                                <li>Nếu loa, mic hoạt động không tốt hãy kiểm tra lại xem đã bật chưa, có cắm nhầm khe cắm của mic không, có để volume (âm lượng) của mic đủ lớn không.</li>
+                                <li>Nên restart lại máy tính để thử lại khi đã kiểm tra các bước trên mà vẫn gặp lỗi.</li>
+                                 </ul>
+                         <p>Điện thoại hỗ trợ: <span style="color: red;">0969496795</span></p>
+                       <p>Phần mềm hỗ trợ từ xa: <span style="color: red;"> <a href="http://www.teamviewer.com/link/?url=505374&id=478191531" target="_blank">Teamviewer</a> </span></p> 
+			 </h5>
+                     </div>
+                 </div><!-- /.modal-content -->
+             </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
+    </body>
+</html>

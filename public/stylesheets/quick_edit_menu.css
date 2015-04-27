@@ -1,0 +1,80 @@
+.menu-arrow-top {
+    border-color: transparent transparent #FFFFFF;
+    border-style: solid;
+    border-width: 10px;
+    display: block;
+    left: -20px;
+    position: relative;
+    top: -4px;
+    width: 0;
+}
+.m-align-list {
+    background-color: #FFFFFF;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 5px #888888;
+    display: none;
+    height: auto;
+    position: absolute;
+    top: 34px;
+    width: 204px;
+    z-index: 1035;
+}
+.m-quick-edit,.m-quick-edit-group {
+    display:none;
+    border: 1px solid #ddd;
+    cursor:pointer;
+    background-color: #FFFFFF;
+    position: absolute;
+    height: 24px;
+    width: auto;
+}
+.m-quick-edit > span ,.m-quick-edit-group > span {
+    background: url('../images/quicklaunch_sprite.png') no-repeat;
+    display: inline-block;
+    height:24px;
+    width:24px
+}
+.m-quick-edit span.edit-icon {
+    background-position:0 0px;
+}
+.m-quick-edit span.edit-icon:hover {
+    background-position:0px -23px;
+}
+.m-quick-edit span.visible-icon {
+    background-position: -72px 0px;
+    height: 24px;
+    width: 24px;
+}
+.m-quick-edit span.visible-icon:hover {
+    background-position: -72px -24px;
+}
+.m-quick-edit span.invisible-icon {
+    background-position: -96px 0px;
+}
+.m-quick-edit span.invisible-icon:hover {
+    background-position: -96px -24px;
+}
+.m-quick-edit span.copy-icon,.m-quick-edit-group span.copy-icon {
+    background-position:-24px -1px;
+}
+.m-quick-edit span.copy-icon:hover , .m-quick-edit span.copy-icon.selected ,.m-quick-edit-group span.copy-icon:hover, .m-quick-edit-group span.copy-icon.selected {
+    background-position:-24px -24px;
+}
+.m-quick-edit span.delete-icon ,.m-quick-edit-group span.delete-icon {
+    background-position:-50px -1px;
+}
+.m-quick-edit span.delete-icon:hover ,.m-quick-edit-group span.delete-icon:hover {
+    background-position:-50px -24px;
+}
+.m-quick-edit-group span.align_icon {
+
+}
+div.clip-alert {
+    z-index: 9002;
+}
+div.inactive-alert {
+    display:none;
+    left: 37%;
+    position: absolute;
+    top: 0;
+}

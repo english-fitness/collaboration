@@ -1,0 +1,32 @@
+{
+    "appenders": [
+        {
+          "type": "file",
+          "filename": "logs/access.log",
+          "maxLogSize": 40960,
+          "backups": 10,
+          "category": "access"
+        },
+        {
+          "type": "file",
+          "filename": "logs/debug.log",
+          "maxLogSize": 40960,
+          "backups": 10,
+          "category": "debug"
+        },
+        {
+            "type": "file",
+            "filename": "logs/error.log",
+            "maxLogSize": 40960,
+            "backups": 10,
+            "category": "error"
+        },
+        {
+            "type": "file",
+            "filename": "logs/socket.log",
+            "maxLogSize": 40960,
+            "backups": 10,
+            "category": "socket"
+        }
+    ]
+}
