@@ -195,10 +195,10 @@ collaboration = module.exports = {
                 kickUser(boardId, data, this);
             });
 			socket.on('toggleAudio', function(boardId, data) {
-				this.broadcast.to(boardId).emit('toggleAudio');
+				this.broadcast.to(boardId).emit('toggleAudio', boardId, data);
 			});
-			socket.on('raiseHand', function(){
-				this.emit('raiseHand');
+			socket.on('raiseHand', function(boardId, data){
+				this.broadcast.to(boardId).emit('raiseHand', boardId, data);
 			});
         });
     }
