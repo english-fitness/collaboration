@@ -31,9 +31,6 @@ define(["storm", "features/chat"], function(storm, chat) {
                 chat.sendMessage('(n)');
             }
         });
-		$('#button_mic').click(function() {
-            storm.comm.socket.emit('raiseHand');
-        });
     }
 
     function setUserThumbStatus(userId, status) {

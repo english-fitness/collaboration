@@ -12,12 +12,9 @@ define(["storm", "features/list-users", "underscore", "erizo"], function (storm,
                 licode.syncVoice(data);
             });
 			
-			storm.comm.socket.on('toggleAudio', function(boardId, data) {
+			storm.comm.socket.on('toggleAudio', function() {
 				console.log('toggleAudio');
-				var userId = storm.user.userId;
-				if (userId === data.userId ){
-					$('#button_mic').trigger('click');
-				}
+            	$('#button_mic').trigger('click');
             });
 
             bindButtons();
