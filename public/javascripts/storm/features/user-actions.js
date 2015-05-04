@@ -1,4 +1,4 @@
-define(["storm", "features/chat","features/list-users"], function(storm, chat,listUsers ) {
+define(["storm", "features/chat","features/list-users","storm.util"], function(storm, chat,listUsers,util ) {
     function init() {
         storm.comm.socket.on('user-actions', function(data) {
             if(data.action == 'thumb-up') {
@@ -8,11 +8,7 @@ define(["storm", "features/chat","features/list-users"], function(storm, chat,li
             }
         });
         storm.comm.socket.on('raiseHand', function(data) {
-            if ($('#user'+data.userId+' div .raisehand').attr('class')=== 'raisehand'){
-                listUsers.setGioTayStatus(data.userId,'raising');
-            }else{
-                listUsers.setGioTayStatus(data.userId,'');
-            }
+            listUsers.setGioTayStatus(data.userId, data.status);
         });
         
         bindButtons();
@@ -40,8 +36,22 @@ define(["storm", "features/chat","features/list-users"], function(storm, chat,li
         });
         
         $('#button_thumb_raisehand').click(function(event) {
+            console.log('Da bam nut gio tay');
+            console.log(util.getMode());
+            if(util.getMode()==='2'){
+                return ;
+            }
             storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId});
+            if ($('#user'+storm.user.userId+' div .raisehand').attr('class')=== 'raisehand'){
+                storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:'raising'});
+                listUsers.setGioTayStatus(storm.user.userId,'raising');
+            }else{
+                storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:''});
+                listUsers.setGioTayStatus(storm.user.userId,'');
+            }
         });
+        
+        
     }
 
     function setUserThumbStatus(userId, status) {

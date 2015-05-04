@@ -1,4 +1,4 @@
-define(["storm", "features/list-users", "underscore", "erizo"], function (storm, listUsers, _) {
+define(["storm", "features/list-users","storm.util", "underscore", "erizo"], function (storm, listUsers, util, _) {
     var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, DISCONNECTED=0, CONNECTING=1, CONNECTED=2;
     var licode = {
         init: function() {
@@ -286,7 +286,10 @@ define(["storm", "features/list-users", "underscore", "erizo"], function (storm,
         });
 
         $('#button_mic').click(function(event) {
-            if(storm.user.isStudent()) return ;
+            //console.log(util.getMode());
+            if(util.getMode()==='1'){
+                if(storm.user.isStudent()) return ;
+            }
             if($(this).hasClass('board-icon-micro-on')) {
                 licode.publishAudio(false);
             } else if($(this).hasClass('board-icon-micro-off')){

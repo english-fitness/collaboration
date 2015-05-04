@@ -14,6 +14,10 @@ var boardModel = module.exports = nohm.model('Board', {
             'notEmpty'
             ]
         },
+        mode:{
+            type: 'number'
+        }
+        ,
         background: {
             type: 'string'
         },

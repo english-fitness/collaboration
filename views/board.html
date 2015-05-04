@@ -18,9 +18,10 @@
               }
            }
         </script>
+       
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <link rel="stylesheet" href="<%= baseUrl %><%= cssFile %>" type="text/css"/>
-        <script data-main="<%= baseUrl %><%= jsFile %>" src="<%= baseUrl %>javascripts/thirdparty/require/require.js"type="text/javascript"></script>
+        <script data-main="<%= baseUrl %><%= jsFile %>" src="<%= baseUrl %>javascripts/thirdparty/require/require.js" type="text/javascript"></script>
     </head>
     <body id="_body">
      <!-- Google Tag Manager -->
@@ -158,9 +159,15 @@
                     <div class="bdrT">
                         <div class="listChat"><ul id="chattext"></ul></div>
                         <div class="title bdrT">
-                            <button id="button_thumb_raisehand" title="Raise hand" >
-                                <img src="../../vsr/images/giotay.png" alt="Mountain View" style="width:20px;height:20px" />
-                            </button>
+                            <a id="button_thumb_raisehand" title="Raise hand" href="#" ></a>
+                            <script type="text/javascript">
+                                var url = window.location.href;
+                                       var mode=url.substring(url.indexOf('mode')+4,url.indexOf('mode')+5);
+                                       console.log(mode);
+                                       if(mode==='2'){
+                                           document.getElementById('button_thumb_raisehand').id="button_thumb_raisehand_not";
+                                       }
+                            </script>
                             <ul class="my-action">
                                 <li id="button_thumb_up" class="board-icon-thumb-up-ready" title="Đồng ý"></li>
                                 <li id="button_thumb_down" class="board-icon-thumb-down-ready" title="Không đồng ý"></li>
@@ -324,33 +331,5 @@
                  </div><!-- /.modal-content -->
              </div><!-- /.modal-dialog -->
          </div><!-- /.modal -->
-<!--
-         <div class="modal fade" id="welcome" tabindex="-1" role="dialog" aria-labelledby="myModalWelcome" aria-hidden="true">
-             <div class="modal-dialog">
-                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Chú ý trước khi bắt đầu buổi học</h4>
-                    </div>
-                     <div class="modal-body">
-                        <h5>
-                         <p>1. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu có lỗi xảy ra.</p>
-                         <p>2. Nhấn <span style="color: red;">Ctrl+F5</span> nếu ấn F5 nhiều lần ko được.</p>
-                         <p>3. Gọi hỗ trợ nếu thực hiện refresh, reload nhiều lần nhưng vẫn không hết lỗi.</p>
-                         <p>4. Điền đầy đủ thông tin vào bảng phản hồi ý kiến khi lớp học kết thúc.</p>
-                         <p>5. Gửi tin nhắn trên hệ thống cho Quản lý học tập nếu muốn nghỉ học, thay đổi lịch học trước 24h.</p>
-                         <p>6. Luôn kiểm tra lại loa, mic trước khi lớp học bắt đầu (<a href="/student/testCondition" target="_blank">Tại đây</a>)</p>
-                            <ul>
-                                <li>Nếu loa, mic hoạt động không tốt hãy kiểm tra lại xem đã bật chưa, có cắm nhầm khe cắm của mic không, có để volume (âm lượng) của mic đủ lớn không.</li>
-                                <li>Nên restart lại máy tính để thử lại khi đã kiểm tra các bước trên mà vẫn gặp lỗi.</li>
-                                 </ul>
-                         <p>Điện thoại hỗ trợ: <span style="color: red;">0969496795</span></p>
-                       <p>Phần mềm hỗ trợ từ xa: <span style="color: red;"> <a href="http://www.teamviewer.com/link/?url=505374&id=478191531" target="_blank">Teamviewer</a> </span></p> 
-			 </h5>
-                     </div>
-                 </div><!-- /.modal-content -->
-             </div><!-- /.modal-dialog -->
-         </div><!-- /.modal -->
--->
     </body>
 </html>

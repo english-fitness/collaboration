@@ -1,5 +1,5 @@
 define(["storm", "boards", "underscore", "features/popup"], function(storm, boards, _, popup) {
-
+    var raising=false;
     var listUsers = {
         init: function() {
             startGreeting(friendsView());
@@ -21,8 +21,17 @@ define(["storm", "boards", "underscore", "features/popup"], function(storm, boar
         setGioTayStatus: function(userId, status) {
             var user = storm.users[userId];
             if(user == undefined) return;
+            if (userId === storm.user.userId){
+                if(status===''){
+                    raising=false;
+                }else{
+                    raising=true;
+                }
+            }
+            
             var gioTayClass = status && status != '' ? 'raisehand board-icon-raisehand-'+status : 'raisehand';
             $('#user'+userId+' div .raisehand').attr('class', gioTayClass);
+            
         },
     };
 
@@ -74,7 +83,9 @@ define(["storm", "boards", "underscore", "features/popup"], function(storm, boar
     var friendsView = function() {
         function addUserToList(ul, user) {
             var name = user.role == storm.roles.TEACHER ? '(GV) '+user.name : user.name;
-
+            if(raising==true){
+                storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:'raising'});
+            }
             if(user.role == storm.roles.TEACHER && !$('#teacher_area').attr('data')) {
                 $('#teacher_area .name').text(name);
                 $('#teacher_area').attr('data', user.userId);

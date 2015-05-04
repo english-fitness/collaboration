@@ -11,6 +11,12 @@ define(["storm", "underscore"], function (storm, _) {
             }
             return true;
         },
+        getMode: function (){
+            var url = window.location.href;
+            var mode=url.substring(url.indexOf('mode')+4,url.indexOf('mode')+5);
+            return mode;
+        }
+        ,
 
         /**
          * Validation method for input field, checks for the user keypress and allows only numbers

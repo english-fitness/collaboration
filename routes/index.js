@@ -11,6 +11,7 @@ var _ = require('underscore');
 
 var logger = require('log4js').getLogger('debug');
 var config = null;
+
 module.exports = {
     init: function(_config) {
         config = _config;
@@ -321,12 +322,14 @@ module.exports = {
                 res.status(403).send('Forbidden!');
             } else {
                 var p2p = req.param('p2p') ? req.param('p2p') : config['p2p'];
+                var mode=req.param('mode')?req.param('mode'):'1';//set mode
                 var nuve = req.param('nuve') ? req.param('nuve') : 0;
                 var sessionType = req.param('sessionType') != undefined ? req.param('sessionType') : config['sessionType'];
                 var sessionId = req.param('sessionId') != undefined ? req.param('sessionId') : 0;
                 var sessionPlanStart = req.param('sessionPlanStart') != undefined ? req.param('sessionPlanStart')*1000 : new Date().getTime();
                 var users = req.param('users') ? req.param('users') : '{}';
                 var students = req.param('students') ? req.param('students') : '[]';
+                
                 var data = {
                     container: 'desktop-1366x768',
                     canvasWidth: '1086',
@@ -337,7 +340,8 @@ module.exports = {
                     sessionId: sessionId,
                     sessionType: sessionType,
                     sessionPlanStart: sessionPlanStart,
-                    nuve: nuve
+                    nuve: nuve,
+                    mode:mode
                 };
                 createBoard(data, p2p, function(err, board) {
                     var response = {'success': false};
@@ -354,14 +358,17 @@ module.exports = {
                 res.status(403).send('Forbidden!');
             } else {
                 var boardId = req.param('boardId');
-
+                var mode=req.param('mode')?req.param('mode'):'1';//set mode
+                console.log('che do:'+mode);
                 var response = {'success': false};
 
                 var sessionId = req.param('sessionId') != undefined ? req.param('sessionId') : 0;
                 var sessionType = req.param('sessionType') != undefined ? req.param('sessionType') : config['sessionType'];
                 var sessionPlanStart = req.param('sessionPlanStart') != undefined ? req.param('sessionPlanStart')*1000 : new Date().getTime();
                 var users = req.param('users') ? req.param('users') : '{}';
-
+                
+              
+                
                 BoardModel.loadByBoardId(boardId, function(err, board) {
                     if(err) {
                         logger.debug(err);
@@ -372,7 +379,7 @@ module.exports = {
                         board.p('users', users);
                         board.p('sessionType', sessionType);
                         board.p('sessionPlanStart', sessionPlanStart);
-
+                        board.p('mode', mode);
                         board.save(function(err) {
                             response = {'success': true};
                             res.json(response);
@@ -557,7 +564,7 @@ var createRandomString = function() {
 
 var createBoard = function(data, p2p, callback) {
     var boardId = createRandomString();
-
+    boardId+='mode'+data.mode;
     data.boardId = boardId;
     data.active = boardId;
     data.parentId = '';

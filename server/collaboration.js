@@ -25,7 +25,7 @@ collaboration = module.exports = {
         if(refererUrl == undefined) {
             accept('no referer', false);
         } else {
-            var boardId = refererUrl.substring(refererUrl.length - 12, refererUrl.length);
+            var boardId = refererUrl.substring(refererUrl.length - 17, refererUrl.length);
             if(infoOfBoards[boardId] == undefined) infoOfBoards[boardId] = {};
             if(infoOfBoards[boardId]['users'] == undefined) infoOfBoards[boardId]['users'] = {};
             if(infoOfBoards[boardId]['boards'] == undefined) infoOfBoards[boardId]['boards'] = {};
@@ -191,12 +191,20 @@ collaboration = module.exports = {
             });
 
             socket.on('kickUser', function(boardId, data) {
-                this.broadcast.to(boardId).emit('viewport', data);
+                this.broadcast.to(boardId).emit('kickUser', data);
                 kickUser(boardId, data, this);
             });
-			socket.on('toggleAudio', function(boardId, data) {
-				this.broadcast.to(boardId).emit('toggleAudio');
-			});
+            
+            socket.on('raiseHand',function(boardId,data){
+                console.log(boardId);
+                //orther views
+                socket.broadcast.to(boardId).emit('raiseHand', data);
+                //my views
+                //socket.emit('raiseHand', data);
+            });
+            socket.on('changeSpeakingStudent',function(boardId,data){
+                 socket.broadcast.to(boardId).emit('changeSpeakingStudent', data);
+            });
         });
     }
 }
@@ -710,6 +718,7 @@ var createToken = function(boardId, data, socket) {
                                     callback('save room error');
                                 } else {
                                     callback(null, roomId);
+                                    logger.debug('Phong tao ra la:'+roomId);
                                 }
                             });
                         }, function() {callback('create room error')}, {p2p: p2p});
