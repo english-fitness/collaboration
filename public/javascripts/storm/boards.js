@@ -105,7 +105,7 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
         },
         createChildBoard:function() {
             var canvasId = generateCanvasId();
-            var name = "Bảng "+canvasId.substring(6);
+            var name = "Tab "+canvasId.substring(6);
             this.appendBoard(canvasId, name, "");
             this.createTabToServer(name, function(err, childId) {
                 boards.setActiveBoard(childId, true);
@@ -184,8 +184,8 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
                 '<li data="'+canvasId+'" data-holder="'+boardId+'" class="tab-wb">' +
                     '<a class="link-board" href="#">' +
                     '<span class="boardName">'+name+'</span></a>' +
-                    '<span class="setting" title="Chỉnh sửa, phân quyền" data-toggle="modal" data-target="boardSettings"></span>'+
-                    '<span class="remove" title="Xóa tab"></span></li>'
+                    '<span class="setting" title="Settings" data-toggle="modal" data-target="boardSettings"></span>'+
+                    '<span class="remove" title="Delete tab"></span></li>'
             );
         },
         removeChildBoard: function(boardId, activeBoardId) {
@@ -237,9 +237,9 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
             var users = storm.dataBoards[storm.parentBoardId].users;
             var students = boardInfo.students;
             if(_(students).isEmpty()){
-                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0" checked> <label for="student_0" class="lab">Tất cả</label><br />';
+                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0" checked> <label for="student_0" class="lab">All</label><br />';
             }else{
-                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0"> <label for="student_0" class="lab">Tất cả</label><br />';
+                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0"> <label for="student_0" class="lab">All</label><br />';
             }
 
             for(var uid in users){

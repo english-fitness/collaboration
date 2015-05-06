@@ -195,23 +195,23 @@ define(["storm"], function (storm) {
         },
         showDisconnecting: function(){
             $('body').append('<div class="modal-backdrop fade in disconnecting"><div class="alert-reconnecting">' +
-	            '<b style="color: red">THÔNG BÁO</b><br/>' +
-	            '1. Đã có lỗi liên quan đến internet xảy ra <br />' +
-	            '2. Hệ thống đang kết nối lại <br /> ' +
-	            '3. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu đợi quá lâu <br>' +
-	            '4. Gọi hỗ trợ nếu làm lại bước 3 nhiều lần nhưng vẫn không hết lỗi <br>' +
-	            '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
-	            'Mã lỗi: NO#1</div></div>');
+	            '<b style="color: red">Oops!!!</b><br/>' +
+	            '1. There was an error happened with the Internet connection <br />' +
+	            '2. System will try to reconnect <br /> ' +
+	            '3. Please <span style="color: red">refresh, reload (Press F5)</span> if it takes too long <br>' +
+	            '4. Call our support team if the problem still persists <br>' +
+	            '<b>Support Hotline: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
+	            'Error Code: NO#1</div></div>');
         },
         showMediaDisconnecting: function(){
 	        $('body').append('<div class="modal-backdrop fade in disconnecting"><div class="alert-reconnecting">' +
-		        '<b style="color: red">THÔNG BÁO</b><br/>' +
-		        '1. Đã có lỗi liên quan đến internet xảy ra <br />' +
-		        '2. Hệ thống đang kết nối lại <br /> ' +
-		        '3. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu đợi quá lâu<br>' +
-		        '4. Gọi hỗ trợ nếu làm lại bước 3 nhiều lần nhưng vẫn không hết lỗi <br>' +
+		        '<b style="color: red">Oops!!!</b><br/>' +
+		        '1. There was an error happened with the Internet connection <br />' +
+		        '2. System will try to reconnect <br /> ' +
+		        '3. Please <span style="color: red">refresh, reload (Press F5)</span> if it takes too long<br>' +
+		        '4. Call our support team if the problem still persists <br>' +
 		        '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
-		        'Mã lỗi: MEDIA#2</div></div>');
+		        'Error Code: MEDIA#2</div></div>');
         },
         hideDisconnecting: function(){
             $('body .modal-backdrop').remove();

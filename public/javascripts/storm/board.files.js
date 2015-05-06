@@ -138,7 +138,7 @@ define(["storm", "storm.ui", "storm.util", "board.pdf"], function(storm, ui, uti
                     // parent.remove();
                     parent.fadeOut(300, function() { parent.remove(); })
                 } else {
-                    alert('Có lỗi xảy ra khi xóa file');
+                    alert('Unexpected error happened');
                 }
             });
 
@@ -146,7 +146,7 @@ define(["storm", "storm.ui", "storm.util", "board.pdf"], function(storm, ui, uti
 
         $('#download_docs').click(function(e){
             if(storm.user.role == storm.roles.STUDENT && storm.sessionStatus != 2) {
-                alert('Bạn chỉ có thể tải xuống tài liệu khi lớp học đã kết thúc');
+                alert('You can only download document once the class is ended');
                 return;
             }
 
@@ -219,7 +219,7 @@ define(["storm", "storm.ui", "storm.util", "board.pdf"], function(storm, ui, uti
             success:function(data) {
                 if(data.success == false){
                     ui.hideLoading();
-                    alert('Không thể tải lên file, lý do: '+ data.reason);
+                    alert('Cannot upload file, reason: '+ data.reason);
                     return false;
                 }
                 var dataObj = {};
