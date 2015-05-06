@@ -1,4 +1,4 @@
-define(["storm", "boards", "underscore", "features/popup"], function(storm, boards, _, popup) {
+define(["storm", "boards", "underscore", "features/popup","storm.util"], function(storm, boards, _, popup,util) {
     var raising=false;
     var listUsers = {
         init: function() {
@@ -131,7 +131,7 @@ define(["storm", "boards", "underscore", "features/popup"], function(storm, boar
                     if($(element).html() != $(span).html()) $(element).popover('hide');
                 });
                 $(this).popover('toggle');
-            } else if (storm.user.isTeacher()) {
+            } else if (storm.user.isTeacher()&&util.getMode()==='1') {
                 var userId = $(this).attr('id');
                 storm.comm.socket.emit('changeSpeakingStudent', storm.parentBoardId, {userId:userId});
                 listUsers.setGioTayStatus(userId,'');

@@ -65,11 +65,16 @@ module.exports = {
         p2p: false,
         sessionType: 0,
         expressErrorHandlerOptions: {},
-        phpUrl: "http://101.99.3.195/api",
+        phpUrl: "https://tutor.vn/api",
         nuves:  [{
-	   serviceId: "55388ad11eed7105af72a500",
-           serviceKey: "2083",
-           host: "http://127.0.0.1:3000/"
+	   serviceId: "549b862eab56d37a88e03c8e",
+           serviceKey: "23143",
+           host: "http://123.30.172.36:3000/"
+
+        }, {
+            serviceId: "549b862eab56d37a88e03c8e",
+            serviceKey: "23143",
+            host: "http://123.30.172.36:3000/"
         }],
         baseUrl: "/vsr/",
         optimized: true,

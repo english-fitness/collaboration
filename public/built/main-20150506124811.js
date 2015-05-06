@@ -408,6 +408,12 @@ define('storm.util',["storm", "underscore"], function (storm, _) {
             }
             return true;
         },
+        getMode: function (){
+            var url = window.location.href;
+            var mode=url.substring(url.indexOf('mode')+4,url.indexOf('mode')+5);
+            return mode;
+        }
+        ,
 
         /**
          * Validation method for input field, checks for the user keypress and allows only numbers
@@ -988,7 +994,7 @@ define('storm.comm',["storm","storm.ui","storm.util"], function (storm, ui, util
         this.socket.on('kickUser', function() {
         	storm.comm.socket.disconnect();
         });
-	}
+    }
 	(function () {
 		// Handler functions
 		this.connectHandler = function (data) {
@@ -3573,8 +3579,8 @@ define('board.pdf',["storm", "storm.ui"], function (storm, ui) {
 
     return boardPdf;
 });
-define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","underscore"],
-    function (storm,ui,util,mfabric,events,boardPdf,_) {
+define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","underscore","licode.client"],
+    function (storm,ui,util,mfabric,events,boardPdf,licode,_) {
 
     var boards = {
         init: function() {
@@ -3979,6 +3985,7 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
 
     function sendSetActive(data) {
         storm.comm.socket.emit("setActive", storm.parentBoardId, data);
+        console.log("chuyen bang  duoiiiiiii: "+storm.parentBoardId+",data:"+data.boardId);
     }
 
     function generateCanvasId() {
@@ -4045,8 +4052,8 @@ define('features/popup',["storm"], function(storm) {
 
     return popup;
 });
-define('features/list-users',["storm", "boards", "underscore", "features/popup"], function(storm, boards, _, popup) {
-
+define('features/list-users',["storm", "boards", "underscore", "features/popup","storm.util"], function(storm, boards, _, popup,util) {
+    var raising=false;
     var listUsers = {
         init: function() {
             startGreeting(friendsView());
@@ -4064,6 +4071,21 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup"]
             } else {
                 $('#user'+userId+' div .micro').attr('class', microClass);
             }
+        },
+        setGioTayStatus: function(userId, status) {
+            var user = storm.users[userId];
+            if(user == undefined) return;
+            if (userId === storm.user.userId){
+                if(status===''){
+                    raising=false;
+                }else{
+                    raising=true;
+                }
+            }
+            
+            var gioTayClass = status && status != '' ? 'raisehand board-icon-raisehand-'+status : 'raisehand';
+            $('#user'+userId+' div .raisehand').attr('class', gioTayClass);
+            
         },
     };
 
@@ -4115,13 +4137,15 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup"]
     var friendsView = function() {
         function addUserToList(ul, user) {
             var name = user.role == storm.roles.TEACHER ? '(GV) '+user.name : user.name;
-
+            if(raising==true){
+                storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:'raising'});
+            }
             if(user.role == storm.roles.TEACHER && !$('#teacher_area').attr('data')) {
                 $('#teacher_area .name').text(name);
                 $('#teacher_area').attr('data', user.userId);
             } else {
                 if($('li#user'+ user.userId).length == 0){
-                    ul.append('<li id="user' + user.userId + '"><span data="' + user.userId + '">' + name + '</span><div class="action"><div class="micro"></div></div></li>');
+                    ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' + name + '</span><div class="action"><div class="raisehand"></div><div class="micro"></div></div></li>');
                     if(user.userId == storm.user.userId) {
                         $('#user'+user.userId).attr('style', 'color: #245ba7');
                     }
@@ -4155,16 +4179,17 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup"]
 
     function bindEvents() {
         $('.list-user').on('click', 'li span', function(event) {
-            if (storm.user.canKickUser()) {
-				var span = this;
-				$('.list-user li span').each(function(index, element) {
-					if($(element).html() != $(span).html()) $(element).popover('hide');
-				});
-				$(this).popover('toggle');
-			} else if (storm.user.isTeacher()) {
-				var userId = $(this).attr('data');
-				storm.comm.socket.emit('toggleAudio', storm.parentBoardId, {userId: userId});
-			}
+            if(storm.user.canKickUser()) {
+                var span = this;
+                $('.list-user li span').each(function(index, element) {
+                    if($(element).html() != $(span).html()) $(element).popover('hide');
+                });
+                $(this).popover('toggle');
+            } else if (storm.user.isTeacher()&&util.getMode()==='1') {
+                var userId = $(this).attr('id');
+                storm.comm.socket.emit('changeSpeakingStudent', storm.parentBoardId, {userId:userId});
+                listUsers.setGioTayStatus(userId,'');
+            }
         });
         $('.list-user').on('click', 'button.close', function(event) {
             var userId = $(this).attr('data');
@@ -4211,9 +4236,9 @@ new XMLHttpRequest}catch(b){return!1}return void 0!=a.withCredentials}();c.ua.we
 (function(b,a){function c(){}b.EventEmitter=c;c.prototype.on=function(b,c){this.$events||(this.$events={});this.$events[b]?a.util.isArray(this.$events[b])?this.$events[b].push(c):this.$events[b]=[this.$events[b],c]:this.$events[b]=c;return this};c.prototype.addListener=c.prototype.on;c.prototype.once=function(a,b){function c(){h.removeListener(a,c);b.apply(this,arguments)}var h=this;c.listener=b;this.on(a,c);return this};c.prototype.removeListener=function(b,c){if(this.$events&&this.$events[b]){var g=
 this.$events[b];if(a.util.isArray(g)){for(var h=-1,j=0,e=g.length;j<e;j++)if(g[j]===c||g[j].listener&&g[j].listener===c){h=j;break}if(0>h)return this;g.splice(h,1);g.length||delete this.$events[b]}else(g===c||g.listener&&g.listener===c)&&delete this.$events[b]}return this};c.prototype.removeAllListeners=function(a){this.$events&&this.$events[a]&&(this.$events[a]=null);return this};c.prototype.listeners=function(b){this.$events||(this.$events={});this.$events[b]||(this.$events[b]=[]);a.util.isArray(this.$events[b])||
 (this.$events[b]=[this.$events[b]]);return this.$events[b]};c.prototype.emit=function(b){if(!this.$events)return!1;var c=this.$events[b];if(!c)return!1;var g=Array.prototype.slice.call(arguments,1);if("function"==typeof c)c.apply(this,g);else if(a.util.isArray(c))for(var c=c.slice(),h=0,j=c.length;h<j;h++)c[h].apply(this,g);else return!1;return!0}})("undefined"!=typeof io?io:module.exports,"undefined"!=typeof io?io:module.parent.exports);
-(function(b,a){function c(a){return 10>a?"0"+a:a}function d(a){j.lastIndex=0;return j.test(a)?'"'+a.replace(j,function(a){var e=k[a];return"string"===typeof e?e:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function f(a,b){var k,g,h,j,o=e,r,q=b[a];q instanceof Date&&(q=isFinite(a.valueOf())?a.getUTCFullYear()+"-"+c(a.getUTCMonth()+1)+"-"+c(a.getUTCDate())+"T"+c(a.getUTCHours())+":"+c(a.getUTCMinutes())+":"+c(a.getUTCSeconds())+"Z":null);"function"===typeof m&&(q=m.call(b,a,
-q));switch(typeof q){case "string":return d(q);case "number":return isFinite(q)?""+q:"null";case "boolean":case "null":return""+q;case "object":if(!q)return"null";e+=i;r=[];if("[object Array]"===Object.prototype.toString.apply(q)){j=q.length;for(k=0;k<j;k+=1)r[k]=f(k,q)||"null";h=0===r.length?"[]":e?"[\n"+e+r.join(",\n"+e)+"\n"+o+"]":"["+r.join(",")+"]";e=o;return h}if(m&&"object"===typeof m){j=m.length;for(k=0;k<j;k+=1)"string"===typeof m[k]&&(g=m[k],(h=f(g,q))&&r.push(d(g)+(e?": ":":")+h))}else for(g in q)Object.prototype.hasOwnProperty.call(q,
-g)&&(h=f(g,q))&&r.push(d(g)+(e?": ":":")+h);h=0===r.length?"{}":e?"{\n"+e+r.join(",\n"+e)+"\n"+o+"}":"{"+r.join(",")+"}";e=o;return h}}if(a&&a.parse)return b.JSON={parse:a.parse,stringify:a.stringify};var g=b.JSON={},h=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,j=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,e,i,k={"\u0008":"\\b","\t":"\\t","\n":"\\n","\u000c":"\\f",
+(function(b,a){function c(a){return 10>a?"0"+a:a}function d(a){j.lastIndex=0;return j.test(a)?'"'+a.replace(j,function(a){var e=k[a];return"string"===typeof e?e:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function f(a,b){var g,k,h,j,o=e,r,q=b[a];q instanceof Date&&(q=isFinite(a.valueOf())?a.getUTCFullYear()+"-"+c(a.getUTCMonth()+1)+"-"+c(a.getUTCDate())+"T"+c(a.getUTCHours())+":"+c(a.getUTCMinutes())+":"+c(a.getUTCSeconds())+"Z":null);"function"===typeof m&&(q=m.call(b,a,
+q));switch(typeof q){case "string":return d(q);case "number":return isFinite(q)?""+q:"null";case "boolean":case "null":return""+q;case "object":if(!q)return"null";e+=i;r=[];if("[object Array]"===Object.prototype.toString.apply(q)){j=q.length;for(g=0;g<j;g+=1)r[g]=f(g,q)||"null";h=0===r.length?"[]":e?"[\n"+e+r.join(",\n"+e)+"\n"+o+"]":"["+r.join(",")+"]";e=o;return h}if(m&&"object"===typeof m){j=m.length;for(g=0;g<j;g+=1)"string"===typeof m[g]&&(k=m[g],(h=f(k,q))&&r.push(d(k)+(e?": ":":")+h))}else for(k in q)Object.prototype.hasOwnProperty.call(q,
+k)&&(h=f(k,q))&&r.push(d(k)+(e?": ":":")+h);h=0===r.length?"{}":e?"{\n"+e+r.join(",\n"+e)+"\n"+o+"}":"{"+r.join(",")+"}";e=o;return h}}if(a&&a.parse)return b.JSON={parse:a.parse,stringify:a.stringify};var g=b.JSON={},h=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,j=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,e,i,k={"\u0008":"\\b","\t":"\\t","\n":"\\n","\u000c":"\\f",
 "\r":"\\r",'"':'\\"',"\\":"\\\\"},m;g.stringify=function(a,b,c){var d;i=e="";if("number"===typeof c)for(d=0;d<c;d+=1)i+=" ";else"string"===typeof c&&(i=c);if((m=b)&&"function"!==typeof b&&("object"!==typeof b||"number"!==typeof b.length))throw Error("JSON.stringify");return f("",{"":a})};g.parse=function(a,e){function b(a,i){var c,d,f=a[i];if(f&&"object"===typeof f)for(c in f)Object.prototype.hasOwnProperty.call(f,c)&&(d=b(f,c),void 0!==d?f[c]=d:delete f[c]);return e.call(a,i,f)}var i,a=""+a;h.lastIndex=
 0;h.test(a)&&(a=a.replace(h,function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)}));if(/^[\],:{}\s]*$/.test(a.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return i=eval("("+a+")"),"function"===typeof e?b({"":i},""):i;throw new SyntaxError("JSON.parse");}})("undefined"!=typeof io?io:module.exports,"undefined"!==typeof JSON?JSON:void 0);
 (function(b,a){var c=b.parser={},d=c.packets="disconnect,connect,heartbeat,message,json,event,ack,error,noop".split(","),f=c.reasons=["transport not supported","client not handshaken","unauthorized"],g=c.advice=["reconnect"],h=a.JSON,j=a.util.indexOf;c.encodePacket=function(a){var e=j(d,a.type),b=a.id||"",c=a.endpoint||"",s=a.ack,p=null;switch(a.type){case "error":var u=a.reason?j(f,a.reason):"",a=a.advice?j(g,a.advice):"";if(""!==u||""!==a)p=u+(""!==a?"+"+a:"");break;case "message":""!==a.data&&
@@ -4295,36 +4320,36 @@ c};d.xdomainCheck=function(){return!0};a.transports.push("jsonp-polling")})("und
 Erizo.EventDispatcher=function(b){var a={};b.dispatcher={};b.dispatcher.eventListeners={};a.addEventListener=function(a,d){void 0===b.dispatcher.eventListeners[a]&&(b.dispatcher.eventListeners[a]=[]);b.dispatcher.eventListeners[a].push(d)};a.removeEventListener=function(a,d){var f;f=b.dispatcher.eventListeners[a].indexOf(d);-1!==f&&b.dispatcher.eventListeners[a].splice(f,1)};a.dispatchEvent=function(a){var d;L.Logger.debug("Event: "+a.type);for(d in b.dispatcher.eventListeners[a.type])if(b.dispatcher.eventListeners[a.type].hasOwnProperty(d))b.dispatcher.eventListeners[a.type][d](a)};return a};
 Erizo.LicodeEvent=function(b){var a={};a.type=b.type;return a};Erizo.RoomEvent=function(b){var a=Erizo.LicodeEvent(b);a.streams=b.streams;return a};Erizo.StreamEvent=function(b){var a=Erizo.LicodeEvent(b);a.stream=b.stream;a.msg=b.msg;return a};Erizo.PublisherEvent=function(b){return Erizo.LicodeEvent(b)};Erizo=Erizo||{};Erizo.FcStack=function(){return{addStream:function(){}}};Erizo=Erizo||{};
 Erizo.BowserStack=function(b){var a={},c=webkitRTCPeerConnection;a.pc_config={iceServers:[]};a.con={optional:[{DtlsSrtpKeyAgreement:!0}]};void 0!==b.stunServerUrl&&a.pc_config.iceServers.push({url:b.stunServerUrl});(b.turnServer||{}).url&&a.pc_config.iceServers.push({username:b.turnServer.username,credential:b.turnServer.password,url:b.turnServer.url});void 0===b.audio&&(b.audio=!0);void 0===b.video&&(b.video=!0);a.mediaConstraints={offerToReceiveVideo:b.video,offerToReceiveAudio:b.audio};a.peerConnection=
-new c(a.pc_config,a.con);b.remoteDescriptionSet=!1;var d=function(a){if(b.maxVideoBW){var c=a.match(/m=video.*\r\n/);c==null&&(c=a.match(/m=video.*\n/));if(c!=null)var d=c[0]+"b=AS:"+b.maxVideoBW+"\r\n",a=a.replace(c[0],d)}if(b.maxAudioBW){c=a.match(/m=audio.*\r\n/);c==null&&(c=a.match(/m=audio.*\n/));d=c[0]+"b=AS:"+b.maxAudioBW+"\r\n";a=a.replace(c[0],d)}return a};a.close=function(){a.state="closed";a.peerConnection.close()};b.localCandidates=[];a.peerConnection.onicecandidate=function(e){if(e.candidate){if(!e.candidate.candidate.match(/a=/))e.candidate.candidate=
-"a="+e.candidate.candidate;b.remoteDescriptionSet?b.callback({type:"candidate",candidate:e.candidate}):b.localCandidates.push(e.candidate)}else console.log("End of candidates.",a.peerConnection.localDescription)};a.peerConnection.onaddstream=function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};var f=function(a){console.log("Error in Stack ",a)},g,h=function(e){e.sdp=d(e.sdp);console.log("Set local description",e.sdp);g=
-e;a.peerConnection.setLocalDescription(g,function(){console.log("The final LocalDesc",a.peerConnection.localDescription);b.callback(a.peerConnection.localDescription)},f)},j=function(e){e.sdp=d(e.sdp);b.callback(e);g=e;a.peerConnection.setLocalDescription(e)};a.createOffer=function(b){b===true?a.peerConnection.createOffer(h,f,a.mediaConstraints):a.peerConnection.createOffer(h,f)};a.addStream=function(b){a.peerConnection.addStream(b)};b.remoteCandidates=[];a.processSignalingMessage=function(e){console.log("Process Signaling Message",
-e);if(e.type==="offer"){e.sdp=d(e.sdp);a.peerConnection.setRemoteDescription(new RTCSessionDescription(e));a.peerConnection.createAnswer(j,null,a.mediaConstraints);b.remoteDescriptionSet=true}else if(e.type==="answer"){console.log("Set remote description",e.sdp);e.sdp=d(e.sdp);a.peerConnection.setRemoteDescription(new RTCSessionDescription(e),function(){b.remoteDescriptionSet=true;for(console.log("Candidates to be added: ",b.remoteCandidates.length);b.remoteCandidates.length>0;){console.log("Candidate :",
-b.remoteCandidates[b.remoteCandidates.length-1]);a.peerConnection.addIceCandidate(b.remoteCandidates.shift(),function(){},f)}for(;b.localCandidates.length>0;)b.callback({type:"candidate",candidate:b.localCandidates.shift()})},function(){console.log("Error Setting Remote Description")})}else if(e.type==="candidate"){console.log("Message with candidate");try{var c;c=typeof e.candidate==="object"?e.candidate:JSON.parse(e.candidate);c.candidate=c.candidate.replace(/a=/g,"");c.sdpMLineIndex=parseInt(c.sdpMLineIndex);
-c.sdpMLineIndex=c.sdpMid=="audio"?0:1;var k=new RTCIceCandidate(c);console.log("Remote Candidate",k);b.remoteDescriptionSet?a.peerConnection.addIceCandidate(k,function(){},f):b.remoteCandidates.push(k)}catch(g){L.Logger.error("Error parsing candidate",e.candidate)}}};return a};Erizo=Erizo||{};
+new c(a.pc_config,a.con);b.remoteDescriptionSet=!1;var d=function(a){if(b.maxVideoBW){var c=a.match(/m=video.*\r\n/);c==null&&a.match(/m=video.*\n/)}if(b.maxAudioBW){c=a.match(/m=audio.*\r\n/);c==null&&a.match(/m=audio.*\n/)}return a};a.close=function(){a.state="closed";a.peerConnection.close()};b.localCandidates=[];a.peerConnection.onicecandidate=function(e){if(e.candidate){if(!e.candidate.candidate.match(/a=/))e.candidate.candidate="a="+e.candidate.candidate;b.remoteDescriptionSet?b.callback({type:"candidate",
+candidate:e.candidate}):b.localCandidates.push(e.candidate)}else console.log("End of candidates.",a.peerConnection.localDescription)};a.peerConnection.onaddstream=function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};var f=function(a){console.log("Error in Stack ",a)},g,h=function(e){e.sdp=d(e.sdp);console.log("Set local description",e.sdp);g=e;a.peerConnection.setLocalDescription(g,function(){console.log("The final LocalDesc",
+a.peerConnection.localDescription);b.callback(a.peerConnection.localDescription)},f)},j=function(e){e.sdp=d(e.sdp);b.callback(e);g=e;a.peerConnection.setLocalDescription(e)};a.createOffer=function(b){b===true?a.peerConnection.createOffer(h,f,a.mediaConstraints):a.peerConnection.createOffer(h,f)};a.addStream=function(b){a.peerConnection.addStream(b)};b.remoteCandidates=[];a.processSignalingMessage=function(e){console.log("Process Signaling Message",e);if(e.type==="offer"){e.sdp=d(e.sdp);a.peerConnection.setRemoteDescription(new RTCSessionDescription(e));
+a.peerConnection.createAnswer(j,null,a.mediaConstraints);b.remoteDescriptionSet=true}else if(e.type==="answer"){console.log("Set remote description",e.sdp);e.sdp=d(e.sdp);a.peerConnection.setRemoteDescription(new RTCSessionDescription(e),function(){b.remoteDescriptionSet=true;for(console.log("Candidates to be added: ",b.remoteCandidates.length);b.remoteCandidates.length>0;){console.log("Candidate :",b.remoteCandidates[b.remoteCandidates.length-1]);a.peerConnection.addIceCandidate(b.remoteCandidates.shift(),
+function(){},f)}for(;b.localCandidates.length>0;)b.callback({type:"candidate",candidate:b.localCandidates.shift()})},function(){console.log("Error Setting Remote Description")})}else if(e.type==="candidate"){console.log("Message with candidate");try{var c;c=typeof e.candidate==="object"?e.candidate:JSON.parse(e.candidate);c.candidate=c.candidate.replace(/a=/g,"");c.sdpMLineIndex=parseInt(c.sdpMLineIndex);c.sdpMLineIndex=c.sdpMid=="audio"?0:1;var k=new RTCIceCandidate(c);console.log("Remote Candidate",
+k);b.remoteDescriptionSet?a.peerConnection.addIceCandidate(k,function(){},f):b.remoteCandidates.push(k)}catch(g){L.Logger.error("Error parsing candidate",e.candidate)}}};return a};Erizo=Erizo||{};
 Erizo.FirefoxStack=function(b){var a={},c=mozRTCPeerConnection,d=mozRTCSessionDescription,f=mozRTCIceCandidate;a.pc_config={iceServers:[]};void 0!==b.stunServerUrl&&a.pc_config.iceServers.push({url:b.stunServerUrl});(b.turnServer||{}).url&&a.pc_config.iceServers.push({username:b.turnServer.username,credential:b.turnServer.password,url:b.turnServer.url});void 0===b.audio&&(b.audio=!0);void 0===b.video&&(b.video=!0);a.mediaConstraints={offerToReceiveAudio:b.audio,offerToReceiveVideo:b.video,mozDontOfferDataChannel:!0};
 a.roapSessionId=103;a.peerConnection=new c(a.pc_config,a.con);b.localCandidates=[];a.peerConnection.onicecandidate=function(a){if(a.candidate){if(!a.candidate.candidate.match(/a=/))a.candidate.candidate="a="+a.candidate.candidate;if(b.remoteDescriptionSet)b.callback({type:"candidate",candidate:a.candidate});else{b.localCandidates.push(a.candidate);console.log("Local Candidates stored: ",b.localCandidates.length,b.localCandidates)}}else console.log("End of candidates.")};a.peerConnection.onaddstream=
-function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};var g=function(a){if(b.video&&b.maxVideoBW){var e=a.match(/m=video.*\r\n/);e==null&&(e=a.match(/m=video.*\n/));if(e!=null)var c=e[0]+"b=AS:"+b.maxVideoBW+"\r\n",a=a.replace(e[0],c)}if(b.audio&&b.maxAudioBW){e=a.match(/m=audio.*\r\n/);e==null&&(e=a.match(/m=audio.*\n/));c=e[0]+"b=AS:"+b.maxAudioBW+"\r\n";a=a.replace(e[0],c)}return a},h,j=function(a){a.sdp=g(a.sdp);a.sdp=
-a.sdp.replace(/a=ice-options:google-ice\r\n/g,"");var e=a.sdp.match(/^.*(rtcp-fb).*$/gm),c="",d;for(d in e)c=d==0?c+e[d]:c+("\n\r"+e[d]);a.sdp=a.sdp.replace(/^.*(rtcp-fb).*$\r\n/gm,"");a.sdp=a.sdp+c;b.callback(a);h=a},e=function(e){e.sdp=g(e.sdp);e.sdp=e.sdp.replace(/a=ice-options:google-ice\r\n/g,"");b.callback(e);h=e;a.peerConnection.setLocalDescription(h)};a.createOffer=function(){a.peerConnection.createOffer(j,function(a){L.Logger.error("Error",a)},a.mediaConstraints)};a.addStream=function(b){a.peerConnection.addStream(b)};
-b.remoteCandidates=[];b.remoteDescriptionSet=!1;a.close=function(){a.state="closed";a.peerConnection.close()};a.processSignalingMessage=function(c){if(c.type==="offer"){c.sdp=g(c.sdp);a.peerConnection.setRemoteDescription(new d(c),function(){a.peerConnection.createAnswer(e,function(a){L.Logger.error("Error",a)},a.mediaConstraints);b.remoteDescriptionSet=true},function(a){L.Logger.error("Error setting Remote Description",a)})}else if(c.type==="answer"){console.log("Set remote and local description",
-c.sdp);c.sdp=g(c.sdp);a.peerConnection.setLocalDescription(h,function(){a.peerConnection.setRemoteDescription(new d(c),function(){for(b.remoteDescriptionSet=true;b.remoteCandidates.length>0;)a.peerConnection.addIceCandidate(b.remoteCandidates.shift());for(;b.localCandidates.length>0;){L.Logger.info("Sending Candidate");b.callback({type:"candidate",candidate:b.localCandidates.shift()})}},function(a){L.Logger.error("Error Setting Remote Description",a)})},function(a){L.Logger.error("Failure setting Local Description",
-a)})}else if(c.type==="candidate")try{var k;k=typeof c.candidate==="object"?c.candidate:JSON.parse(c.candidate);k.candidate=k.candidate.replace(/ generation 0/g,"");k.candidate=k.candidate.replace(/ udp /g," UDP ");k.sdpMLineIndex=parseInt(k.sdpMLineIndex);var m=new f(k);b.remoteDescriptionSet?a.peerConnection.addIceCandidate(m):b.remoteCandidates.push(m)}catch(t){L.Logger.error("Error parsing candidate",c.candidate,t)}};return a};Erizo=Erizo||{};
+function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};var g=function(a){if(b.video&&b.maxVideoBW){var e=a.match(/m=video.*\r\n/);e==null&&a.match(/m=video.*\n/)}if(b.audio&&b.maxAudioBW){e=a.match(/m=audio.*\r\n/);e==null&&a.match(/m=audio.*\n/)}return a},h,j=function(a){a.sdp=g(a.sdp);a.sdp=a.sdp.replace(/a=ice-options:google-ice\r\n/g,"");var e=a.sdp.match(/^.*(rtcp-fb).*$/gm),c="",d;for(d in e)c=d==0?c+e[d]:c+("\n\r"+
+e[d]);a.sdp=a.sdp.replace(/^.*(rtcp-fb).*$\r\n/gm,"");a.sdp=a.sdp+c;b.callback(a);h=a},e=function(e){e.sdp=g(e.sdp);e.sdp=e.sdp.replace(/a=ice-options:google-ice\r\n/g,"");b.callback(e);h=e;a.peerConnection.setLocalDescription(h)};a.createOffer=function(){a.peerConnection.createOffer(j,function(a){L.Logger.error("Error",a)},a.mediaConstraints)};a.addStream=function(b){a.peerConnection.addStream(b)};b.remoteCandidates=[];b.remoteDescriptionSet=!1;a.close=function(){a.state="closed";a.peerConnection.close()};
+a.processSignalingMessage=function(c){if(c.type==="offer"){c.sdp=g(c.sdp);a.peerConnection.setRemoteDescription(new d(c),function(){a.peerConnection.createAnswer(e,function(a){L.Logger.error("Error",a)},a.mediaConstraints);b.remoteDescriptionSet=true},function(a){L.Logger.error("Error setting Remote Description",a)})}else if(c.type==="answer"){console.log("Set remote and local description",c.sdp);c.sdp=g(c.sdp);a.peerConnection.setLocalDescription(h,function(){a.peerConnection.setRemoteDescription(new d(c),
+function(){for(b.remoteDescriptionSet=true;b.remoteCandidates.length>0;)a.peerConnection.addIceCandidate(b.remoteCandidates.shift());for(;b.localCandidates.length>0;){L.Logger.info("Sending Candidate");b.callback({type:"candidate",candidate:b.localCandidates.shift()})}},function(a){L.Logger.error("Error Setting Remote Description",a)})},function(a){L.Logger.error("Failure setting Local Description",a)})}else if(c.type==="candidate")try{var k;k=typeof c.candidate==="object"?c.candidate:JSON.parse(c.candidate);
+k.candidate=k.candidate.replace(/ generation 0/g,"");k.candidate=k.candidate.replace(/ udp /g," UDP ");k.sdpMLineIndex=parseInt(k.sdpMLineIndex);var m=new f(k);b.remoteDescriptionSet?a.peerConnection.addIceCandidate(m):b.remoteCandidates.push(m)}catch(t){L.Logger.error("Error parsing candidate",c.candidate,t)}};return a};Erizo=Erizo||{};
 Erizo.ChromeStableStack=function(b){var a={},c=webkitRTCPeerConnection;a.pc_config={iceServers:[]};a.con={optional:[{DtlsSrtpKeyAgreement:!0}]};void 0!==b.stunServerUrl&&a.pc_config.iceServers.push({url:b.stunServerUrl});(b.turnServer||{}).url&&a.pc_config.iceServers.push({username:b.turnServer.username,credential:b.turnServer.password,url:b.turnServer.url});void 0===b.audio&&(b.audio=!0);void 0===b.video&&(b.video=!0);a.mediaConstraints={mandatory:{OfferToReceiveVideo:b.video,OfferToReceiveAudio:b.audio}};var d=
-function(a){console.log("Error in Stack ",a)};a.peerConnection=new c(a.pc_config,a.con);var f=function(a){if(b.video&&b.maxVideoBW){var c=a.match(/m=video.*\r\n/);c==null&&(c=a.match(/m=video.*\n/));if(c!=null)var d=c[0]+"b=AS:"+b.maxVideoBW+"\r\n",a=a.replace(c[0],d)}if(b.audio&&b.maxAudioBW){c=a.match(/m=audio.*\r\n/);c==null&&(c=a.match(/m=audio.*\n/));d=c[0]+"b=AS:"+b.maxAudioBW+"\r\n";a=a.replace(c[0],d)}return a};a.close=function(){a.state="closed";a.peerConnection.close()};b.localCandidates=
-[];a.peerConnection.onicecandidate=function(a){if(a.candidate){if(!a.candidate.candidate.match(/a=/))a.candidate.candidate="a="+a.candidate.candidate;a={sdpMLineIndex:a.candidate.sdpMLineIndex,sdpMid:a.candidate.sdpMid,candidate:a.candidate.candidate};if(b.remoteDescriptionSet)b.callback({type:"candidate",candidate:a});else{b.localCandidates.push(a);console.log("Local Candidates stored: ",b.localCandidates.length,b.localCandidates)}}else console.log("End of candidates.")};a.peerConnection.onaddstream=
-function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};var g,h=function(a){a.sdp=f(a.sdp);a.sdp=a.sdp.replace(/a=ice-options:google-ice\r\n/g,"");b.callback({type:a.type,sdp:a.sdp});g=a},j=function(c){c.sdp=f(c.sdp);c.sdp=c.sdp.replace(/a=ice-options:google-ice\r\n/g,"");b.callback({type:c.type,sdp:c.sdp});g=c;a.peerConnection.setLocalDescription(c)};a.createOffer=function(b){b===true?a.peerConnection.createOffer(h,d,a.mediaConstraints):
-a.peerConnection.createOffer(h,d)};a.addStream=function(b){a.peerConnection.addStream(b)};b.remoteCandidates=[];b.remoteDescriptionSet=!1;a.processSignalingMessage=function(c){if(c.type==="offer"){c.sdp=f(c.sdp);a.peerConnection.setRemoteDescription(new RTCSessionDescription(c));a.peerConnection.createAnswer(j,null,a.mediaConstraints);b.remoteDescriptionSet=true}else if(c.type==="answer"){console.log("Set remote and local description",c.sdp);c.sdp=f(c.sdp);a.peerConnection.setLocalDescription(g,function(){a.peerConnection.setRemoteDescription(new RTCSessionDescription(c),
-function(){b.remoteDescriptionSet=true;for(console.log("Candidates to be added: ",b.remoteCandidates.length,b.remoteCandidates);b.remoteCandidates.length>0;)a.peerConnection.addIceCandidate(b.remoteCandidates.shift());for(console.log("Local candidates to send:",b.localCandidates.length);b.localCandidates.length>0;)b.callback({type:"candidate",candidate:b.localCandidates.shift()})})})}else if(c.type==="candidate")try{var d;d=typeof c.candidate==="object"?c.candidate:JSON.parse(c.candidate);d.candidate=
-d.candidate.replace(/a=/g,"");d.sdpMLineIndex=parseInt(d.sdpMLineIndex);var k=new RTCIceCandidate(d);b.remoteDescriptionSet?a.peerConnection.addIceCandidate(k):b.remoteCandidates.push(k)}catch(m){L.Logger.error("Error parsing candidate",c.candidate)}};return a};Erizo=Erizo||{};
+function(a){console.log("Error in Stack ",a)};a.peerConnection=new c(a.pc_config,a.con);var f=function(a){if(b.video&&b.maxVideoBW){var c=a.match(/m=video.*\r\n/);c==null&&a.match(/m=video.*\n/)}if(b.audio&&b.maxAudioBW){c=a.match(/m=audio.*\r\n/);c==null&&a.match(/m=audio.*\n/)}return a};a.close=function(){a.state="closed";a.peerConnection.close()};b.localCandidates=[];a.peerConnection.onicecandidate=function(a){if(a.candidate){if(!a.candidate.candidate.match(/a=/))a.candidate.candidate="a="+a.candidate.candidate;
+a={sdpMLineIndex:a.candidate.sdpMLineIndex,sdpMid:a.candidate.sdpMid,candidate:a.candidate.candidate};if(b.remoteDescriptionSet)b.callback({type:"candidate",candidate:a});else{b.localCandidates.push(a);console.log("Local Candidates stored: ",b.localCandidates.length,b.localCandidates)}}else console.log("End of candidates.")};a.peerConnection.onaddstream=function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};var g,h=function(a){a.sdp=
+f(a.sdp);a.sdp=a.sdp.replace(/a=ice-options:google-ice\r\n/g,"");b.callback({type:a.type,sdp:a.sdp});g=a},j=function(e){e.sdp=f(e.sdp);e.sdp=e.sdp.replace(/a=ice-options:google-ice\r\n/g,"");b.callback({type:e.type,sdp:e.sdp});g=e;a.peerConnection.setLocalDescription(e)};a.createOffer=function(b){b===true?a.peerConnection.createOffer(h,d,a.mediaConstraints):a.peerConnection.createOffer(h,d)};a.addStream=function(b){a.peerConnection.addStream(b)};b.remoteCandidates=[];b.remoteDescriptionSet=!1;a.processSignalingMessage=
+function(e){if(e.type==="offer"){e.sdp=f(e.sdp);a.peerConnection.setRemoteDescription(new RTCSessionDescription(e));a.peerConnection.createAnswer(j,null,a.mediaConstraints);b.remoteDescriptionSet=true}else if(e.type==="answer"){console.log("Set remote and local description",e.sdp);e.sdp=f(e.sdp);a.peerConnection.setLocalDescription(g,function(){a.peerConnection.setRemoteDescription(new RTCSessionDescription(e),function(){b.remoteDescriptionSet=true;for(console.log("Candidates to be added: ",b.remoteCandidates.length,
+b.remoteCandidates);b.remoteCandidates.length>0;)a.peerConnection.addIceCandidate(b.remoteCandidates.shift());for(console.log("Local candidates to send:",b.localCandidates.length);b.localCandidates.length>0;)b.callback({type:"candidate",candidate:b.localCandidates.shift()})})})}else if(e.type==="candidate")try{var c;c=typeof e.candidate==="object"?e.candidate:JSON.parse(e.candidate);c.candidate=c.candidate.replace(/a=/g,"");c.sdpMLineIndex=parseInt(c.sdpMLineIndex);var d=new RTCIceCandidate(c);b.remoteDescriptionSet?
+a.peerConnection.addIceCandidate(d):b.remoteCandidates.push(d)}catch(m){L.Logger.error("Error parsing candidate",e.candidate)}};return a};Erizo=Erizo||{};
 Erizo.ChromeCanaryStack=function(b){var a={},c=webkitRTCPeerConnection;a.pc_config={iceServers:[]};a.con={optional:[{DtlsSrtpKeyAgreement:!0}]};void 0!==b.stunServerUrl&&a.pc_config.iceServers.push({url:b.stunServerUrl});(b.turnServer||{}).url&&a.pc_config.iceServers.push({username:b.turnServer.username,credential:b.turnServer.password,url:b.turnServer.url});if(void 0===b.audio||b.nop2p)b.audio=!0;if(void 0===b.video||b.nop2p)b.video=!0;a.mediaConstraints={mandatory:{OfferToReceiveVideo:b.video,OfferToReceiveAudio:b.audio}};
-a.roapSessionId=103;a.peerConnection=new c(a.pc_config,a.con);a.peerConnection.onicecandidate=function(c){L.Logger.debug("PeerConnection: ",b.session_id);if(c.candidate)a.iceCandidateCount+=1;else if(L.Logger.debug("State: "+a.peerConnection.iceGatheringState),void 0===a.ices&&(a.ices=0),a.ices+=1,1<=a.ices&&a.moreIceComing)a.moreIceComing=!1,a.markActionNeeded()};var d=function(a){if(b.maxVideoBW)var c=a.match(/m=video.*\r\n/),d=c[0]+"b=AS:"+b.maxVideoBW+"\r\n",a=a.replace(c[0],d);b.maxAudioBW&&
-(c=a.match(/m=audio.*\r\n/),d=c[0]+"b=AS:"+b.maxAudioBW+"\r\n",a=a.replace(c[0],d));return a};a.processSignalingMessage=function(b){L.Logger.debug("Activity on conn "+a.sessionId);b=JSON.parse(b);a.incomingMessage=b;"new"===a.state?"OFFER"===b.messageType?(b={sdp:b.sdp,type:"offer"},a.peerConnection.setRemoteDescription(new RTCSessionDescription(b)),a.state="offer-received",a.markActionNeeded()):a.error("Illegal message for this state: "+b.messageType+" in state "+a.state):"offer-sent"===a.state?
-"ANSWER"===b.messageType?(b={sdp:b.sdp,type:"answer"},L.Logger.debug("Received ANSWER: ",b.sdp),b.sdp=d(b.sdp),a.peerConnection.setRemoteDescription(new RTCSessionDescription(b)),a.sendOK(),a.state="established"):"pr-answer"===b.messageType?(b={sdp:b.sdp,type:"pr-answer"},a.peerConnection.setRemoteDescription(new RTCSessionDescription(b))):"offer"===b.messageType?a.error("Not written yet"):a.error("Illegal message for this state: "+b.messageType+" in state "+a.state):"established"===a.state&&("OFFER"===
-b.messageType?(b={sdp:b.sdp,type:"offer"},a.peerConnection.setRemoteDescription(new RTCSessionDescription(b)),a.state="offer-received",a.markActionNeeded()):a.error("Illegal message for this state: "+b.messageType+" in state "+a.state))};a.addStream=function(b){a.peerConnection.addStream(b);a.markActionNeeded()};a.removeStream=function(){a.markActionNeeded()};a.close=function(){a.state="closed";a.peerConnection.close()};a.markActionNeeded=function(){a.actionNeeded=!0;a.doLater(function(){a.onstablestate()})};
-a.doLater=function(a){window.setTimeout(a,1)};a.onstablestate=function(){var b;if(a.actionNeeded){if("new"===a.state||"established"===a.state)a.peerConnection.createOffer(function(b){b.sdp=d(b.sdp);L.Logger.debug("Changed",b.sdp);b.sdp!==a.prevOffer?(a.peerConnection.setLocalDescription(b),a.state="preparing-offer",a.markActionNeeded()):L.Logger.debug("Not sending a new offer")},null,a.mediaConstraints);else if("preparing-offer"===a.state){if(a.moreIceComing)return;a.prevOffer=a.peerConnection.localDescription.sdp;
-L.Logger.debug("Sending OFFER: "+a.prevOffer);a.sendMessage("OFFER",a.prevOffer);a.state="offer-sent"}else if("offer-received"===a.state)a.peerConnection.createAnswer(function(b){a.peerConnection.setLocalDescription(b);a.state="offer-received-preparing-answer";a.iceStarted?a.markActionNeeded():(L.Logger.debug((new Date).getTime()+": Starting ICE in responder"),a.iceStarted=!0)},null,a.mediaConstraints);else if("offer-received-preparing-answer"===a.state){if(a.moreIceComing)return;b=a.peerConnection.localDescription.sdp;
-a.sendMessage("ANSWER",b);a.state="established"}else a.error("Dazed and confused in state "+a.state+", stopping here");a.actionNeeded=!1}};a.sendOK=function(){a.sendMessage("OK")};a.sendMessage=function(b,c){var d={};d.messageType=b;d.sdp=c;"OFFER"===b?(d.offererSessionId=a.sessionId,d.answererSessionId=a.otherSessionId,d.seq=a.sequenceNumber+=1,d.tiebreaker=Math.floor(429496723*Math.random()+1)):(d.offererSessionId=a.incomingMessage.offererSessionId,d.answererSessionId=a.sessionId,d.seq=a.incomingMessage.seq);
-a.onsignalingmessage(JSON.stringify(d))};a.error=function(a){throw"Error in RoapOnJsep: "+a;};a.sessionId=a.roapSessionId+=1;a.sequenceNumber=0;a.actionNeeded=!1;a.iceStarted=!1;a.moreIceComing=!0;a.iceCandidateCount=0;a.onsignalingmessage=b.callback;a.peerConnection.onopen=function(){if(a.onopen)a.onopen()};a.peerConnection.onaddstream=function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};a.peerConnection.oniceconnectionstatechange=
-function(b){if(a.oniceconnectionstatechange)a.oniceconnectionstatechange(b.currentTarget.iceConnectionState)};a.onaddstream=null;a.onremovestream=null;a.state="new";a.markActionNeeded();return a};Erizo=Erizo||{};Erizo.sessionId=103;
+a.roapSessionId=103;a.peerConnection=new c(a.pc_config,a.con);a.peerConnection.onicecandidate=function(c){L.Logger.debug("PeerConnection: ",b.session_id);if(c.candidate)a.iceCandidateCount+=1;else if(L.Logger.debug("State: "+a.peerConnection.iceGatheringState),void 0===a.ices&&(a.ices=0),a.ices+=1,1<=a.ices&&a.moreIceComing)a.moreIceComing=!1,a.markActionNeeded()};var d=function(a){b.maxVideoBW&&a.match(/m=video.*\r\n/);b.maxAudioBW&&a.match(/m=audio.*\r\n/);return a};a.processSignalingMessage=function(b){L.Logger.debug("Activity on conn "+
+a.sessionId);b=JSON.parse(b);a.incomingMessage=b;"new"===a.state?"OFFER"===b.messageType?(b={sdp:b.sdp,type:"offer"},a.peerConnection.setRemoteDescription(new RTCSessionDescription(b)),a.state="offer-received",a.markActionNeeded()):a.error("Illegal message for this state: "+b.messageType+" in state "+a.state):"offer-sent"===a.state?"ANSWER"===b.messageType?(b={sdp:b.sdp,type:"answer"},L.Logger.debug("Received ANSWER: ",b.sdp),b.sdp=d(b.sdp),a.peerConnection.setRemoteDescription(new RTCSessionDescription(b)),
+a.sendOK(),a.state="established"):"pr-answer"===b.messageType?(b={sdp:b.sdp,type:"pr-answer"},a.peerConnection.setRemoteDescription(new RTCSessionDescription(b))):"offer"===b.messageType?a.error("Not written yet"):a.error("Illegal message for this state: "+b.messageType+" in state "+a.state):"established"===a.state&&("OFFER"===b.messageType?(b={sdp:b.sdp,type:"offer"},a.peerConnection.setRemoteDescription(new RTCSessionDescription(b)),a.state="offer-received",a.markActionNeeded()):a.error("Illegal message for this state: "+
+b.messageType+" in state "+a.state))};a.addStream=function(b){a.peerConnection.addStream(b);a.markActionNeeded()};a.removeStream=function(){a.markActionNeeded()};a.close=function(){a.state="closed";a.peerConnection.close()};a.markActionNeeded=function(){a.actionNeeded=!0;a.doLater(function(){a.onstablestate()})};a.doLater=function(a){window.setTimeout(a,1)};a.onstablestate=function(){var b;if(a.actionNeeded){if("new"===a.state||"established"===a.state)a.peerConnection.createOffer(function(b){b.sdp=
+d(b.sdp);L.Logger.debug("Changed",b.sdp);b.sdp!==a.prevOffer?(a.peerConnection.setLocalDescription(b),a.state="preparing-offer",a.markActionNeeded()):L.Logger.debug("Not sending a new offer")},null,a.mediaConstraints);else if("preparing-offer"===a.state){if(a.moreIceComing)return;a.prevOffer=a.peerConnection.localDescription.sdp;L.Logger.debug("Sending OFFER: "+a.prevOffer);a.sendMessage("OFFER",a.prevOffer);a.state="offer-sent"}else if("offer-received"===a.state)a.peerConnection.createAnswer(function(b){a.peerConnection.setLocalDescription(b);
+a.state="offer-received-preparing-answer";a.iceStarted?a.markActionNeeded():(L.Logger.debug((new Date).getTime()+": Starting ICE in responder"),a.iceStarted=!0)},null,a.mediaConstraints);else if("offer-received-preparing-answer"===a.state){if(a.moreIceComing)return;b=a.peerConnection.localDescription.sdp;a.sendMessage("ANSWER",b);a.state="established"}else a.error("Dazed and confused in state "+a.state+", stopping here");a.actionNeeded=!1}};a.sendOK=function(){a.sendMessage("OK")};a.sendMessage=function(b,
+c){var d={};d.messageType=b;d.sdp=c;"OFFER"===b?(d.offererSessionId=a.sessionId,d.answererSessionId=a.otherSessionId,d.seq=a.sequenceNumber+=1,d.tiebreaker=Math.floor(429496723*Math.random()+1)):(d.offererSessionId=a.incomingMessage.offererSessionId,d.answererSessionId=a.sessionId,d.seq=a.incomingMessage.seq);a.onsignalingmessage(JSON.stringify(d))};a.error=function(a){throw"Error in RoapOnJsep: "+a;};a.sessionId=a.roapSessionId+=1;a.sequenceNumber=0;a.actionNeeded=!1;a.iceStarted=!1;a.moreIceComing=
+!0;a.iceCandidateCount=0;a.onsignalingmessage=b.callback;a.peerConnection.onopen=function(){if(a.onopen)a.onopen()};a.peerConnection.onaddstream=function(b){if(a.onaddstream)a.onaddstream(b)};a.peerConnection.onremovestream=function(b){if(a.onremovestream)a.onremovestream(b)};a.peerConnection.oniceconnectionstatechange=function(b){if(a.oniceconnectionstatechange)a.oniceconnectionstatechange(b.currentTarget.iceConnectionState)};a.onaddstream=null;a.onremovestream=null;a.state="new";a.markActionNeeded();
+return a};Erizo=Erizo||{};Erizo.sessionId=103;
 Erizo.Connection=function(b){var a={};b.session_id=Erizo.sessionId+=1;a.browser=Erizo.getBrowser();if("undefined"!==typeof module&&module.exports)L.Logger.error("Publish/subscribe video/audio streams not supported in erizofc yet"),a=Erizo.FcStack(b);else if("mozilla"===a.browser)L.Logger.debug("Firefox Stack"),a=Erizo.FirefoxStack(b);else if("bowser"===a.browser)L.Logger.debug("Bowser Stack"),a=Erizo.BowserStack(b);else if("chrome-stable"===a.browser)L.Logger.debug("Stable!"),a=Erizo.ChromeStableStack(b);
 else throw L.Logger.debug("None!"),"WebRTC stack not available";return a};
 Erizo.getBrowser=function(){var b="none";null!==window.navigator.userAgent.match("Firefox")?b="mozilla":null!==window.navigator.userAgent.match("Bowser")?b="bowser":null!==window.navigator.userAgent.match("Chrome")?26<=window.navigator.appVersion.match(/Chrome\/([\w\W]*?)\./)[1]&&(b="chrome-stable"):null!==window.navigator.userAgent.match("Safari")?b="bowser":null!==window.navigator.userAgent.match("AppleWebKit")&&(b="bowser");return b};
@@ -4362,7 +4387,7 @@ b.Logger.DEBUG&&(a=b.Logger.DEBUG);b.Logger.logLevel=a},log:function(a){var c=""
 d)}},debug:function(){for(var a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];b.Logger.log.apply(b.Logger,[b.Logger.DEBUG].concat(a))},trace:function(){for(var a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];b.Logger.log.apply(b.Logger,[b.Logger.TRACE].concat(a))},info:function(){for(var a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];b.Logger.log.apply(b.Logger,[b.Logger.INFO].concat(a))},warning:function(){for(var a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];b.Logger.log.apply(b.Logger,
 [b.Logger.WARNING].concat(a))},error:function(){for(var a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];b.Logger.log.apply(b.Logger,[b.Logger.ERROR].concat(a))}}}(L);L=L||{};
 L.Base64=function(){var b,a,c,d,f,g,h,j,e;b="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,+,/".split(",");a=[];for(f=0;f<b.length;f+=1)a[b[f]]=f;g=function(a){c=a;d=0};h=function(){var a;if(!c||d>=c.length)return-1;a=c.charCodeAt(d)&255;d+=1;return a};j=function(){if(!c)return-1;for(;;){if(d>=c.length)return-1;var b=c.charAt(d);d+=1;if(a[b])return a[b];if("A"===b)return 0}};e=function(a){a=a.toString(16);1===a.length&&(a=
-"0"+a);return unescape("%"+a)};return{encodeBase64:function(a){var c,d,e;g(a);a="";c=Array(3);d=0;for(e=!1;!e&&-1!==(c[0]=h());)if(c[1]=h(),c[2]=h(),a+=b[c[0]>>2],-1!==c[1]?(a+=b[c[0]<<4&48|c[1]>>4],-1!==c[2]?(a+=b[c[1]<<2&60|c[2]>>6],a+=b[c[2]&63]):(a+=b[c[1]<<2&60],a+="=",e=!0)):(a+=b[c[0]<<4&48],a+="=",a+="=",e=!0),d+=4,76<=d)a+="\n",d=0;return a},decodeBase64:function(a){var b,c;g(a);a="";b=Array(4);for(c=!1;!c&&-1!==(b[0]=j())&&-1!==(b[1]=j());)b[2]=j(),b[3]=j(),a+=e(b[0]<<2&255|b[1]>>4),-1!==
+"0"+a);return unescape("%"+a)};return{encodeBase64:function(a){var c,e,d;g(a);a="";c=Array(3);e=0;for(d=!1;!d&&-1!==(c[0]=h());)if(c[1]=h(),c[2]=h(),a+=b[c[0]>>2],-1!==c[1]?(a+=b[c[0]<<4&48|c[1]>>4],-1!==c[2]?(a+=b[c[1]<<2&60|c[2]>>6],a+=b[c[2]&63]):(a+=b[c[1]<<2&60],a+="=",d=!0)):(a+=b[c[0]<<4&48],a+="=",a+="=",d=!0),e+=4,76<=e)a+="\n",e=0;return a},decodeBase64:function(a){var b,c;g(a);a="";b=Array(4);for(c=!1;!c&&-1!==(b[0]=j())&&-1!==(b[1]=j());)b[2]=j(),b[3]=j(),a+=e(b[0]<<2&255|b[1]>>4),-1!==
 b[2]?(a+=e(b[1]<<4&255|b[2]>>2),-1!==b[3]?a+=e(b[2]<<6&255|b[3]):c=!0):c=!0;return a}}}(L);(function(){function b(){(new L.ElementQueries).init()}this.L=this.L||{};this.L.ElementQueries=function(){function a(a){a||(a=document.documentElement);a=getComputedStyle(a,"fontSize");return parseFloat(a)||16}function b(c,d){var f=d.replace(/[0-9]*/,""),d=parseFloat(d);switch(f){case "px":return d;case "em":return d*a(c);case "rem":return d*a();case "vw":return d*document.documentElement.clientWidth/100;case "vh":return d*document.documentElement.clientHeight/100;case "vmin":case "vmax":return d*
 (0,Math["vmin"===f?"min":"max"])(document.documentElement.clientWidth/100,document.documentElement.clientHeight/100);default:return d}}function d(a){this.element=a;this.options=[];var d,f,g,h=0,j=0,p,u,v,w,o;this.addOption=function(a){this.options.push(a)};var r=["min-width","min-height","max-width","max-height"];this.call=function(){h=this.element.offsetWidth;j=this.element.offsetHeight;v={};d=0;for(f=this.options.length;d<f;d++)g=this.options[d],p=b(this.element,g.value),u="width"==g.property?h:
 j,o=g.mode+"-"+g.property,w="","min"==g.mode&&u>=p&&(w+=g.value),"max"==g.mode&&u<=p&&(w+=g.value),v[o]||(v[o]=""),w&&-1===(" "+v[o]+" ").indexOf(" "+w+" ")&&(v[o]+=" "+w);for(var a in r)v[r[a]]?this.element.setAttribute(r[a],v[r[a]].substr(1)):this.element.removeAttribute(r[a])}}function f(a,b){a.elementQueriesSetupInformation?a.elementQueriesSetupInformation.addOption(b):(a.elementQueriesSetupInformation=new d(a),a.elementQueriesSetupInformation.addOption(b),new ResizeSensor(a,function(){a.elementQueriesSetupInformation.call()}));
@@ -4372,7 +4397,7 @@ b;a++)h(document.styleSheets[a].cssText||document.styleSheets[a].cssRules||docum
 var a,b;this.call=function(){a=0;for(b=this.q.length;a<b;a++)this.q[a].call()}}function g(a,b){function c(){var b=!1,d=a.resizeSensor.offsetWidth,f=a.resizeSensor.offsetHeight;h!=d&&(p.width=d-1+"px",u.width=d+1+"px",b=!0,h=d);j!=f&&(p.height=f-1+"px",u.height=f+1+"px",b=!0,j=f);return b}if(a.resizedAttached){if(a.resizedAttached){a.resizedAttached.add(b);return}}else a.resizedAttached=new f,a.resizedAttached.add(b);var g=function(){c()&&a.resizedAttached.call()};a.resizeSensor=document.createElement("div");
 a.resizeSensor.className="resize-sensor";a.resizeSensor.style.cssText="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1;";a.resizeSensor.innerHTML='<div class="resize-sensor-overflow" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1;"><div></div></div><div class="resize-sensor-underflow" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1;"><div></div></div>';a.appendChild(a.resizeSensor);
 if("absolute"!==(a.currentStyle?a.currentStyle.position:window.getComputedStyle?window.getComputedStyle(a,null).getPropertyValue("position"):a.style.position))a.style.position="relative";var h=-1,j=-1,p=a.resizeSensor.firstElementChild.firstChild.style,u=a.resizeSensor.lastElementChild.firstChild.style;c();d(a.resizeSensor,g);d(a.resizeSensor.firstElementChild,g);d(a.resizeSensor.lastElementChild,g)}if("array"===typeof a||"undefined"!==typeof jQuery&&a instanceof jQuery||"undefined"!==typeof Elements&&
-a instanceof Elements)for(var h=0,j=a.length;h<j;h++)g(a[h],b);else g(a,b)}})();Erizo=Erizo||{};Erizo.View=function(){var b=Erizo.EventDispatcher({});b.url="http://chotis2.dit.upm.es:3000";return b};Erizo=Erizo||{};
+a instanceof Elements)for(var h=0,j=a.length;h<j;h++)g(a[h],b);else g(a,b)}})();Erizo=Erizo||{};Erizo.View=function(){var b=Erizo.EventDispatcher({});b.url="https://tutor.vn/vsr/images";return b};Erizo=Erizo||{};
 Erizo.VideoPlayer=function(b){var a=Erizo.View({});a.id=b.id;a.stream=b.stream.stream;a.elementID=b.elementID;a.destroy=function(){a.video.pause();delete a.resizer;a.parentNode.removeChild(a.div)};a.resize=function(){var c=a.container.offsetWidth,d=a.container.offsetHeight;if(b.stream.screen||!1===b.options.crop)0.75*c<d?(a.video.style.width=c+"px",a.video.style.height=0.75*c+"px",a.video.style.top=-(0.75*c/2-d/2)+"px",a.video.style.left="0px"):(a.video.style.height=d+"px",a.video.style.width=4/3*
 d+"px",a.video.style.left=-(4/3*d/2-c/2)+"px",a.video.style.top="0px");else if(c!==a.containerWidth||d!==a.containerHeight)0.75*c>d?(a.video.style.width=c+"px",a.video.style.height=0.75*c+"px",a.video.style.top=-(0.75*c/2-d/2)+"px",a.video.style.left="0px"):(a.video.style.height=d+"px",a.video.style.width=4/3*d+"px",a.video.style.left=-(4/3*d/2-c/2)+"px",a.video.style.top="0px");a.containerWidth=c;a.containerHeight=d};L.Logger.debug("Creating URL from stream "+a.stream);a.stream_url=(window.URL||
 webkitURL).createObjectURL(a.stream);a.div=document.createElement("div");a.div.setAttribute("id","player_"+a.id);a.div.setAttribute("style","width: 100%; height: 100%; position: relative; background-color: black; overflow: hidden;");a.loader=document.createElement("img");a.loader.setAttribute("style","width: 16px; height: 16px; position: absolute; top: 50%; left: 50%; margin-top: -8px; margin-left: -8px");a.loader.setAttribute("id","back_"+a.id);a.loader.setAttribute("src",a.url+"/assets/loader.gif");
@@ -4392,8 +4417,8 @@ return a};
 
 define("erizo", function(){});
 
-define('licode.client',["storm", "features/list-users", "underscore", "erizo"], function (storm, listUsers, _) {
-    var audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, DISCONNECTED=0, CONNECTING=1, CONNECTED=2;
+define('licode.client',["storm", "features/list-users","storm.util", "underscore", "erizo"], function (storm, listUsers, util, _) {
+    var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, DISCONNECTED=0, CONNECTING=1, CONNECTED=2;
     var licode = {
         init: function() {
             storm.comm.socket.on('token', function(token) {
@@ -4405,12 +4430,21 @@ define('licode.client',["storm", "features/list-users", "underscore", "erizo"], 
             storm.comm.socket.on('syncVoice', function(data) {
                 licode.syncVoice(data);
             });
-			
-			storm.comm.socket.on('toggleAudio', function() {
-				console.log('toggleAudio');
-            	$('#button_mic').trigger('click');
+            
+            storm.comm.socket.on('changeSpeakingStudent', function(data){
+                if ($('#button_mic').hasClass('board-icon-micro-on')) {
+                    licode.publishAudio(false);
+                }
+                else if (storm.user.userId === data.userId){
+                
+                    if ($('#button_mic').hasClass('board-icon-micro-off')){
+                        licode.publishAudio(true);
+                        
+                    }
+                }
+                listUsers.setGioTayStatus(data.userId,'');
             });
-
+            
             bindButtons();
         },
         start: function(token) {
@@ -4431,7 +4465,7 @@ define('licode.client',["storm", "features/list-users", "underscore", "erizo"], 
                 setMicroStatus('off');
 
                 // Auto subscribe only if student or teacher
-                if(storm.user.isTeacher() || storm.user.isStudent()) {
+                if(storm.user.isTeacher()) {
                     licode.publishAudio(true);
                 }
 
@@ -4506,6 +4540,7 @@ define('licode.client',["storm", "features/list-users", "underscore", "erizo"], 
         },
 
         publishAudio: function(status) {
+           
             if(status == true && audioStream == undefined) {
                 audioStream = Erizo.Stream({audio: true, video: false, attributes: {userId: storm.user.userId}});
                 audioStream.init();
@@ -4528,7 +4563,6 @@ define('licode.client',["storm", "features/list-users", "underscore", "erizo"], 
                     setMicroStatus('off');
                 }
             }
-
         },
         publishVideo: function(status) {
             if(status == true && videoStream == undefined) {
@@ -4671,6 +4705,10 @@ define('licode.client',["storm", "features/list-users", "underscore", "erizo"], 
         });
 
         $('#button_mic').click(function(event) {
+            //console.log(util.getMode());
+            if(util.getMode()==='1'){
+                if(storm.user.isStudent()) return ;
+            }
             if($(this).hasClass('board-icon-micro-on')) {
                 licode.publishAudio(false);
             } else if($(this).hasClass('board-icon-micro-off')){
@@ -15962,7 +16000,7 @@ var io = ('undefined' === typeof module ? {} : module.exports);
         port: 80
       , secure: false
       , document: 'document' in global ? document : false
-      , resource: 'socket.io'
+      , resource: 'smallmedia/socket.io'
       , transports: io.transports
       , 'connect timeout': 10000
       , 'try multiple transports': true
@@ -17773,6 +17811,7 @@ if (typeof define === "function" && define.amd) {
   define('socket.io',[], function () { return io; });
 }
 })();
+
 /* build: `node build.js modules=ALL exclude=gestures,image_filters minifier=uglifyjs` */
 /*! Fabric.js Copyright 2008-2014, Printio (Juriy Zaytsev, Maxim Chernyak) */
 
@@ -41612,7 +41651,7 @@ define('features/question',["storm"], function(storm) {
        init: function() { init(); }
    };
 });
-define('features/user-actions',["storm", "features/chat"], function(storm, chat) {
+define('features/user-actions',["storm", "features/chat","features/list-users","storm.util"], function(storm, chat,listUsers,util ) {
     function init() {
         storm.comm.socket.on('user-actions', function(data) {
             if(data.action == 'thumb-up') {
@@ -41621,7 +41660,10 @@ define('features/user-actions',["storm", "features/chat"], function(storm, chat)
                 setUserThumbStatus(data.userId, 'down');
             }
         });
-
+        storm.comm.socket.on('raiseHand', function(data) {
+            listUsers.setGioTayStatus(data.userId, data.status);
+        });
+        
         bindButtons();
     }
 
@@ -41645,6 +41687,24 @@ define('features/user-actions',["storm", "features/chat"], function(storm, chat)
                 chat.sendMessage('(n)');
             }
         });
+        
+        $('#button_thumb_raisehand').click(function(event) {
+            console.log('Da bam nut gio tay');
+            console.log(util.getMode());
+            if(util.getMode()==='2'){
+                return ;
+            }
+            storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId});
+            if ($('#user'+storm.user.userId+' div .raisehand').attr('class')=== 'raisehand'){
+                storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:'raising'});
+                listUsers.setGioTayStatus(storm.user.userId,'raising');
+            }else{
+                storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:''});
+                listUsers.setGioTayStatus(storm.user.userId,'');
+            }
+        });
+        
+        
     }
 
     function setUserThumbStatus(userId, status) {

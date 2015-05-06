@@ -375,3 +375,40 @@
 [2015-04-26 21:59:31.103] [ERROR] debug - create token error: 401 Unauthorized
 [2015-04-27 08:04:52.325] [DEBUG] debug - User minhcc@daykem123.vn has logged in
 [2015-04-27 08:04:52.331] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 11:59:03.148] [DEBUG] debug - Created Board 3r2t6nt2ow0emode2 for licode
+[2015-05-06 12:00:30.815] [DEBUG] debug - not found
+[2015-05-06 12:00:32.146] [DEBUG] debug - Created Board ar6ltl4otrlwmode2 for licode
+[2015-05-06 12:02:13.684] [DEBUG] debug - Created Board pv2tpivte1samode2 for licode
+[2015-05-06 12:04:19.981] [DEBUG] debug - User admin001@hocmai.edu.vn has logged in
+[2015-05-06 12:04:19.996] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:04:21.859] [DEBUG] debug - Phong tao ra la:5549a0d5246f82be64901d89
+[2015-05-06 12:04:26.679] [DEBUG] debug - User admin001@hocmai.edu.vn has logged in
+[2015-05-06 12:04:26.682] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:05:14.993] [DEBUG] debug - not found
+[2015-05-06 12:05:16.123] [DEBUG] debug - Created Board a4bf6229r91emode1 for licode
+[2015-05-06 12:05:22.858] [DEBUG] debug - User admin001@hocmai.edu.vn has logged in
+[2015-05-06 12:05:22.865] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:05:23.841] [DEBUG] debug - Phong tao ra la:5549a113246f82be64901d8c
+[2015-05-06 12:07:08.728] [DEBUG] debug - User tutor001@hocmai.edu.vn has logged in
+[2015-05-06 12:07:08.732] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:07:16.826] [DEBUG] debug - User hsc003@hocmai.edu.vn has logged in
+[2015-05-06 12:07:16.832] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:07:44.270] [DEBUG] debug - startSession::Start session successfully with sessionId:7168
+[2015-05-06 12:08:40.540] [DEBUG] debug - endSession::End session successfully with sessionId:7168
+[2015-05-06 12:10:14.955] [DEBUG] debug - User hsc003@hocmai.edu.vn has logged in
+[2015-05-06 12:10:14.958] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:23:02.807] [DEBUG] debug - User tutor001@hocmai.edu.vn has logged in
+[2015-05-06 12:23:02.812] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:33:30.229] [DEBUG] debug - User tutor001@hocmai.edu.vn has logged in
+[2015-05-06 12:33:30.239] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:36:34.899] [DEBUG] debug - User tutor001@hocmai.edu.vn has logged in
+[2015-05-06 12:36:34.926] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:36:35.506] [DEBUG] debug - User hsc003@hocmai.edu.vn has logged in
+[2015-05-06 12:36:35.511] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:37:54.898] [DEBUG] debug - User hsc002@hocmai.edu.vn has logged in
+[2015-05-06 12:37:54.902] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:48:42.420] [DEBUG] debug - User hsc003@hocmai.edu.vn has logged in
+[2015-05-06 12:48:42.429] [DEBUG] debug - Updated existed user to DB
+[2015-05-06 12:52:58.025] [DEBUG] debug - not found
+[2015-05-06 13:00:08.629] [ERROR] debug - stopSession load board error:not found
+[2015-05-06 13:00:08.667] [ERROR] debug - stopSession load board error:not found
