@@ -2214,8 +2214,23 @@ ul.list-files li {
     display: none;
 }
 .board-icon-raisehand-raising{
-    background-image: url("../images/giotay.png");
-    height: 50px;
-    width: 50px;
+    background-image: url("../images/hand-small.png");
+    height: 15px;
+    width: 15px;
     float: right;
+}
+
+#button_thumb_raisehand{
+    background-image: url("../images/hand-lager.png");
+    height: 25px;
+    width: 25px;
+    margin: 2px;
+    float: left;
+}
+#button_thumb_raisehand:hover{
+    background-image: url("../images/raise-hand-lager.png");
+    height: 26px;
+    width: 40px;
+    float: left;
+    background-repeat: no-repeat;
 }

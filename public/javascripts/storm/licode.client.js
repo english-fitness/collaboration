@@ -25,7 +25,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 }
                 listUsers.setGioTayStatus(data.userId,'');
             });
-
+            
             bindButtons();
         },
         start: function(token) {

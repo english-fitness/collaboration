@@ -1,5 +1,5 @@
-define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","underscore"],
-    function (storm,ui,util,mfabric,events,boardPdf,_) {
+define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","underscore","licode.client"],
+    function (storm,ui,util,mfabric,events,boardPdf,licode,_) {
 
     var boards = {
         init: function() {
@@ -404,6 +404,7 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 
     function sendSetActive(data) {
         storm.comm.socket.emit("setActive", storm.parentBoardId, data);
+        console.log("chuyen bang  duoiiiiiii: "+storm.parentBoardId+",data:"+data.boardId);
     }
 
     function generateCanvasId() {
