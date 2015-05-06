@@ -160,7 +160,7 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
                 var timmerHtml = $('#start-stop-calc-time');
                 timmerHtml.removeClass('stoped').addClass('started');
                 timmerHtml.find('i').removeClass('board-icon-play').addClass('board-icon-pause');
-                timmerHtml.find('span.status-text').html('End Class');
+                timmerHtml.find('span.status-text').html('End');
             }
 
             storm.myTimer = setInterval(function(){
