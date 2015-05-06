@@ -27,9 +27,9 @@ define(["storm", "underscore"], function(storm, _) {
         },
 
         renderHtml: function() {
-            var title = 'Bảng điều khiển âm thanh';
+            var title = 'Audio Control';
             var html = '<div class="listUserRender"><div class="titleName">'+title+'</div> ',_this = this;
-            html +='<div class="hind">Lựa chọn mỗi người có thể nói cho những ai nghe</div>';
+            html +='<div class="hind">Select who can speak with whom</div>';
             _(voiceTable).each(function(value, userId) {
                 html +=_this.renderUserColumn(userId,value);
             });
@@ -42,9 +42,9 @@ define(["storm", "underscore"], function(storm, _) {
         renderUserColumn: function(userId, voiceOptions) {
             var html = '<div class="row" uid="'+userId+'">',_this = this,user;
             html +='<div class="fullName">'+getUserName(userId)+'</div>';
-            html += 'Có thể nói với:'
+            html += 'Can speak to:'
             html +='<div class="option">';
-            html += '<input type="checkbox" value="1" id="userCheckAll"/><span class="limitText">Tất cả</span> ';
+            html += '<input type="checkbox" value="1" id="userCheckAll"/><span class="limitText">All</span> ';
             html += '</div>'
 
             _(voiceOptions).each(function(value, otherUserId) {
@@ -92,7 +92,7 @@ define(["storm", "underscore"], function(storm, _) {
                 if(voiceControl.syncVoiceTable) {
                     voiceControl.syncVoiceTable();
                     storm.comm.socket.emit('voice', storm.parentBoardId, voiceTable);
-                    $(".loadNotification").html("Lưu cấu hình âm thanh thành công");
+                    $(".loadNotification").html("Audio configuration saved successfully");
                     setTimeout(function() {
                         $(".loadNotification").html("");
                         $("#closeVoiceTable").click();

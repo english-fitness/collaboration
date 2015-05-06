@@ -200,7 +200,7 @@ define(["storm"], function (storm) {
 	            '2. Hệ thống đang kết nối lại <br /> ' +
 	            '3. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu đợi quá lâu <br>' +
 	            '4. Gọi hỗ trợ nếu làm lại bước 3 nhiều lần nhưng vẫn không hết lỗi <br>' +
-	            '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0969496795</span> <br>' +
+	            '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
 	            'Mã lỗi: NO#1</div></div>');
         },
         showMediaDisconnecting: function(){
@@ -210,7 +210,7 @@ define(["storm"], function (storm) {
 		        '2. Hệ thống đang kết nối lại <br /> ' +
 		        '3. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu đợi quá lâu<br>' +
 		        '4. Gọi hỗ trợ nếu làm lại bước 3 nhiều lần nhưng vẫn không hết lỗi <br>' +
-		        '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0969496795</span> <br>' +
+		        '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
 		        'Mã lỗi: MEDIA#2</div></div>');
         },
         hideDisconnecting: function(){

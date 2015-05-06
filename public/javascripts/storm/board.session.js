@@ -65,10 +65,10 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
                         sendToggleBoard({status:'start'});
                         startSession();
                     }else{
-                        alert('Cần ít nhất một giáo viên và một học sinh trong lớp để bắt đầu lớp học!');
+                        alert('There must be at least on teacher and one student in order to start the class!');
                     }
                 } else {
-                    if(confirm('Bạn có chắc chắn muốn kết thúc lớp học hay không?')) {
+                    if(confirm('Are you sure you want to end the class?')) {
                         sendToggleBoard({status:'stop'});
                         endSession();
                     }
@@ -110,7 +110,7 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
         var objEffect = $('#start-stop-calc-time');
         objEffect.removeClass('started').addClass('stoped');
         objEffect.find('i').removeClass('board-icon-pause').addClass('board-icon-play');
-        objEffect.find('span.status-text').html('Tiếp tục');
+        objEffect.find('span.status-text').html('Continue');
         stopTimerClass();
         // disableBoard();
         palettes.turnOffPalettes();
@@ -126,9 +126,9 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
     function disableBoard() {
         if($('body').find('.board-disabled').length == 0){
             if(storm.user.role == storm.roles.STUDENT){
-                $('body').append('<div class="board-disabled"><div class="alert-start">Chờ giáo viên để bắt đầu lớp học<br/> Nếu gặp lỗi không nghe hoặc không dùng bảng được... <br> Vui lòng  <span style="color: red;">reload</span> lại trình duyệt <span style="color: red;">(nhấn F5)</span> để thử lại</div></div>');
+                $('body').append('<div class="board-disabled"><div class="alert-start">Waiting for teacher to start the class<br/> If you have problem using the board, audio or video... <br> Please  <span style="color: red;">reload</span> reload the browser <span style="color: red;">(nhấn F5)</span> to try again</div></div>');
             }else{
-                $('body').append('<div class="board-disabled"><div class="alert-start">Ấn nút \“Bắt đầu\” hoặc \“Tiếp tục\” để bắt đầu lớp học</div></div>');
+                $('body').append('<div class="board-disabled"><div class="alert-start">Press \“Start\” or \“Continue\” to start the class</div></div>');
             }
         }
     }
@@ -160,7 +160,7 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
                 var timmerHtml = $('#start-stop-calc-time');
                 timmerHtml.removeClass('stoped').addClass('started');
                 timmerHtml.find('i').removeClass('board-icon-play').addClass('board-icon-pause');
-                timmerHtml.find('span.status-text').html('Kết thúc');
+                timmerHtml.find('span.status-text').html('End Class');
             }
 
             storm.myTimer = setInterval(function(){

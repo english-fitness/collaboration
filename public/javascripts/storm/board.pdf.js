@@ -40,7 +40,7 @@ define(["storm", "storm.ui"], function (storm, ui) {
                 PDFJS.getDocument(data.docUrl+'x').then(function(pdf){
                     ui.hideLoading();
                     if(!pdf){
-                        alert('Có lỗi xảy ra khi tải pdf, vui lòng thử lại!');
+                        alert('Unexpected error happened, Please try again later!');
                         return false;
                     }
                     boardPdf.addFiles && boardPdf.addFiles(data.docUrl);
@@ -65,7 +65,7 @@ define(["storm", "storm.ui"], function (storm, ui) {
                 },function(error){
                     if(error){
                         ui.hideLoading();
-                        alert('Đã có lỗi xảy ra với file vừa upload. Vui lòng thử lại hoặc upload file mới!')
+                        alert('There was an error with the uploaded file, please try gain!')
                     }
                 });
             }catch(ex){
@@ -92,7 +92,7 @@ define(["storm", "storm.ui"], function (storm, ui) {
                 PDFJS.getDocument(data.docUrl).then(function(pdf){
                     if(!pdf){
                         ui.hideLoading();
-                        alert('Có lỗi xảy ra khi tải pdf, vui lòng thử lại!');
+                        alert('Unexpected error happened, please try again later!');
                         return false;
                     }
                     // Using promise to fetch the page

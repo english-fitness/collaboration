@@ -169,13 +169,13 @@ define(["storm", "storm.main", "storm.ui", "storm.util","math.util", "board.mous
         /* Create Vector action*/
 
         vectorAction: function() {
-            return '<div class="shape-holder" id="vector-shape" title="Hình học" data-shape="vector"><div class="basic-shape s-vector"></div></div>';
+            return '<div class="shape-holder" id="vector-shape" title="Geometry" data-shape="vector"><div class="basic-shape s-vector"></div></div>';
         },
 
         /* mathTools*/
 
         mathTools: function() {
-            return '<div class="shape-holder" id="math-shape"  title="Toán học" data-shape="math"><div class="basic-shape s-math"></div></div>';
+            return '<div class="shape-holder" id="math-shape"  title="Math" data-shape="math"><div class="basic-shape s-math"></div></div>';
         },
         asyncTool: function() {
             return '<div class="shape-holder" id="sync-shape" title="sync-async" data-shape="async"><div class="basic-shape s-sync">Async</div></div>';
@@ -190,8 +190,8 @@ define(["storm", "storm.main", "storm.ui", "storm.util","math.util", "board.mous
 
             var paletteName = storm.palette[paletteName].collectionName,shapesObj,html="",i,shape,shapeName,shapeDisplayName,shapeHolder;
 
-            if('shapes' == paletteName) html = '<div class="shape-holder"  id="pointer-shape" data-shape="pointer" title="Chọn hình"><div class="basic-shape s-pointer"></div></div><div class="shape-holder" data-shape="click" title="Chỉ dẫn"><div class="basic-shape s-click"></div></div>'+
-                '<div class="shape-holder" id="highlight-shape" title="Đánh dấu" data-shape="highlight"><div class="basic-shape s-highlight"></div></div>';
+            if('shapes' == paletteName) html = '<div class="shape-holder"  id="pointer-shape" data-shape="pointer" title="Select"><div class="basic-shape s-pointer"></div></div><div class="shape-holder" data-shape="click" title="Highlight Pointer"><div class="basic-shape s-click"></div></div>'+
+                '<div class="shape-holder" id="highlight-shape" title="Markup" data-shape="highlight"><div class="basic-shape s-highlight"></div></div>';
             ui.updateAccordian(paletteName);
             shapesObj = storm.palette[paletteName];
             for (i in shapesObj.shapes) {
@@ -204,7 +204,7 @@ define(["storm", "storm.main", "storm.ui", "storm.util","math.util", "board.mous
                 shapeHolder = '<div class="shape-holder" id="'+shapeName+'-shape" title="'+shapeDisplayName+'" data-shape="'+shapeName+'"><div class="basic-shape s-'+shapeName+'"></div></div>';
                 html += shapeHolder;
             }
-            html += '<div class="shape-holder" id="eraser-shape" title="Tẩy" data-shape="eraser"><div class="basic-shape s-eraser"></div></div></div>';
+            html += '<div class="shape-holder" id="eraser-shape" title="Eraser" data-shape="eraser"><div class="basic-shape s-eraser"></div></div></div>';
             // html +='</div>';
             html += this.vectorAction();
             html += this.mathTools();

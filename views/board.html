@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Online English Tutoring tutor.vn</title>
+        <title>English Fitness</title>
         <script>
           var baseUrl = "<%= baseUrl %>";
           var require = {baseUrl: baseUrl+"javascripts/storm"};
@@ -59,29 +59,29 @@
                 <div id="colorTools">
                     <div id="color">
                         <ul>
-                            <li class="background"><span class="cBg" title="Màu nền"><i class="board-icon-color-background"></i></span> <span class="mau" style="background:#eeeeee "> &nbsp;</span>
+                            <li class="background"><span class="cBg" title="Background"><i class="board-icon-color-background"></i></span> <span class="mau" style="background:#eeeeee "> &nbsp;</span>
                                 <ul>
-                                    <li name="background" color="#000000" class="board-icon-empty" title="Đen" style="background: #000000"></li>
-                                    <li name="background" color="#0a008b" class="board-icon-empty" title="Xanh da trời" style="background: #0a008b"></li>
-                                    <li name="background" color="#ffffff" class="board-icon-empty" title="Trắng" style="background: #ffffff"></li>
-                                    <li name="background" color="#f50005" class="board-icon-empty" title="Đỏ" style="background: #f50005"></li>
-                                    <li name="background" color="#ff8700" class="board-icon-empty" title="Cam" style="background: #ff8700"></li>
-                                    <li name="background" color="" class="board-icon-diagonal" title="Trong suốt"></li>
+                                    <li name="background" color="#000000" class="board-icon-empty" title="Black" style="background: #000000"></li>
+                                    <li name="background" color="#0a008b" class="board-icon-empty" title="Blue" style="background: #0a008b"></li>
+                                    <li name="background" color="#ffffff" class="board-icon-empty" title="White" style="background: #ffffff"></li>
+                                    <li name="background" color="#f50005" class="board-icon-empty" title="Red" style="background: #f50005"></li>
+                                    <li name="background" color="#ff8700" class="board-icon-empty" title="Orange" style="background: #ff8700"></li>
+                                    <li name="background" color="" class="board-icon-diagonal" title="Transparent"></li>
                                 </ul>
                             </li>
-                            <li class="border"><span class="cBd" title="Màu vẽ"><i class="board-icon-color-border"></i></span><span class="mau" style="background:#000000"> &nbsp;</span>
+                            <li class="border"><span class="cBd" title="Color"><i class="board-icon-color-border"></i></span><span class="mau" style="background:#000000"> &nbsp;</span>
                                 <ul>
-                                    <li name="border" color="#000000" class="board-icon-empty click" title="Đen" style="background: #000000"></li>
-                                    <li name="border" color="#0a008b" class="board-icon-empty" title="Xanh da trời" style="background: #0a008b"></li>
-                                    <li name="border" color="#ffffff" class="board-icon-empty" title="Trắng" style="background: #ffffff"></li>
-                                    <li name="border" color="#f50005" class="board-icon-empty" title="Đỏ" style="background: #f50005"></li>
-                                    <li name="border" color="#ff8700" class="board-icon-empty" title="Cam" style="background: #ff8700"></li>
-                                    <li name="border" color="" class="board-icon-diagonal" title="Trong suốt"></li>
+                                    <li name="border" color="#000000" class="board-icon-empty click" title="Black" style="background: #000000"></li>
+                                    <li name="border" color="#0a008b" class="board-icon-empty" title="Blue" style="background: #0a008b"></li>
+                                    <li name="border" color="#ffffff" class="board-icon-empty" title="White" style="background: #ffffff"></li>
+                                    <li name="border" color="#f50005" class="board-icon-empty" title="Red" style="background: #f50005"></li>
+                                    <li name="border" color="#ff8700" class="board-icon-empty" title="Orange" style="background: #ff8700"></li>
+                                    <li name="border" color="" class="board-icon-diagonal" title="Transparent"></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
-                    <div id="border" title="Nét đậm/nhạt">
+                    <div id="border" title="Line width">
                         <input type="text" name="input-border" value="1" />
                         <div class="tol">
                             <span class="minus"></span>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <!--<div id="export" title="Xuất ảnh"><div class="board-icon-export"></div></div> !-->
-                <div id="help" title="Trợ giúp"><div class="board-icon-help"></div></div>
+                <!--<div id="help" title="Help"><div class="board-icon-help"></div></div>-->
 
             </div>
             <div  id="boards">
@@ -126,7 +126,7 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="width: 178px; padding: 0px;">
-                                    <span class="colums" style="padding-left: 8px;"><a id="start-stop-calc-time" class="stoped" href="javascript:void(0);">&nbsp;<i class="board-icon-play"></i> <span class="status-text">Bắt đầu</span></a> </span>
+                                    <span class="colums" style="padding-left: 8px;"><a id="start-stop-calc-time" class="stoped" href="javascript:void(0);">&nbsp;<i class="board-icon-play"></i> <span class="status-text">Start</span></a> </span>
                                     <span class="colums" style="width: 80px;"><span id="time_hours">00</span>:<span id="time_minutes">00</span>:<span id="time_second">00</span></span>
                                 </td>
                                 <td rowspan="2" style="background: #ffffff; text-align: center;width: 60px;border-left: 1px solid #696969;"><div class="publisher"></div></td>
@@ -169,8 +169,8 @@
                                        }
                             </script>
                             <ul class="my-action">
-                                <li id="button_thumb_up" class="board-icon-thumb-up-ready" title="Đồng ý"></li>
-                                <li id="button_thumb_down" class="board-icon-thumb-down-ready" title="Không đồng ý"></li>
+                                <li id="button_thumb_up" class="board-icon-thumb-up-ready" title="Like"></li>
+                                <li id="button_thumb_down" class="board-icon-thumb-down-ready" title="Dislike"></li>
                             </ul>
                         </div>
                         <div class="chatSend">
@@ -186,12 +186,12 @@
     </div>
 
     <div class="m-quick-edit">
-        <span class="delete-icon" id="delete_icon" style="padding-right: 0px" title="Xóa"></span>
-        <span class="edit-icon" id="edit_icon" style="padding-left: 0px" title="Sửa"></span>
-        <span id="visible_icon" style="padding-left: 0px" title="Sửa"></span>
+        <span class="delete-icon" id="delete_icon" style="padding-right: 0px" title="Delete"></span>
+        <span class="edit-icon" id="edit_icon" style="padding-left: 0px" title="Edit"></span>
+        <span id="visible_icon" style="padding-left: 0px" title="Edit"></span>
     </div>
     <div class="m-quick-edit-group">
-        <span class="delete-icon" style="padding-right: 0px" title="Xóa"></span>
+        <span class="delete-icon" style="padding-right: 0px" title="Delete"></span>
     </div>
 	<canvas id="clip" style="display:none;"></canvas>
 
@@ -202,8 +202,8 @@
                     <div class="modal-body">
                         <div class="bs-example bs-example-tabs">
                             <ul class="nav nav-tabs" id="myTab">
-                                <li class="active"><a data-toggle="tab" href="#uploadnewpdf">Tải lên PDF hoặc ảnh</a></li>
-                                <li class=""><a data-toggle="tab" href="#reusefiles">Tài liệu của tôi</a></li>
+                                <li class="active"><a data-toggle="tab" href="#uploadnewpdf">Upload PDF, Image</a></li>
+                                <li class=""><a data-toggle="tab" href="#reusefiles">My documents</a></li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div id="uploadnewpdf" class="tab-pane fade active in">
@@ -222,7 +222,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeUploadPdfPopup">Đóng lại</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeUploadPdfPopup">Close</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -236,8 +236,8 @@
 				     <div class="modal-body">
 					     <div class="bs-example bs-example-tabs">
 						     <ul class="nav nav-tabs" id="tabDownload">
-							     <li class="active"><a data-toggle="tab" href="#docs_in_board">PDF trong bảng</a></li>
-							     <li><a data-toggle="tab" href="#images_in_board">Ảnh trong bảng</a></li>
+							     <li class="active"><a data-toggle="tab" href="#docs_in_board">PDF in this board</a></li>
+							     <li><a data-toggle="tab" href="#images_in_board">Image in this board</a></li>
 						     </ul>
 						     <div class="tab-content" id="downloadTabContent">
 
@@ -256,7 +256,7 @@
 					     </div>
 				     </div>
 				     <div class="modal-footer">
-					     <button type="button" class="btn btn-default" data-dismiss="modal" id="closeDownloadDocsPopup">Đóng lại</button>
+					     <button type="button" class="btn btn-default" data-dismiss="modal" id="closeDownloadDocsPopup">Close</button>
 				     </div>
 			     </div><!-- /.modal-content -->
 		     </div><!-- /.modal-dialog -->
@@ -267,14 +267,14 @@
                 <div class="modal-content">
 
                     <div class="modal-body">
-                        <p style="font-weight: bold; float: left; margin: 5px 5px 0 0">Đường dẫn ảnh:</p>
+                        <p style="font-weight: bold; float: left; margin: 5px 5px 0 0">Image Url:</p>
                         <input type="text" name="file_url" id="file_url" style="width: 360px" /><br>
-                        <p style="font-weight: bold; float: left; margin: 5px 5px 0 0">Kích thước(%):</p>
-                        <span class="block1" style="margin-right: 2px; margin-left: 5px"><input style="width: 30px;" id="value_scale" value="" ></span><span style="color: #808080">( Để trống nếu muốn giữ nguyên ảnh gốc )</span>
+                        <p style="font-weight: bold; float: left; margin: 5px 5px 0 0">Size(%):</p>
+                        <span class="block1" style="margin-right: 2px; margin-left: 5px"><input style="width: 30px;" id="value_scale" value="" ></span><span style="color: #808080">(Leave it blank to use original size)</span>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-primary" data-dismiss='modal' id='insertLinkUrl'>Thêm Ảnh</a>
-                        <a href="#" class="btn" data-dismiss='modal' id="destroyLikUrl">Hủy</a>
+                        <a href="#" class="btn btn-primary" data-dismiss='modal' id='insertLinkUrl'>Add Image</a>
+                        <a href="#" class="btn" data-dismiss='modal' id="destroyLikUrl">Cancel</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -289,8 +289,8 @@
             </div>
             <textarea id="latex-source"></textarea>
             <div class="query">
-                <input type="submit" class="math_save" value="Lưu lại">
-                <input type="submit" class="math_cancel" value="Hủy">
+                <input type="submit" class="math_save" value="Save">
+                <input type="submit" class="math_cancel" value="Cancel">
             </div>
 
         </div>
@@ -300,11 +300,11 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-3 label-right">Tên Bảng</div>
+                            <div class="col-md-3 label-right">Board Title</div>
                             <div class="col-md-9 fix-padding"><input id="settingBoardName" type="text" name="boardName" style="width: 200px"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 label-right">Phân quyền</div>
+                            <div class="col-md-3 label-right">Permission</div>
                             <div class="col-md-9 fix-padding" id="roleAccessBoard">
                             </div>
                         </div>
@@ -312,8 +312,8 @@
                     </div>
                     <div class="modal-footer">
                         <span class="loadNotification"></span>
-                        <button type="button" class="btn btn-default"  id="saveBoardSettings">Lưu cài đặt</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeBoardSettings">Đóng lại</button>
+                        <button type="button" class="btn btn-default"  id="saveBoardSettings">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeBoardSettings">Close</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -326,7 +326,7 @@
                          <iframe id="feedbackIF" width="100%" height="100%" border="0" src=""></iframe>
                      </div>
                      <div class="modal-footer" style=" eight: 10%;margin-top: 0;min-height: 49px;padding: 5px 10px;">
-                         <button type="button" class="btn btn-default" data-dismiss="modal" id="cloaseFeedback">Đóng lại</button>
+                         <button type="button" class="btn btn-default" data-dismiss="modal" id="cloaseFeedback">Close</button>
                      </div>
                  </div><!-- /.modal-content -->
              </div><!-- /.modal-dialog -->

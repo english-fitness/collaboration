@@ -65,7 +65,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 		shapes: {
             drawingpath: {
                 name: "path",
-                displayName: "Vẽ",
+                displayName: "Draw",
                 activeIcon: "brush_w.png",
                 inactiveIcon: "brush_g.png",
                 toolAction:null,
@@ -125,7 +125,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
             }, // end of path
             text: {
                 name: "text",
-                displayName: "Chữ",
+                displayName: "Text",
                 activeIcon: "text_w.png",
                 inactiveIcon: "text_g.png",
                 toolAction: function addText(args) {
@@ -250,7 +250,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
             },
 			rectangle: {
 				name: "rectangle",
-				displayName: "Chữ nhật",
+				displayName: "Rectangle",
 				activeIcon: "rectangle_w.png",
 				inactiveIcon: "rectangle_g.png",
 				toolAction: function (args) {
@@ -357,7 +357,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 			},
 			circle: {
 				name: "circle",
-				displayName: "Hình tròn",
+				displayName: "Circle",
 				activeIcon: "circle_w.png",
 				inactiveIcon: "circle_g.png",
 				toolAction: function addCircle(args) {
@@ -476,7 +476,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 			},
 			triangle: {
 				name: "triangle",
-				displayName: "Tam giác",
+				displayName: "Triangle",
 				activeIcon: "triangle_w.png",
 				inactiveIcon: "triangle_g.png",
 				toolAction: function addCircle(args) {
@@ -589,7 +589,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 
 			line: {
 				name: "line",
-				displayName: "Đường thẳng",
+				displayName: "Line",
 				activeIcon: "line_w.png",
 				inactiveIcon: "line_g.png",
 				toolAction: function (args) {

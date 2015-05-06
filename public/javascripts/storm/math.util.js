@@ -69,7 +69,7 @@ var math  =  {
              self.resetEditor();
              $(".s-pointer").click();
          }else{
-             alert("Vui lòng nhập thông tin trước khi lưu");
+             alert("Please enter content before saving");
          }
       });
       $('.math_quill').on("click",".math_cancel",function(e) {
@@ -208,7 +208,7 @@ var math  =  {
   /* tools latex */
   toolsLatex:[{
       tabName:'basic',
-      htmlValue:'Cơ bản',
+      htmlValue:'Basic',
       active:true,
       button:[{
           htmlOptions:{style:"width:72px"},
@@ -319,7 +319,7 @@ var math  =  {
       }]
   },{
       tabName:'dau',
-      htmlValue:'Dấu',
+      htmlValue:'Operator',
       button:[{
           htmlOptions:{style:"width:55px"},
           button_tools:[{
