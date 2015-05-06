@@ -1514,7 +1514,7 @@ var io = ('undefined' === typeof module ? {} : module.exports);
         port: 80
       , secure: false
       , document: 'document' in global ? document : false
-      , resource: 'socket.io'
+      , resource: 'smallmedia/socket.io'
       , transports: io.transports
       , 'connect timeout': 10000
       , 'try multiple transports': true

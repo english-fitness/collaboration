@@ -1,0 +1,2 @@
+sua file soket.io.js o trong " collaboration/public/javascripts/thirdparty/socket.io.js " 
+thuoc tinh 'socket.io' thanh 'smallmedia/socket.io'
