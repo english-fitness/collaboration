@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<audio id="myTune-on">
-              <source src="../audios/alert.wav">
-        </audio>
-        <audio id="myTune-off">
-              <source src="../audios/offline.wav">
-        </audio>
         <meta charset="utf-8"/>
         <title>English Fitness</title>
         <script>
