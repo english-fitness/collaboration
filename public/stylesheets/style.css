@@ -1535,6 +1535,14 @@ span.sender{font-weight: bold; margin-right: 4px}
     height: 16px;
     background-position: -128px -16px;
     cursor: pointer;
+     float: right;
+}
+.board-icon-micro-nospeaking {
+    width: 16px;
+    height: 16px;
+    background-position: -128px -113px;
+    cursor: pointer;
+    float: right;
 }
 .board-icon-micro-loading {
     width: 20px;

@@ -130,7 +130,16 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 setMicroStatus('loading');
                 audioStream.addEventListener("access-accepted", function () {
                     room.publish(audioStream, {}, function(){
-                        console.log("published audio stream")
+                        console.log("published audio stream");
+                        
+                        listUsers.setMicroStatus(storm.user.userId, 'speaking');
+                        
+                        //neu lop hoc co che do ghi am
+                        /*
+                        room.startRecording(audioStream,function(){
+                            console.log("dang nghi");
+                        });
+                        */
                     }, function(anwser) {
                         console.log("Failed to publish audio stream, anwser: " + anwser);
                     });
@@ -144,6 +153,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     audioStream.close();
                     audioStream = undefined;
                     setMicroStatus('off');
+                    listUsers.setMicroStatus(storm.user.userId, '');
                 }
             }
         },

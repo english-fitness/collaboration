@@ -9,11 +9,12 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
 
         setMicroStatus: function(userId, status) {
             var user = storm.users[userId];
-            if(user == undefined) return;
-            if(storm.user.userId == userId) return;
-            var microClass = status && status != '' ? 'micro board-icon-micro-'+status : 'micro';
-            if(user.role == storm.roles.TEACHER) {
+            if(user === undefined) return;
+            //if(storm.user.userId == userId) return;
+            var microClass = status && status != '' ? 'micro board-icon-micro-'+status : 'micro board-icon-micro-nospeaking';
+            if(user.role === storm.roles.TEACHER) {
                 $('#teacher_area .micro').attr('class', microClass);
+                
             } else {
                 $('#user'+userId+' div .micro').attr('class', microClass);
             }
@@ -90,17 +91,19 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
 
     var friendsView = function() {
         function addUserToList(ul, user) {
-            var name = user.role == storm.roles.TEACHER ? '(GV) '+user.name : user.name;
+            var name = user.role == storm.roles.TEACHER ? user.name : user.name;
             if(raising==true){
                 storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:'raising'});
             }
             if(user.role == storm.roles.TEACHER && !$('#teacher_area').attr('data')) {
                 $('#teacher_area .name').text(name);
                 $('#teacher_area').attr('data', user.userId);
+                $('#teacher_area .name').attr('style', 'color: red');
             } else {
-                if($('li#user'+ user.userId).length == 0){
-                    ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' + name + '</span><div class="action"><div class="raisehand"></div><div class="micro"></div></div></li>');
-                    if(user.userId == storm.user.userId) {
+                if($('li#user'+ user.userId).length === 0){
+                    ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' 
+                            + name + '</span><div class="action"><div class="micro board-icon-micro-nospeaking"></div><div class="raisehand"></div></div></li>');
+                    if(user.userId === storm.user.userId) {
                         $('#user'+user.userId).attr('style', 'color: #245ba7');
                     }
                     bindPopover(user.userId);
