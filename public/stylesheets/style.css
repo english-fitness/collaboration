@@ -972,7 +972,7 @@ hr{margin: 5px 0!important;}
 .m-friends{background-position:0 -364px;}
 .m-submenu-list { display: none;box-shadow: 0 0 5px #888888; -moz-box-shadow: 0 0 5px #888888; -webkit-box-shadow: 0 0 5px #888888; background-color: #FFFFFF; border-radius: 4px 4px 4px 4px; height: auto; position: absolute; right: 58px; top: -3px; width: 148px; z-index: 1035;}
 .menu-arrow{display: block; left: 148px; position: relative; top: 21px; width: 18px; border-bottom: 10px solid transparent; border-top: 10px solid transparent; border-left: 10px solid #ffffff;}
-.menu-list {list-style: none; margin: -8px 5px 5px; color: #666666; text-align:left; height:200px; background: #ffffff}
+.menu-list {list-style: none; margin: -8px 5px 5px; color: #666666; text-align:left; background: #ffffff}
 .menu-list li{padding:3px; font-weight: bold; position:relative; border: none; font-size: 11px; }
 .menu-list li:not(:last-child) {border-bottom: 1px solid #CCCCCC;}
 .menu-list li.disabled {color: #bbb;}
@@ -1053,7 +1053,6 @@ ul#chattext li{word-wrap:break-word;}
 }
 .list-user {
     margin: 0;
-    max-height: 75px;
     padding-left: 0px;
     overflow-y: auto;
 }
