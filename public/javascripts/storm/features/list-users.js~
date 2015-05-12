@@ -142,7 +142,7 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
                     if($(element).html() != $(span).html()) $(element).popover('hide');
                 });
                 $(this).popover('toggle');
-            } else if (storm.user.isTeacher()&&util.getMode()==='1') {
+            } else if (storm.user.isTeacher()&&util.getMode()==='1'&&storm.sync) {
                 var userId = $(this).attr('id').substring(4);
                 storm.comm.socket.emit('changeSpeakingStudent', storm.parentBoardId, {userId:userId});
                 listUsers.setGioTayStatus(userId,'');
