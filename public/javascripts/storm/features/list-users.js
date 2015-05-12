@@ -135,7 +135,7 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
     };
 
     function bindEvents() {
-        $('.list-user').on('click', 'li span', function(event) {
+        $('.list-user').on('click', 'li', function(event) {
             if(storm.user.canKickUser()) {
                 var span = this;
                 $('.list-user li span').each(function(index, element) {
@@ -143,7 +143,7 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
                 });
                 $(this).popover('toggle');
             } else if (storm.user.isTeacher()&&util.getMode()==='1') {
-                var userId = $(this).attr('id');
+                var userId = $(this).attr('id').substring(4);
                 storm.comm.socket.emit('changeSpeakingStudent', storm.parentBoardId, {userId:userId});
                 listUsers.setGioTayStatus(userId,'');
             }

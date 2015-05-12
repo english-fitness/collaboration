@@ -1511,7 +1511,7 @@ var io = ('undefined' === typeof module ? {} : module.exports);
 
   function Socket (options) {
     var ssl_soket_io='socket.io';
-    if(global.location.protocol==='https'){
+    if(global.location.protocol!='http'){
         ssl_soket_io='smallmedia/socket.io';
     }
     this.options = {
