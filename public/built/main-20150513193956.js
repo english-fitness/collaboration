@@ -320,23 +320,23 @@ define('storm.ui',["storm"], function (storm) {
         },
         showDisconnecting: function(){
             $('body').append('<div class="modal-backdrop fade in disconnecting"><div class="alert-reconnecting">' +
-	            '<b style="color: red">THÔNG BÁO</b><br/>' +
-	            '1. Đã có lỗi liên quan đến internet xảy ra <br />' +
-	            '2. Hệ thống đang kết nối lại <br /> ' +
-	            '3. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu đợi quá lâu <br>' +
-	            '4. Gọi hỗ trợ nếu làm lại bước 3 nhiều lần nhưng vẫn không hết lỗi <br>' +
-	            '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0969496795</span> <br>' +
-	            'Mã lỗi: NO#1</div></div>');
+	            '<b style="color: red">Oops!!!</b><br/>' +
+	            '1. There was an error happened with the Internet connection <br />' +
+	            '2. System will try to reconnect <br /> ' +
+	            '3. Please <span style="color: red">refresh, reload (Press F5)</span> if it takes too long <br>' +
+	            '4. Call our support team if the problem still persists <br>' +
+	            '<b>Support Hotline: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
+	            'Error Code: NO#1</div></div>');
         },
         showMediaDisconnecting: function(){
 	        $('body').append('<div class="modal-backdrop fade in disconnecting"><div class="alert-reconnecting">' +
-		        '<b style="color: red">THÔNG BÁO</b><br/>' +
-		        '1. Đã có lỗi liên quan đến internet xảy ra <br />' +
-		        '2. Hệ thống đang kết nối lại <br /> ' +
-		        '3. Vui lòng <span style="color: red">refresh, reload (Nhấn F5)</span> lại trình duyệt nếu đợi quá lâu<br>' +
-		        '4. Gọi hỗ trợ nếu làm lại bước 3 nhiều lần nhưng vẫn không hết lỗi <br>' +
-		        '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0969496795</span> <br>' +
-		        'Mã lỗi: MEDIA#2</div></div>');
+		        '<b style="color: red">Oops!!!</b><br/>' +
+		        '1. There was an error happened with the Internet connection <br />' +
+		        '2. System will try to reconnect <br /> ' +
+		        '3. Please <span style="color: red">refresh, reload (Press F5)</span> if it takes too long<br>' +
+		        '4. Call our support team if the problem still persists <br>' +
+		        '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
+		        'Error Code: MEDIA#2</div></div>');
         },
         hideDisconnecting: function(){
             $('body .modal-backdrop').remove();
@@ -778,14 +778,22 @@ define('storm.util',["storm", "underscore"], function (storm, _) {
         },
 
         isAllowBoard: function(boardId) {
+			//change according to board setting change
             var students = storm.dataBoards[boardId].students ? storm.dataBoards[boardId].students : [];
-            if(!storm.sync && storm.user.role == storm.roles.STUDENT && _(students).size() > 0
-                && !_(students).contains(storm.user.userId)) {
+            if(storm.user.role == storm.roles.STUDENT && _(students).size() > 0
+                && _(students).contains(storm.user.userId)) {
                 return false;
             }
             else {
                 return true;
             }
+			// if(!storm.sync && storm.user.role == storm.roles.STUDENT && _(students).size() > 0
+                // && !_(students).contains(storm.user.userId)) {
+                // return false;
+            // }
+            // else {
+                // return true;
+            // }
         }
     };
 
@@ -1126,7 +1134,7 @@ var math  =  {
              self.resetEditor();
              $(".s-pointer").click();
          }else{
-             alert("Vui lòng nhập thông tin trước khi lưu");
+             alert("Please enter content before saving");
          }
       });
       $('.math_quill').on("click",".math_cancel",function(e) {
@@ -1265,7 +1273,7 @@ var math  =  {
   /* tools latex */
   toolsLatex:[{
       tabName:'basic',
-      htmlValue:'Cơ bản',
+      htmlValue:'Basic',
       active:true,
       button:[{
           htmlOptions:{style:"width:72px"},
@@ -1376,7 +1384,7 @@ var math  =  {
       }]
   },{
       tabName:'dau',
-      htmlValue:'Dấu',
+      htmlValue:'Operator',
       button:[{
           htmlOptions:{style:"width:55px"},
           button_tools:[{
@@ -3329,7 +3337,7 @@ define('board.pdf',["storm", "storm.ui"], function (storm, ui) {
                 PDFJS.getDocument(data.docUrl+'x').then(function(pdf){
                     ui.hideLoading();
                     if(!pdf){
-                        alert('Có lỗi xảy ra khi tải pdf, vui lòng thử lại!');
+                        alert('Unexpected error happened, Please try again later!');
                         return false;
                     }
                     boardPdf.addFiles && boardPdf.addFiles(data.docUrl);
@@ -3354,7 +3362,7 @@ define('board.pdf',["storm", "storm.ui"], function (storm, ui) {
                 },function(error){
                     if(error){
                         ui.hideLoading();
-                        alert('Đã có lỗi xảy ra với file vừa upload. Vui lòng thử lại hoặc upload file mới!')
+                        alert('There was an error with the uploaded file, please try gain!')
                     }
                 });
             }catch(ex){
@@ -3381,7 +3389,7 @@ define('board.pdf',["storm", "storm.ui"], function (storm, ui) {
                 PDFJS.getDocument(data.docUrl).then(function(pdf){
                     if(!pdf){
                         ui.hideLoading();
-                        alert('Có lỗi xảy ra khi tải pdf, vui lòng thử lại!');
+                        alert('Unexpected error happened, please try again later!');
                         return false;
                     }
                     // Using promise to fetch the page
@@ -3579,7 +3587,7 @@ define('board.pdf',["storm", "storm.ui"], function (storm, ui) {
 
     return boardPdf;
 });
-define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","underscore","licode.client"],
+define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","licode.client","underscore"],
     function (storm,ui,util,mfabric,events,boardPdf,licode,_) {
 
     var boards = {
@@ -3613,13 +3621,23 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
             if(data.boardId && data.boardName){
                 var boardObj = $('#boards-tab').find('li[data-holder='+data.boardId+']');
                 boardObj.find('a.link-board span.boardName').html(data.boardName);
-
+				
                 if(storm.dataBoards[data.boardId]){
                     storm.dataBoards[data.boardId].students = data.students;
+					// console.log("Students disallowed allowed in this board: "+storm.dataBoards[data.boardId].students);
                     if(!util.isAllowBoard(data.boardId)) {
-                        // jump to main board
-                        $("#boards div#boards-tab ul li:first a.link-board").click();
+                        // jump to main board (doesn't seem to be working)
+                        // $("#boards div#boards-tab ul li:first a.link-board").click();
+						
+						//disable left panel
+						toggleDrawing(false);
+						
+						console.log("You are not allowed to write on the board " + data.boardId);
                     }
+					else {
+						toggleDrawing(true);
+						console.log("You are allowed to write on the board " + data.boardId);
+					}
                 }
             }
         },
@@ -3637,7 +3655,11 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
         setActiveBoard: function(boardId, notify) {
             if(storm.dataBoards[boardId] == undefined) boardId = storm.parentBoardId;
             if(!storm.sync && !notify) return;
-            if(!util.isAllowBoard(boardId)) return;
+            // if(!util.isAllowBoard(boardId)) return;
+			if (!util.isAllowBoard(boardId))
+				toggleDrawing(false);
+			else 
+				toggleDrawing(true);
 
             storm.currentBoardId = boardId;
 
@@ -3686,7 +3708,7 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
         },
         createChildBoard:function() {
             var canvasId = generateCanvasId();
-            var name = "Bảng "+canvasId.substring(6);
+            var name = "Tab "+canvasId.substring(6);
             this.appendBoard(canvasId, name, "");
             this.createTabToServer(name, function(err, childId) {
                 boards.setActiveBoard(childId, true);
@@ -3765,12 +3787,12 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
                 '<li data="'+canvasId+'" data-holder="'+boardId+'" class="tab-wb">' +
                     '<a class="link-board" href="#">' +
                     '<span class="boardName">'+name+'</span></a>' +
-                    '<span class="setting" title="Chỉnh sửa, phân quyền" data-toggle="modal" data-target="boardSettings"></span>'+
-                    '<span class="remove" title="Xóa tab"></span></li>'
+                    '<span class="setting" title="Settings" data-toggle="modal" data-target="boardSettings"></span>'+
+                    '<span class="remove" title="Delete tab"></span></li>'
             );
         },
         removeChildBoard: function(boardId, activeBoardId) {
-            if(!util.isAllowBoard(activeBoardId)) activeBoardId = storm.parentBoardId;
+            // if(!util.isAllowBoard(activeBoardId)) activeBoardId = storm.parentBoardId;
             var canvasId = $("#boards div#boards-tab ul li[data-holder='"+boardId+"']").attr("data");
             var activeCanvasId = $("#boards div#boards-tab ul li[data-holder='"+activeBoardId+"']").attr("data");
 
@@ -3818,23 +3840,46 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
             var users = storm.dataBoards[storm.parentBoardId].users;
             var students = boardInfo.students;
             if(_(students).isEmpty()){
-                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0" checked> <label for="student_0" class="lab">Tất cả</label><br />';
+                var append_data = '<input type="checkbox" name="All" class="students" id="selectAll" checked><label>All</label><br>';
             }else{
-                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0"> <label for="student_0" class="lab">Tất cả</label><br />';
+                var append_data = '<input type="checkbox" name="All" class="students" id="selectAll"><label>All</label><br>';
             }
 
             for(var uid in users){
-               if(users[uid].role == storm.roles.STUDENT){
-                   if(students[0] && students[0] == uid){
-                       append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+				if(users[uid].role == storm.roles.STUDENT){
+                   if(students && _(students).contains(uid)){
+					   append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
                    }else{
-                       append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+                       append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
                    }
                }
+			   
+			   /*---OLD---*/
+               // if(users[uid].role == storm.roles.STUDENT){
+                   // if(students[0] && students[0] == uid){
+                       // append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+                   // }else{
+                       // append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+                   // }
+               // }
             }
+			
             $('#roleAccessBoard').html(append_data)
 
-
+			$("#selectAll").change(function(){
+				if ($(this).is(':checked')){
+					console.log("checked");
+					$("input:checkbox.students").each(function(){
+						$(this).prop("checked", true);
+					});
+				} else {
+					console.log("not checked");
+					$("input:checkbox.students").each(function(){
+						$(this).prop("checked", false);
+					});
+				}
+			});
+			
             $('#boardSettings').modal('show');
         });
 
@@ -3844,13 +3889,27 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
         });
 
         $('#saveBoardSettings').click(function(e){
+			//NOTE: variable students
+			//originally it contains student allowed, empty = allow all, else allow anyone in the list
+			//since we need to be able to disallow all, now anyone in the list is not allowed, empty = allow all (it's reversed)
+			
             var boardName = $('#settingBoardName').val();
             var students = [];
-            var student = $('input[name="boardPermmistion"]:checked').val();
-
-            if(student && student != "0"){
-                students.push(student);
+            // var student = $('input[name="boardPermmistion"]:checked').val();
+			
+			var student = $('input[name="boardPermmistion"]:not(:checked)').map(function() {
+				return this.value;
+			}).get();
+			
+            if(student){
+				for (var i = 0; i < student.length; i++)
+				{
+					students.push(student[i]);
+				}
             }
+			
+			console.log("Disallow these students: "+students);
+			
             storm.dataBoards[storm.currentBoardId].students = students;
             storm.dataBoards[storm.currentBoardId].name = boardName;
             var boardObj = $('#boards-tab').find('li[data-holder='+storm.currentBoardId+']');
@@ -3985,7 +4044,6 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
 
     function sendSetActive(data) {
         storm.comm.socket.emit("setActive", storm.parentBoardId, data);
-        console.log("chuyen bang  duoiiiiiii: "+storm.parentBoardId+",data:"+data.boardId);
     }
 
     function generateCanvasId() {
@@ -3994,6 +4052,30 @@ define('boards',["storm","storm.ui","storm.util","storm.fabric","storm.events","
         var lastid = parseInt(lastid[1]) + 1;
         return 'canvas'+lastid;
     }
+	
+	function toggleDrawing(status) {
+		if (!status) {
+			var leftdiv = $("#leftdiv");
+			leftdiv.find(".dropdown").css("opacity", 0.3);
+			leftdiv.find(".shape-holder").css("opacity", 0.3);
+			$("#colorTools").css("opacity", 0.3);
+			leftdiv.css("pointer-events", "none");
+			var clickButton = $("*[data-shape=click]")
+			clickButton.css("opacity", 1);
+			clickButton.css("pointer-events", "auto");
+			var select = $("#pointer-shape");
+			select.css("opacity", 1);
+			select.css("pointer-events", "auto");
+			select.click();
+		} else {
+			var leftdiv = $("#leftdiv");
+			leftdiv.find(".dropdown").css("opacity", 1);
+			leftdiv.find(".shape-holder").css("opacity", 1);
+			$("#colorTools").css("opacity", 1);
+			leftdiv.css("pointer-events", "auto");
+		}
+		
+	}
 
     return boards;
 });
@@ -4063,11 +4145,12 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup",
 
         setMicroStatus: function(userId, status) {
             var user = storm.users[userId];
-            if(user == undefined) return;
-            if(storm.user.userId == userId) return;
-            var microClass = status && status != '' ? 'micro board-icon-micro-'+status : 'micro';
-            if(user.role == storm.roles.TEACHER) {
+            if(user === undefined) return;
+            //if(storm.user.userId == userId) return;
+            var microClass = status && status != '' ? 'micro board-icon-micro-'+status : 'micro board-icon-micro-nospeaking';
+            if(user.role === storm.roles.TEACHER) {
                 $('#teacher_area .micro').attr('class', microClass);
+                
             } else {
                 $('#user'+userId+' div .micro').attr('class', microClass);
             }
@@ -4082,7 +4165,15 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup",
                     raising=true;
                 }
             }
-            
+            // console.log('Status rase: '+status);
+            if(status===''){
+                 document.getElementById('myTune-off').play();
+                 //console.log('Bo gio tay');
+            }
+            else{
+              //  console.log('Gio tay');
+                document.getElementById('myTune-on').play();
+            }
             var gioTayClass = status && status != '' ? 'raisehand board-icon-raisehand-'+status : 'raisehand';
             $('#user'+userId+' div .raisehand').attr('class', gioTayClass);
             
@@ -4136,17 +4227,19 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup",
 
     var friendsView = function() {
         function addUserToList(ul, user) {
-            var name = user.role == storm.roles.TEACHER ? '(GV) '+user.name : user.name;
+            var name = user.role == storm.roles.TEACHER ? user.name : user.name;
             if(raising==true){
                 storm.comm.socket.emit('raiseHand', storm.parentBoardId, {userId:storm.user.userId, status:'raising'});
             }
             if(user.role == storm.roles.TEACHER && !$('#teacher_area').attr('data')) {
                 $('#teacher_area .name').text(name);
                 $('#teacher_area').attr('data', user.userId);
+                $('#teacher_area .name').attr('style', 'color: red');
             } else {
-                if($('li#user'+ user.userId).length == 0){
-                    ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' + name + '</span><div class="action"><div class="raisehand"></div><div class="micro"></div></div></li>');
-                    if(user.userId == storm.user.userId) {
+                if($('li#user'+ user.userId).length === 0){
+                    ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' 
+                            + name + '</span><div class="action"><div class="micro board-icon-micro-nospeaking"></div><div class="raisehand"></div></div></li>');
+                    if(user.userId === storm.user.userId) {
                         $('#user'+user.userId).attr('style', 'color: #245ba7');
                     }
                     bindPopover(user.userId);
@@ -4178,15 +4271,15 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup",
     };
 
     function bindEvents() {
-        $('.list-user').on('click', 'li span', function(event) {
+        $('.list-user').on('click', 'li', function(event) {
             if(storm.user.canKickUser()) {
                 var span = this;
                 $('.list-user li span').each(function(index, element) {
                     if($(element).html() != $(span).html()) $(element).popover('hide');
                 });
                 $(this).popover('toggle');
-            } else if (storm.user.isTeacher()&&util.getMode()==='1') {
-                var userId = $(this).attr('id');
+            } else if (storm.user.isTeacher()&&util.getMode()==='1'&&storm.sync) {
+                var userId = $(this).attr('id').substring(4);
                 storm.comm.socket.emit('changeSpeakingStudent', storm.parentBoardId, {userId:userId});
                 listUsers.setGioTayStatus(userId,'');
             }
@@ -4225,6 +4318,7 @@ define('features/list-users',["storm", "boards", "underscore", "features/popup",
 
     return listUsers;
 });
+
 (function(b,a){b.version="0.9.6";b.protocol=1;b.transports=[];b.j=[];b.sockets={};b.connect=function(c,d){var f=b.util.parseUri(c),g,h;a&&a.location&&(f.protocol=f.protocol||a.location.protocol.slice(0,-1),f.host=f.host||(a.document?a.document.domain:a.location.hostname),f.port=f.port||a.location.port);g=b.util.uniqueUri(f);var j={host:f.host,secure:"https"==f.protocol,port:f.port||("https"==f.protocol?443:80),query:f.query||""};b.util.merge(j,d);if(j["force new connection"]||!b.sockets[g])h=new b.Socket(j);
 !j["force new connection"]&&h&&(b.sockets[g]=h);h=h||b.sockets[g];return h.of(1<f.path.length?f.path:"")}})("object"===typeof module?module.exports:this.io={},this);
 (function(b,a){var c=b.util={},d=/^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/,f="source,protocol,authority,userInfo,user,password,host,port,relative,path,directory,file,query,anchor".split(",");c.parseUri=function(a){for(var a=d.exec(a||""),b={},e=14;e--;)b[f[e]]=a[e]||"";return b};c.uniqueUri=function(b){var c=b.protocol,e=b.host,b=b.port;"document"in
@@ -4467,6 +4561,8 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
                 // Auto subscribe only if student or teacher
                 if(storm.user.isTeacher()) {
                     licode.publishAudio(true);
+		    //console.log('giao vien tu bat');
+                    $('#button_thumb_raisehand').attr('id','button_thumb_raisehand_off');
                 }
 
                 _(roomEvent.streams).each(function(stream) {
@@ -4492,10 +4588,30 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
             room.addEventListener("stream-subscribed", function(streamEvent) {
                 var stream = streamEvent.stream;
                 if(stream.hasVideo()) {
-                    $('#video').append("<div class='video' id='subscriber-"+stream.getID()+"'></div>");
+                    var id_video='subscriber-'+stream.getID();
+                    $('#video').append("<div class='video' id='"+id_video+"'></div>");
+                    
+                    
+                    // add name for webcam
                     var name = stream.getAttributes().name;
+                    var name_video=name;
+                    if(name_video.length > 16){ 
+                        name_video=name_video.substring(0,16)+'...';
+                    }
+                    $('#'+id_video).append('<div class="text-center" style="color:white; font-size: 10px;"><b>'
+                            +name_video+'</b></div>');
+                    //view webcam
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
+                    $('#'+id_video).css({'margin': "1px"});
+                    
+                    //remove link licode
+                    document.getElementById('bar_'+stream.getID()).remove();
+                    console.log('rong:'+$('#'+id_video).innerWidth());
+                    console.log('cao:'+$('#'+id_video).innerHeight());
+                    
+                    console.log('so videos: '+$('#video').find('.video').length);
+                    
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
                     $('#video').append("<div class='audio' id='subscriber-"+stream.getID()+"'></div>");
@@ -4547,7 +4663,16 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
                 setMicroStatus('loading');
                 audioStream.addEventListener("access-accepted", function () {
                     room.publish(audioStream, {}, function(){
-                        console.log("published audio stream")
+                        console.log("published audio stream");
+                        
+                        listUsers.setMicroStatus(storm.user.userId, 'speaking');
+                        
+                        //neu lop hoc co che do ghi am
+                        
+                        //room.startRecording(audioStream,function(){
+                         //   console.log("dang nghi am ...........");
+                       // });
+                        
                     }, function(anwser) {
                         console.log("Failed to publish audio stream, anwser: " + anwser);
                     });
@@ -4561,6 +4686,7 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
                     audioStream.close();
                     audioStream = undefined;
                     setMicroStatus('off');
+                    listUsers.setMicroStatus(storm.user.userId, '');
                 }
             }
         },
@@ -4569,7 +4695,7 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
                 videoStream = Erizo.Stream({audio: false, video: true, attributes: {name: storm.user.name}});
                 videoStream.init();
                 setWebcamStatus('loading');
-
+                
                 videoStream.addEventListener('access-accepted', function(event) {
                     room.publish(videoStream, {}, function(){
                         console.log("published video stream");
@@ -4578,6 +4704,8 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
                     });
                     $('#webcam .publisher').append('<div id="publisher"></div>');
                     videoStream.show("publisher", {speaker: false});
+                    //remove link licode
+                    document.getElementById("bar_undefined").remove();
                 });
 
                 videoStream.addEventListener('access-denied', function(event) {
@@ -4737,7 +4865,7 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
         parent$ = $(parent);
         parent$.css({'padding-top': "0"});
         videoCount = parent$.find(element).length;
-        width = parent$.innerWidth();
+        width = parent$.innerWidth()-4;
         height = parent$.innerHeight();
         switch (videoCount) {
             case 0: rows = 1; cols = 1; break;
@@ -4763,6 +4891,7 @@ define('licode.client',["storm", "features/list-users","storm.util", "underscore
 
     return licode;
 });
+
 /*! Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)
  * Licensed under the MIT License (LICENSE.txt).
  *
@@ -15996,11 +16125,15 @@ var io = ('undefined' === typeof module ? {} : module.exports);
    */
 
   function Socket (options) {
+    var ssl_soket_io='socket.io';
+    if(global.location.protocol!=='http:'){
+        ssl_soket_io='smallmedia/socket.io';
+    }
     this.options = {
         port: 80
       , secure: false
       , document: 'document' in global ? document : false
-      , resource: 'smallmedia/socket.io'
+      , resource: ssl_soket_io
       , transports: io.transports
       , 'connect timeout': 10000
       , 'try multiple transports': true
@@ -40350,13 +40483,13 @@ define('storm.palettes',["storm", "storm.main", "storm.ui", "storm.util","math.u
         /* Create Vector action*/
 
         vectorAction: function() {
-            return '<div class="shape-holder" id="vector-shape" title="Hình học" data-shape="vector"><div class="basic-shape s-vector"></div></div>';
+            return '<div class="shape-holder" id="vector-shape" title="Geometry" data-shape="vector"><div class="basic-shape s-vector"></div></div>';
         },
 
         /* mathTools*/
 
         mathTools: function() {
-            return '<div class="shape-holder" id="math-shape"  title="Toán học" data-shape="math"><div class="basic-shape s-math"></div></div>';
+            return '<div class="shape-holder" id="math-shape"  title="Math" data-shape="math"><div class="basic-shape s-math"></div></div>';
         },
         asyncTool: function() {
             return '<div class="shape-holder" id="sync-shape" title="sync-async" data-shape="async"><div class="basic-shape s-sync">Async</div></div>';
@@ -40371,8 +40504,8 @@ define('storm.palettes',["storm", "storm.main", "storm.ui", "storm.util","math.u
 
             var paletteName = storm.palette[paletteName].collectionName,shapesObj,html="",i,shape,shapeName,shapeDisplayName,shapeHolder;
 
-            if('shapes' == paletteName) html = '<div class="shape-holder"  id="pointer-shape" data-shape="pointer" title="Chọn hình"><div class="basic-shape s-pointer"></div></div><div class="shape-holder" data-shape="click" title="Chỉ dẫn"><div class="basic-shape s-click"></div></div>'+
-                '<div class="shape-holder" id="highlight-shape" title="Đánh dấu" data-shape="highlight"><div class="basic-shape s-highlight"></div></div>';
+            if('shapes' == paletteName) html = '<div class="shape-holder"  id="pointer-shape" data-shape="pointer" title="Select"><div class="basic-shape s-pointer"></div></div><div class="shape-holder" data-shape="click" title="Highlight Pointer"><div class="basic-shape s-click"></div></div>'+
+                '<div class="shape-holder" id="highlight-shape" title="Markup" data-shape="highlight"><div class="basic-shape s-highlight"></div></div>';
             ui.updateAccordian(paletteName);
             shapesObj = storm.palette[paletteName];
             for (i in shapesObj.shapes) {
@@ -40385,7 +40518,7 @@ define('storm.palettes',["storm", "storm.main", "storm.ui", "storm.util","math.u
                 shapeHolder = '<div class="shape-holder" id="'+shapeName+'-shape" title="'+shapeDisplayName+'" data-shape="'+shapeName+'"><div class="basic-shape s-'+shapeName+'"></div></div>';
                 html += shapeHolder;
             }
-            html += '<div class="shape-holder" id="eraser-shape" title="Tẩy" data-shape="eraser"><div class="basic-shape s-eraser"></div></div></div>';
+            html += '<div class="shape-holder" id="eraser-shape" title="Eraser" data-shape="eraser"><div class="basic-shape s-eraser"></div></div></div>';
             // html +='</div>';
             html += this.vectorAction();
             html += this.mathTools();
@@ -40635,7 +40768,7 @@ define('board.files',["storm", "storm.ui", "storm.util", "board.pdf"], function(
                     // parent.remove();
                     parent.fadeOut(300, function() { parent.remove(); })
                 } else {
-                    alert('Có lỗi xảy ra khi xóa file');
+                    alert('Unexpected error happened');
                 }
             });
 
@@ -40643,7 +40776,7 @@ define('board.files',["storm", "storm.ui", "storm.util", "board.pdf"], function(
 
         $('#download_docs').click(function(e){
             if(storm.user.role == storm.roles.STUDENT && storm.sessionStatus != 2) {
-                alert('Bạn chỉ có thể tải xuống tài liệu khi lớp học đã kết thúc');
+                alert('You can only download document once the class is ended');
                 return;
             }
 
@@ -40716,7 +40849,7 @@ define('board.files',["storm", "storm.ui", "storm.util", "board.pdf"], function(
             success:function(data) {
                 if(data.success == false){
                     ui.hideLoading();
-                    alert('Không thể tải lên file, lý do: '+ data.reason);
+                    alert('Cannot upload file, reason: '+ data.reason);
                     return false;
                 }
                 var dataObj = {};
@@ -41890,10 +42023,10 @@ define('board.session',["storm", "storm.palettes", "board.sync"], function(storm
                         sendToggleBoard({status:'start'});
                         startSession();
                     }else{
-                        alert('Cần ít nhất một giáo viên và một học sinh trong lớp để bắt đầu lớp học!');
+                        alert('There must be at least on teacher and one student in order to start the class!');
                     }
                 } else {
-                    if(confirm('Bạn có chắc chắn muốn kết thúc lớp học hay không?')) {
+                    if(confirm('Are you sure you want to end the class?')) {
                         sendToggleBoard({status:'stop'});
                         endSession();
                     }
@@ -41935,7 +42068,7 @@ define('board.session',["storm", "storm.palettes", "board.sync"], function(storm
         var objEffect = $('#start-stop-calc-time');
         objEffect.removeClass('started').addClass('stoped');
         objEffect.find('i').removeClass('board-icon-pause').addClass('board-icon-play');
-        objEffect.find('span.status-text').html('Tiếp tục');
+        objEffect.find('span.status-text').html('Continue');
         stopTimerClass();
         // disableBoard();
         palettes.turnOffPalettes();
@@ -41951,9 +42084,9 @@ define('board.session',["storm", "storm.palettes", "board.sync"], function(storm
     function disableBoard() {
         if($('body').find('.board-disabled').length == 0){
             if(storm.user.role == storm.roles.STUDENT){
-                $('body').append('<div class="board-disabled"><div class="alert-start">Chờ giáo viên để bắt đầu lớp học<br/> Nếu gặp lỗi không nghe hoặc không dùng bảng được... <br> Vui lòng  <span style="color: red;">reload</span> lại trình duyệt <span style="color: red;">(nhấn F5)</span> để thử lại</div></div>');
+                $('body').append('<div class="board-disabled"><div class="alert-start">Waiting for teacher to start the class<br/> If you have problem using the board, audio or video... <br> Please  <span style="color: red;">reload</span> reload the browser <span style="color: red;">(Press F5)</span> to try again</div></div>');
             }else{
-                $('body').append('<div class="board-disabled"><div class="alert-start">Ấn nút \“Bắt đầu\” hoặc \“Tiếp tục\” để bắt đầu lớp học</div></div>');
+                $('body').append('<div class="board-disabled"><div class="alert-start">Press \“Start\” or \“Continue\” to start the class</div></div>');
             }
         }
     }
@@ -41985,7 +42118,7 @@ define('board.session',["storm", "storm.palettes", "board.sync"], function(storm
                 var timmerHtml = $('#start-stop-calc-time');
                 timmerHtml.removeClass('stoped').addClass('started');
                 timmerHtml.find('i').removeClass('board-icon-play').addClass('board-icon-pause');
-                timmerHtml.find('span.status-text').html('Kết thúc');
+                timmerHtml.find('span.status-text').html('End');
             }
 
             storm.myTimer = setInterval(function(){
@@ -42283,7 +42416,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 		shapes: {
             drawingpath: {
                 name: "path",
-                displayName: "Vẽ",
+                displayName: "Draw",
                 activeIcon: "brush_w.png",
                 inactiveIcon: "brush_g.png",
                 toolAction:null,
@@ -42343,7 +42476,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
             }, // end of path
             text: {
                 name: "text",
-                displayName: "Chữ",
+                displayName: "Text",
                 activeIcon: "text_w.png",
                 inactiveIcon: "text_g.png",
                 toolAction: function addText(args) {
@@ -42468,7 +42601,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
             },
 			rectangle: {
 				name: "rectangle",
-				displayName: "Chữ nhật",
+				displayName: "Rectangle",
 				activeIcon: "rectangle_w.png",
 				inactiveIcon: "rectangle_g.png",
 				toolAction: function (args) {
@@ -42575,7 +42708,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 			},
 			circle: {
 				name: "circle",
-				displayName: "Hình tròn",
+				displayName: "Circle",
 				activeIcon: "circle_w.png",
 				inactiveIcon: "circle_g.png",
 				toolAction: function addCircle(args) {
@@ -42694,7 +42827,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 			},
 			triangle: {
 				name: "triangle",
-				displayName: "Tam giác",
+				displayName: "Triangle",
 				activeIcon: "triangle_w.png",
 				inactiveIcon: "triangle_g.png",
 				toolAction: function addCircle(args) {
@@ -42807,7 +42940,7 @@ require(["storm", "storm.main", "storm.palettes", "storm.palettes.properties", "
 
 			line: {
 				name: "line",
-				displayName: "Đường thẳng",
+				displayName: "Line",
 				activeIcon: "line_w.png",
 				inactiveIcon: "line_g.png",
 				toolAction: function (args) {

@@ -77,7 +77,9 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 if(stream.hasVideo()) {
                     var id_video='subscriber-'+stream.getID();
                     $('#video').append("<div class='video' id='"+id_video+"'></div>");
-                   
+                    
+                    
+                    // add name for webcam
                     var name = stream.getAttributes().name;
                     var name_video=name;
                     if(name_video.length > 16){ 
@@ -85,9 +87,13 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     }
                     $('#'+id_video).append('<div class="text-center" style="color:white; font-size: 10px;"><b>'
                             +name_video+'</b></div>');
+                    //view webcam
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
                     $('#'+id_video).css({'margin': "1px"});
+                    
+                    //remove link licode
+                    document.getElementById('bar_'+stream.getID()).remove();
                     console.log('rong:'+$('#'+id_video).innerWidth());
                     console.log('cao:'+$('#'+id_video).innerHeight());
                     
@@ -176,7 +182,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 videoStream = Erizo.Stream({audio: false, video: true, attributes: {name: storm.user.name}});
                 videoStream.init();
                 setWebcamStatus('loading');
-
+                
                 videoStream.addEventListener('access-accepted', function(event) {
                     room.publish(videoStream, {}, function(){
                         console.log("published video stream");
@@ -185,6 +191,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     });
                     $('#webcam .publisher').append('<div id="publisher"></div>');
                     videoStream.show("publisher", {speaker: false});
+                    //remove link licode
+                    document.getElementById("bar_undefined").remove();
                 });
 
                 videoStream.addEventListener('access-denied', function(event) {

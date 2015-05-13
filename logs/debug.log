@@ -412,3 +412,16 @@
 [2015-05-06 12:52:58.025] [DEBUG] debug - not found
 [2015-05-06 13:00:08.629] [ERROR] debug - stopSession load board error:not found
 [2015-05-06 13:00:08.667] [ERROR] debug - stopSession load board error:not found
+[2015-05-13 17:40:25.206] [DEBUG] debug - User hsc001@hocmai.edu.vn has logged in
+[2015-05-13 17:40:25.215] [DEBUG] debug - Updated existed user to DB
+[2015-05-13 17:41:35.020] [DEBUG] debug - User hsc001@hocmai.edu.vn has logged in
+[2015-05-13 17:41:35.022] [DEBUG] debug - Updated existed user to DB
+[2015-05-13 17:41:53.450] [DEBUG] debug - User tutor005@hocmai.edu.vn has logged in
+[2015-05-13 17:41:53.452] [DEBUG] debug - Updated existed user to DB
+[2015-05-13 17:43:10.512] [ERROR] debug - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED
+[2015-05-13 19:18:30.826] [DEBUG] debug - User thucfami@gmail.com has logged in
+[2015-05-13 19:18:30.843] [DEBUG] debug - Updated existed user to DB
+[2015-05-13 19:19:04.536] [DEBUG] debug - User tutor005@hocmai.edu.vn has logged in
+[2015-05-13 19:19:04.539] [DEBUG] debug - Updated existed user to DB
+[2015-05-13 19:19:25.882] [DEBUG] debug - User hsc001@hocmai.edu.vn has logged in
+[2015-05-13 19:19:25.886] [DEBUG] debug - Updated existed user to DB
