@@ -77,14 +77,21 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 if(stream.hasVideo()) {
                     var id_video='subscriber-'+stream.getID();
                     $('#video').append("<div class='video' id='"+id_video+"'></div>");
-                    $('#'+id_video).append('<div class="text-center" style="color:white; font-size: 8px;"><b>'+stream.getAttributes().name+'</b></div>');
+                   
                     var name = stream.getAttributes().name;
+                    var name_video=name;
+                    if(name_video.length > 16){ 
+                        name_video=name_video.substring(0,16)+'...';
+                    }
+                    $('#'+id_video).append('<div class="text-center" style="color:white; font-size: 10px;"><b>'
+                            +name_video+'</b></div>');
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
-                    document.getElementById(id_video).style["border-right"] = "1px solid white";
-                    
+                    $('#'+id_video).css({'margin': "1px"});
                     console.log('rong:'+$('#'+id_video).innerWidth());
                     console.log('cao:'+$('#'+id_video).innerHeight());
+                    
+                    console.log('so videos: '+$('#video').find('.video').length);
                     
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
@@ -337,8 +344,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         parent$ = $(parent);
         parent$.css({'padding-top': "0"});
         videoCount = parent$.find(element).length;
-        width = parent$.innerWidth()-2;
-        height = parent$.innerHeight()-2;
+        width = parent$.innerWidth()-4;
+        height = parent$.innerHeight();
         switch (videoCount) {
             case 0: rows = 1; cols = 1; break;
             case 1: rows = 1; cols = 1; break;
