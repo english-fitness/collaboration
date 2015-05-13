@@ -75,10 +75,13 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             room.addEventListener("stream-subscribed", function(streamEvent) {
                 var stream = streamEvent.stream;
                 if(stream.hasVideo()) {
-                    $('#video').append("<div class='video' id='subscriber-"+stream.getID()+"'></div>");
+                    var id_video='subscriber-'+stream.getID();
+                    $('#video').append("<div class='video' id='"+id_video+"'></div>");
+                    $('#'+id_video).append('<div class="text-center" style="color:white;"><b>'+stream.getAttributes().name+'</b></div>');
                     var name = stream.getAttributes().name;
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
+                    document.getElementById(id_video).style.border = "1px solid white";
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
                     $('#video').append("<div class='audio' id='subscriber-"+stream.getID()+"'></div>");
@@ -135,11 +138,11 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                         listUsers.setMicroStatus(storm.user.userId, 'speaking');
                         
                         //neu lop hoc co che do ghi am
-                        /*
-                        room.startRecording(audioStream,function(){
-                            console.log("dang nghi");
-                        });
-                        */
+                        
+                        //room.startRecording(audioStream,function(){
+                         //   console.log("dang nghi am ...........");
+                       // });
+                        
                     }, function(anwser) {
                         console.log("Failed to publish audio stream, anwser: " + anwser);
                     });
@@ -342,12 +345,12 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 rows = Math.ceil(videoCount/3); cols = 3;
                 var newHeight = width*rows/4;
                 if(newHeight > height) {
-                  $(parent).height(width*rows/4);
+                  $(parent).height(width*rows/4-2);
                 }
                 break;
         }
 
-        eWidth = Math.floor(width / cols);
+        eWidth = Math.floor(width / cols)-2;
         return parent$.find(element).each(function(k, e) {
             $(e).width(eWidth);
             return $(e).height(eWidth * 3 / 4);
