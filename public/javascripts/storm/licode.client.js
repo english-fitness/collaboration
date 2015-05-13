@@ -77,11 +77,15 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 if(stream.hasVideo()) {
                     var id_video='subscriber-'+stream.getID();
                     $('#video').append("<div class='video' id='"+id_video+"'></div>");
-                    $('#'+id_video).append('<div class="text-center" style="color:white;"><b>'+stream.getAttributes().name+'</b></div>');
+                    $('#'+id_video).append('<div class="text-center" style="color:white; font-size: 8px;"><b>'+stream.getAttributes().name+'</b></div>');
                     var name = stream.getAttributes().name;
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
-                    document.getElementById(id_video).style.border = "1px solid white";
+                    document.getElementById(id_video).style["border-right"] = "1px solid white";
+                    
+                    console.log('rong:'+$('#'+id_video).innerWidth());
+                    console.log('cao:'+$('#'+id_video).innerHeight());
+                    
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
                     $('#video').append("<div class='audio' id='subscriber-"+stream.getID()+"'></div>");
@@ -333,8 +337,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         parent$ = $(parent);
         parent$.css({'padding-top': "0"});
         videoCount = parent$.find(element).length;
-        width = parent$.innerWidth();
-        height = parent$.innerHeight();
+        width = parent$.innerWidth()-2;
+        height = parent$.innerHeight()-2;
         switch (videoCount) {
             case 0: rows = 1; cols = 1; break;
             case 1: rows = 1; cols = 1; break;
@@ -345,12 +349,12 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 rows = Math.ceil(videoCount/3); cols = 3;
                 var newHeight = width*rows/4;
                 if(newHeight > height) {
-                  $(parent).height(width*rows/4-2);
+                  $(parent).height(width*rows/4);
                 }
                 break;
         }
 
-        eWidth = Math.floor(width / cols)-2;
+        eWidth = Math.floor(width / cols);
         return parent$.find(element).each(function(k, e) {
             $(e).width(eWidth);
             return $(e).height(eWidth * 3 / 4);
