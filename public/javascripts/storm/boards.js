@@ -1,4 +1,4 @@
-define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","underscore","licode.client"],
+define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","licode.client","underscore"],
     function (storm,ui,util,mfabric,events,boardPdf,licode,_) {
 
     var boards = {
@@ -32,13 +32,23 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
             if(data.boardId && data.boardName){
                 var boardObj = $('#boards-tab').find('li[data-holder='+data.boardId+']');
                 boardObj.find('a.link-board span.boardName').html(data.boardName);
-
+				
                 if(storm.dataBoards[data.boardId]){
                     storm.dataBoards[data.boardId].students = data.students;
+					// console.log("Students disallowed allowed in this board: "+storm.dataBoards[data.boardId].students);
                     if(!util.isAllowBoard(data.boardId)) {
-                        // jump to main board
-                        $("#boards div#boards-tab ul li:first a.link-board").click();
+                        // jump to main board (doesn't seem to be working)
+                        // $("#boards div#boards-tab ul li:first a.link-board").click();
+						
+						//disable left panel
+						toggleDrawing(false);
+						
+						console.log("You are not allowed to write on the board " + data.boardId);
                     }
+					else {
+						toggleDrawing(true);
+						console.log("You are allowed to write on the board " + data.boardId);
+					}
                 }
             }
         },
@@ -56,7 +66,11 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
         setActiveBoard: function(boardId, notify) {
             if(storm.dataBoards[boardId] == undefined) boardId = storm.parentBoardId;
             if(!storm.sync && !notify) return;
-            if(!util.isAllowBoard(boardId)) return;
+            // if(!util.isAllowBoard(boardId)) return;
+			if (!util.isAllowBoard(boardId))
+				toggleDrawing(false);
+			else 
+				toggleDrawing(true);
 
             storm.currentBoardId = boardId;
 
@@ -189,7 +203,7 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
             );
         },
         removeChildBoard: function(boardId, activeBoardId) {
-            if(!util.isAllowBoard(activeBoardId)) activeBoardId = storm.parentBoardId;
+            // if(!util.isAllowBoard(activeBoardId)) activeBoardId = storm.parentBoardId;
             var canvasId = $("#boards div#boards-tab ul li[data-holder='"+boardId+"']").attr("data");
             var activeCanvasId = $("#boards div#boards-tab ul li[data-holder='"+activeBoardId+"']").attr("data");
 
@@ -237,23 +251,46 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
             var users = storm.dataBoards[storm.parentBoardId].users;
             var students = boardInfo.students;
             if(_(students).isEmpty()){
-                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0" checked> <label for="student_0" class="lab">All</label><br />';
+                var append_data = '<input type="checkbox" name="All" class="students" id="selectAll" checked><label>All</label><br>';
             }else{
-                var append_data = '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students"  id="student_0" value="0"> <label for="student_0" class="lab">All</label><br />';
+                var append_data = '<input type="checkbox" name="All" class="students" id="selectAll"><label>All</label><br>';
             }
 
             for(var uid in users){
-               if(users[uid].role == storm.roles.STUDENT){
-                   if(students[0] && students[0] == uid){
-                       append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+				if(users[uid].role == storm.roles.STUDENT){
+                   if(students && _(students).contains(uid)){
+					   append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
                    }else{
-                       append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+                       append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
                    }
                }
+			   
+			   /*---OLD---*/
+               // if(users[uid].role == storm.roles.STUDENT){
+                   // if(students[0] && students[0] == uid){
+                       // append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+                   // }else{
+                       // append_data += '<input type="radio" name="boardPermmistion" onchange="$(\'#settingBoardName\').val($(this).next().text())" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+                   // }
+               // }
             }
+			
             $('#roleAccessBoard').html(append_data)
 
-
+			$("#selectAll").change(function(){
+				if ($(this).is(':checked')){
+					console.log("checked");
+					$("input:checkbox.students").each(function(){
+						$(this).prop("checked", true);
+					});
+				} else {
+					console.log("not checked");
+					$("input:checkbox.students").each(function(){
+						$(this).prop("checked", false);
+					});
+				}
+			});
+			
             $('#boardSettings').modal('show');
         });
 
@@ -263,13 +300,27 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
         });
 
         $('#saveBoardSettings').click(function(e){
+			//NOTE: variable students
+			//originally it contains student allowed, empty = allow all, else allow anyone in the list
+			//since we need to be able to disallow all, now anyone in the list is not allowed, empty = allow all (it's reversed)
+			
             var boardName = $('#settingBoardName').val();
             var students = [];
-            var student = $('input[name="boardPermmistion"]:checked').val();
-
-            if(student && student != "0"){
-                students.push(student);
+            // var student = $('input[name="boardPermmistion"]:checked').val();
+			
+			var student = $('input[name="boardPermmistion"]:not(:checked)').map(function() {
+				return this.value;
+			}).get();
+			
+            if(student){
+				for (var i = 0; i < student.length; i++)
+				{
+					students.push(student[i]);
+				}
             }
+			
+			console.log("Disallow these students: "+students);
+			
             storm.dataBoards[storm.currentBoardId].students = students;
             storm.dataBoards[storm.currentBoardId].name = boardName;
             var boardObj = $('#boards-tab').find('li[data-holder='+storm.currentBoardId+']');
@@ -404,7 +455,6 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 
     function sendSetActive(data) {
         storm.comm.socket.emit("setActive", storm.parentBoardId, data);
-        console.log("chuyen bang  duoiiiiiii: "+storm.parentBoardId+",data:"+data.boardId);
     }
 
     function generateCanvasId() {
@@ -413,6 +463,30 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
         var lastid = parseInt(lastid[1]) + 1;
         return 'canvas'+lastid;
     }
+	
+	function toggleDrawing(status) {
+		if (!status) {
+			var leftdiv = $("#leftdiv");
+			leftdiv.find(".dropdown").css("opacity", 0.3);
+			leftdiv.find(".shape-holder").css("opacity", 0.3);
+			$("#colorTools").css("opacity", 0.3);
+			leftdiv.css("pointer-events", "none");
+			var clickButton = $("*[data-shape=click]")
+			clickButton.css("opacity", 1);
+			clickButton.css("pointer-events", "auto");
+			var select = $("#pointer-shape");
+			select.css("opacity", 1);
+			select.css("pointer-events", "auto");
+			select.click();
+		} else {
+			var leftdiv = $("#leftdiv");
+			leftdiv.find(".dropdown").css("opacity", 1);
+			leftdiv.find(".shape-holder").css("opacity", 1);
+			$("#colorTools").css("opacity", 1);
+			leftdiv.css("pointer-events", "auto");
+		}
+		
+	}
 
     return boards;
 });
