@@ -368,7 +368,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 break;
         }
 
-        eWidth = Math.floor(width / cols)-2;
+        eWidth = Math.floor(width / cols)-4;
         return parent$.find(element).each(function(k, e) {
             $(e).width(eWidth);
             return $(e).height(eWidth * 3 / 4);
