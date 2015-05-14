@@ -1350,10 +1350,10 @@ ul#chattext li{word-wrap:break-word;}
 }
 #webcam .video {
     width: 100%;
-    height: 180px;
-    overflow: hidden;
+    max-height: 180px;
     position: relative;
     min-height: 50px;
+    overflow: overlay;
     background-color:#ffffff;
 }
 

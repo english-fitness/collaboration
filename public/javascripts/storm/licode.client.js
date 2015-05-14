@@ -90,8 +90,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     //view webcam
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
-                    $('#'+id_video).css({'margin': "1px"});
-                    
+                    $('#'+id_video).css({'margin': "1px",'overflow': "hidden"});
                     //remove link licode
                     document.getElementById('bar_'+stream.getID()).remove();
                     console.log('rong:'+$('#'+id_video).innerWidth());
@@ -361,7 +360,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             case 3: rows = 2; cols = 2; break;
             case 4: rows = 2; cols = 2; break;
             default:
-                rows = Math.ceil(videoCount/3); cols = 3;
+                rows = Math.ceil(videoCount/2); cols = 2;
                 var newHeight = width*rows/4;
                 if(newHeight > height) {
                   $(parent).height(width*rows/4);
