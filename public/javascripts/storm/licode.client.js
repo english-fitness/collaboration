@@ -352,7 +352,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         parent$ = $(parent);
         parent$.css({'padding-top': "0"});
         videoCount = parent$.find(element).length;
-        width = parent$.innerWidth()-4;
+        width = parent$.innerWidth();
         height = parent$.innerHeight();
         switch (videoCount) {
             case 0: rows = 1; cols = 1; break;
@@ -369,7 +369,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 break;
         }
 
-        eWidth = Math.floor(width / cols);
+        eWidth = Math.floor(width / cols)-2;
         return parent$.find(element).each(function(k, e) {
             $(e).width(eWidth);
             return $(e).height(eWidth * 3 / 4);
