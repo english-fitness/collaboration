@@ -359,7 +359,7 @@ module.exports = {
             } else {
                 var boardId = req.param('boardId');
                 var mode=req.param('mode')?req.param('mode'):'1';//set mode
-                console.log('che do:'+mode);
+                //console.log('che do:'+mode);
                 var response = {'success': false};
 
                 var sessionId = req.param('sessionId') != undefined ? req.param('sessionId') : 0;

@@ -1,3 +1,5 @@
-/uploads
+public/uploads
 /config/*
 /nbproject/private/
+public/built/*
+logs/*

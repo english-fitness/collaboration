@@ -104,3 +104,14 @@ exports.kickUser = function(sessionId, userId, callback){
         }
     });
 }
+
+exports.setRecordFile = function(sessionId, filename, callback){
+    var params = {id: sessionId, url:filename};
+    console.log('lop hoc: '+sessionId);
+    console.log('Ten file ghi am: '+filename);
+    var url = config['phpUrl'] + '/session/setRecordFile?' + qs.stringify(params);
+    var options = {url: url, rejectUnauthorized: false};
+    request(options, function(error, response, body){
+        console.log("yeu cau thanh cong ok");
+    });
+}
