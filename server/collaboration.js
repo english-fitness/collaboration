@@ -205,6 +205,14 @@ collaboration = module.exports = {
             socket.on('changeSpeakingStudent',function(boardId,data){
                  socket.broadcast.to(boardId).emit('changeSpeakingStudent', data);
             });
+            socket.on('setRecordFile', function(boardId, data){
+                console.log(data.filename);
+                setRecordFile(boardId, data, this);
+            });
+            
+            socket.on('getSessionId', function(boardId, data){;
+                getSessionId(boardId, data, this);
+            });
         });
     }
 }
@@ -432,7 +440,7 @@ var setContainer = function (boardId, data) {
 var drawOnBoard = function (boardId, data, socket) {
     if (typeof(boardId) == 'undefined' || typeof(data.boardId) == 'undefined'
         || typeof(data.args[0]) == 'undefined'  || typeof(data.args[0].uid) == 'undefined'
-        || data.action === "clearText") {
+        || data.action == "clearText") {
         return;
     }
 
@@ -781,5 +789,19 @@ var kickUser = function(boardId, data, socket) {
                 });
             }
         }
+    });
+}
+
+var setRecordFile = function(boardId, data, socket){
+    BoardModel.loadByBoardId(boardId, function(err, board) {
+        SessionHandle.setRecordFile(board.p('sessionId'), data.filename);
+    });
+}
+
+var getSessionId = function(boardId, data, socket){
+    BoardModel.loadByBoardId(boardId, function(err, board) {
+        var sessionId = board.p('sessionId');
+        socket.emit('setSessionId', {sessionId:sessionId});
+        console.log('da len server sessionId:'+sessionId);
     });
 }

@@ -1,7 +1,10 @@
 define(["storm", "features/list-users","storm.util", "underscore", "erizo"], function (storm, listUsers, util, _) {
-    var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, DISCONNECTED=0, CONNECTING=1, CONNECTED=2;
+    var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, sessionId,
+    DISCONNECTED=0, CONNECTING=1, CONNECTED=2, recordId, recording=false,recordMode=undefined;
     var licode = {
         init: function() {
+            
+            
             storm.comm.socket.on('token', function(token) {
                 if(token != "") {
                     licode.start(token);
@@ -12,11 +15,29 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 licode.syncVoice(data);
             });
             
+            storm.comm.socket.on('setSessionId', function(data) {
+                sessionId = data.sessionId;
+                console.log('sessssssss: '+sessionId);
+                console.log('client co sessionId la: '+sessionId);
+                var data = {'id': sessionId};
+                 $.ajax({
+                        url: "/api/session/getSettings",
+                        type: "GET", dataType: 'json', data: data,
+                        success: function(data) {
+                            console.log("data::::::::");
+                            console.log(data.settings.record);
+                            recordMode=data.settings.record;
+                            modeRecord();
+                        }
+                });
+                   
+            });
+            
             storm.comm.socket.on('changeSpeakingStudent', function(data){
                 if ($('#button_mic').hasClass('board-icon-micro-on')) {
                     licode.publishAudio(false);
                 }
-                else if (storm.user.userId === data.userId){
+                else if (storm.user.userId == data.userId){
                 
                     if ($('#button_mic').hasClass('board-icon-micro-off')){
                         licode.publishAudio(true);
@@ -25,6 +46,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 }
                 listUsers.setGioTayStatus(data.userId,'');
             });
+            
+            
             
             bindButtons();
         },
@@ -69,7 +92,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 retry = setInterval(function() {
                     storm.comm.socket.emit("token", storm.parentBoardId, {});
                 }, 1000);
-
+                
             });
 
             room.addEventListener("stream-subscribed", function(streamEvent) {
@@ -130,6 +153,12 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         stop: function() {
             if(audioStream != undefined) {
                 audioStream.close();
+                if (recording&&storm.user.isTeacher()) {
+                        room.stopRecording(recordId);
+                        recording = false;
+                        console.log("da dung nghi am...........id la: "+recordId);
+                        storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
+                }
             }
 
             if(videoStream != undefined) {
@@ -142,7 +171,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         },
 
         publishAudio: function(status) {
-           
+            
             if(status == true && audioStream == undefined) {
                 audioStream = Erizo.Stream({audio: true, video: false, attributes: {userId: storm.user.userId}});
                 audioStream.init();
@@ -154,10 +183,10 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                         listUsers.setMicroStatus(storm.user.userId, 'speaking');
                         
                         //neu lop hoc co che do ghi am
-                        
-                        //room.startRecording(audioStream,function(){
-                         //   console.log("dang nghi am ...........");
-                       // });
+//                        
+                        if (!recording&&storm.user.isTeacher()){
+                                storm.comm.socket.emit("getSessionId", storm.parentBoardId, {});
+                        } 
                         
                     }, function(anwser) {
                         console.log("Failed to publish audio stream, anwser: " + anwser);
@@ -168,7 +197,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     setMicroStatus('disabled');
                 });
             } else {
-                if(audioStream != undefined) {
+                if(audioStream !== undefined) {
                     audioStream.close();
                     audioStream = undefined;
                     setMicroStatus('off');
@@ -320,7 +349,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
 
         $('#button_mic').click(function(event) {
             //console.log(util.getMode());
-            if(util.getMode()==='1'){
+            if(util.getMode()=='1'){
                 if(storm.user.isStudent()) return ;
             }
             if($(this).hasClass('board-icon-micro-on')) {
@@ -374,6 +403,17 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             return $(e).height(eWidth * 3 / 4);
         });
     }
-
+    function modeRecord() {
+        console.log('Che do nghi am la: '+recordMode+'trang thai ghi am: '+recording);
+        if(!recording&&storm.user.isTeacher()&&recordMode==1){
+            
+            room.startRecording(audioStream, function(id) {
+                recording = true;
+                recordId = id;
+                console.log("dang nghi am ...........id la: "+recordId+"stream audio: ");
+                //console.log(audioStream);
+            });
+        }
+    }
     return licode;
 });
