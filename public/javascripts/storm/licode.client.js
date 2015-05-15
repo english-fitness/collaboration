@@ -1,7 +1,10 @@
 define(["storm", "features/list-users","storm.util", "underscore", "erizo"], function (storm, listUsers, util, _) {
-    var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, DISCONNECTED=0, CONNECTING=1, CONNECTED=2;
+    var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, sessionId,
+    DISCONNECTED=0, CONNECTING=1, CONNECTED=2, recordId, recording=false,recordMode=undefined;
     var licode = {
         init: function() {
+            
+            
             storm.comm.socket.on('token', function(token) {
                 if(token != "") {
                     licode.start(token);
@@ -12,11 +15,29 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 licode.syncVoice(data);
             });
             
+            storm.comm.socket.on('setSessionId', function(data) {
+                sessionId = data.sessionId;
+                console.log('sessssssss: '+sessionId);
+                console.log('client co sessionId la: '+sessionId);
+                var data = {'id': sessionId};
+                 $.ajax({
+                        url: "/api/session/getSettings",
+                        type: "GET", dataType: 'json', data: data,
+                        success: function(data) {
+                            console.log("data::::::::");
+                            console.log(data.settings.record);
+                            recordMode=data.settings.record;
+                            modeRecord();
+                        }
+                });
+                   
+            });
+            
             storm.comm.socket.on('changeSpeakingStudent', function(data){
                 if ($('#button_mic').hasClass('board-icon-micro-on')) {
                     licode.publishAudio(false);
                 }
-                else if (storm.user.userId === data.userId){
+                else if (storm.user.userId == data.userId){
                 
                     if ($('#button_mic').hasClass('board-icon-micro-off')){
                         licode.publishAudio(true);
@@ -25,6 +46,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 }
                 listUsers.setGioTayStatus(data.userId,'');
             });
+            
+            
             
             bindButtons();
         },
@@ -69,7 +92,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 retry = setInterval(function() {
                     storm.comm.socket.emit("token", storm.parentBoardId, {});
                 }, 1000);
-
+                
             });
 
             room.addEventListener("stream-subscribed", function(streamEvent) {
@@ -77,7 +100,9 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 if(stream.hasVideo()) {
                     var id_video='subscriber-'+stream.getID();
                     $('#video').append("<div class='video' id='"+id_video+"'></div>");
-                   
+                    
+                    
+                    // add name for webcam
                     var name = stream.getAttributes().name;
                     var name_video=name;
                     if(name_video.length > 16){ 
@@ -85,9 +110,12 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     }
                     $('#'+id_video).append('<div class="text-center" style="color:white; font-size: 10px;"><b>'
                             +name_video+'</b></div>');
+                    //view webcam
                     stream.show("subscriber-" + stream.getID(), {speaker: false, name: name});
                     resizeLayout( {container: "#video", element: ".video"} );
-                    $('#'+id_video).css({'margin': "1px"});
+                    $('#'+id_video).css({'margin': "1px",'overflow': "hidden"});
+                    //remove link licode
+                    document.getElementById('bar_'+stream.getID()).remove();
                     console.log('rong:'+$('#'+id_video).innerWidth());
                     console.log('cao:'+$('#'+id_video).innerHeight());
                     
@@ -125,6 +153,12 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         stop: function() {
             if(audioStream != undefined) {
                 audioStream.close();
+                if (recording&&storm.user.isTeacher()) {
+                        room.stopRecording(recordId);
+                        recording = false;
+                        console.log("da dung nghi am...........id la: "+recordId);
+                        storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
+                }
             }
 
             if(videoStream != undefined) {
@@ -137,7 +171,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         },
 
         publishAudio: function(status) {
-           
+            
             if(status == true && audioStream == undefined) {
                 audioStream = Erizo.Stream({audio: true, video: false, attributes: {userId: storm.user.userId}});
                 audioStream.init();
@@ -149,10 +183,10 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                         listUsers.setMicroStatus(storm.user.userId, 'speaking');
                         
                         //neu lop hoc co che do ghi am
-                        
-                        //room.startRecording(audioStream,function(){
-                         //   console.log("dang nghi am ...........");
-                       // });
+//                        
+                        if (!recording&&storm.user.isTeacher()){
+                                storm.comm.socket.emit("getSessionId", storm.parentBoardId, {});
+                        } 
                         
                     }, function(anwser) {
                         console.log("Failed to publish audio stream, anwser: " + anwser);
@@ -163,7 +197,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     setMicroStatus('disabled');
                 });
             } else {
-                if(audioStream != undefined) {
+                if(audioStream !== undefined) {
                     audioStream.close();
                     audioStream = undefined;
                     setMicroStatus('off');
@@ -176,7 +210,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 videoStream = Erizo.Stream({audio: false, video: true, attributes: {name: storm.user.name}});
                 videoStream.init();
                 setWebcamStatus('loading');
-
+                
                 videoStream.addEventListener('access-accepted', function(event) {
                     room.publish(videoStream, {}, function(){
                         console.log("published video stream");
@@ -185,6 +219,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     });
                     $('#webcam .publisher').append('<div id="publisher"></div>');
                     videoStream.show("publisher", {speaker: false});
+                    //remove link licode
+                    document.getElementById("bar_undefined").remove();
                 });
 
                 videoStream.addEventListener('access-denied', function(event) {
@@ -313,7 +349,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
 
         $('#button_mic').click(function(event) {
             //console.log(util.getMode());
-            if(util.getMode()==='1'){
+            if(util.getMode()=='1'){
                 if(storm.user.isStudent()) return ;
             }
             if($(this).hasClass('board-icon-micro-on')) {
@@ -344,7 +380,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         parent$ = $(parent);
         parent$.css({'padding-top': "0"});
         videoCount = parent$.find(element).length;
-        width = parent$.innerWidth()-4;
+        width = parent$.innerWidth();
         height = parent$.innerHeight();
         switch (videoCount) {
             case 0: rows = 1; cols = 1; break;
@@ -353,7 +389,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             case 3: rows = 2; cols = 2; break;
             case 4: rows = 2; cols = 2; break;
             default:
-                rows = Math.ceil(videoCount/3); cols = 3;
+                rows = Math.ceil(videoCount/2); cols = 2;
                 var newHeight = width*rows/4;
                 if(newHeight > height) {
                   $(parent).height(width*rows/4);
@@ -361,12 +397,23 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 break;
         }
 
-        eWidth = Math.floor(width / cols);
+        eWidth = Math.floor(width / cols)-4;
         return parent$.find(element).each(function(k, e) {
             $(e).width(eWidth);
             return $(e).height(eWidth * 3 / 4);
         });
     }
-
+    function modeRecord() {
+        console.log('Che do nghi am la: '+recordMode+'trang thai ghi am: '+recording);
+        if(!recording&&storm.user.isTeacher()&&recordMode==1){
+            
+            room.startRecording(audioStream, function(id) {
+                recording = true;
+                recordId = id;
+                console.log("dang nghi am ...........id la: "+recordId+"stream audio: ");
+                //console.log(audioStream);
+            });
+        }
+    }
     return licode;
 });
