@@ -67,10 +67,6 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
             if(storm.dataBoards[boardId] == undefined) boardId = storm.parentBoardId;
             if(!storm.sync && !notify) return;
             // if(!util.isAllowBoard(boardId)) return;
-			if (!util.isAllowBoard(boardId))
-				toggleDrawing(false);
-			else 
-				toggleDrawing(true);
 
             storm.currentBoardId = boardId;
 
@@ -116,6 +112,11 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
             }
 
             ui.resizeWindow();
+			
+			if (!util.isAllowBoard(boardId))
+				toggleDrawing(false);
+			else 
+				toggleDrawing(true);
         },
         createChildBoard:function() {
             var canvasId = generateCanvasId();
@@ -256,12 +257,20 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
                 var append_data = '<input type="checkbox" name="All" class="students" id="selectAll"><label>All</label><br>';
             }
 
+			var currentUsers = storm.users;
+			
             for(var uid in users){
 				if(users[uid].role == storm.roles.STUDENT){
-                   if(students && _(students).contains(uid)){
-					   append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
-                   }else{
-                       append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+					if(students && _(students).contains(uid)){
+						if (currentUsers[uid])
+							append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+						else
+							append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'"> <label for="student_'+uid+'" class="lab">'+ users[uid].name + ' (Not in class)</label><br/>';
+					}else{
+						if (currentUsers[uid])
+							append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + '</label><br/>';
+						else
+							append_data += '<input type="checkbox" name="boardPermmistion" class="students" id="student_'+uid+'" value="'+uid+'" checked> <label for="student_'+uid+'" class="lab">'+ users[uid].name + ' (Not in class)</label><br/>';
                    }
                }
 			   
@@ -279,12 +288,10 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 
 			$("#selectAll").change(function(){
 				if ($(this).is(':checked')){
-					console.log("checked");
 					$("input:checkbox.students").each(function(){
 						$(this).prop("checked", true);
 					});
 				} else {
-					console.log("not checked");
 					$("input:checkbox.students").each(function(){
 						$(this).prop("checked", false);
 					});
@@ -466,24 +473,58 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 	
 	function toggleDrawing(status) {
 		if (!status) {
+			/*  disable all  */
 			var leftdiv = $("#leftdiv");
 			leftdiv.find(".dropdown").css("opacity", 0.3);
 			leftdiv.find(".shape-holder").css("opacity", 0.3);
 			$("#colorTools").css("opacity", 0.3);
+			
 			leftdiv.css("pointer-events", "none");
-			var clickButton = $("*[data-shape=click]")
-			clickButton.css("opacity", 1);
-			clickButton.css("pointer-events", "auto");
-			var select = $("#pointer-shape");
-			select.css("opacity", 1);
-			select.css("pointer-events", "auto");
-			select.click();
+			
+			
+			// var clickButton = $("*[data-shape=click]")
+			// clickButton.css("opacity", 1);
+			// clickButton.css("pointer-events", "auto");
+			// var select = $("#pointer-shape");
+			// select.css("opacity", 1);
+			// select.css("pointer-events", "auto");
+			// select.click();
+			
+			//disable selecting, discard all selecting
+			storm.action = "";
+			storm.enableDraw = false;
+			
+			_(storm.canvases).each(function(canvas) {
+                canvas.discardActiveObject();
+                canvas.discardActiveGroup();
+                canvas.isSelectMode = false;
+                canvas.isDrawingMode = false;
+                canvas.isSelectMode = false;
+                canvas.selection = false;
+
+                var objAll = canvas.getObjects();
+
+                if(objAll) {
+                    $.each(objAll,function(index,value){
+                        value.selectable = false;
+                    });
+                }
+                canvas.renderAll();
+            });
+			
 		} else {
 			var leftdiv = $("#leftdiv");
 			leftdiv.find(".dropdown").css("opacity", 1);
 			leftdiv.find(".shape-holder").css("opacity", 1);
 			$("#colorTools").css("opacity", 1);
 			leftdiv.css("pointer-events", "auto");
+			var selected = leftdiv.find(".shape-selected");
+			if (selected)
+			{
+				selected.click();
+			}
+			
+			storm.enableDraw = true;
 		}
 		
 	}

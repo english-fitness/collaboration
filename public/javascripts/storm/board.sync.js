@@ -12,7 +12,7 @@ define(["storm", "storm.util", "boards"], function(storm, util, boards) {
 	            } else {
 	                if(!util.isAllowBoard(data.boardId)) {
 	                    // jump to main board
-	                    $("#boards div#boards-tab ul li:first a.link-board").click();
+	                    // $("#boards div#boards-tab ul li:first a.link-board").click();
 	                }
 	            }
 	        });
