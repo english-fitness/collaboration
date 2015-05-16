@@ -106,7 +106,7 @@ exports.kickUser = function(sessionId, userId, callback){
 }
 
 exports.setRecordFile = function(sessionId, filename, callback){
-    var params = {id: sessionId, url:filename};
+    var params = {id: sessionId, file:filename};
     console.log('lop hoc: '+sessionId);
     console.log('Ten file ghi am: '+filename);
     var url = config['phpUrl'] + '/session/setRecordFile?' + qs.stringify(params);
