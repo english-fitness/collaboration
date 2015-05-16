@@ -48,7 +48,7 @@ application = (function () {
 
 
     app.use(function(req, res, next) {
-        if (req.url.slice(-4).toLowerCase() === 'pdfx') {
+        if (req.url.slice(-4).toLowerCase() == 'pdfx') {
             req.url = req.url.slice(0, -1);
         }
         next();

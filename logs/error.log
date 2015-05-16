@@ -1,8 +1,0 @@
-[2014-07-02 10:22:12.430] [FATAL] error - TypeError: Cannot read property 'userId' of null
-    at /home/son/daykem/collaboration/server/collaboration.js:719:47
-    at Client.get (/home/son/daykem/collaboration/node_modules/socket.io/lib/stores/memory.js:86:3)
-    at Socket.get (/home/son/daykem/collaboration/node_modules/socket.io/lib/socket.js:258:14)
-    at async.waterfall.token (/home/son/daykem/collaboration/server/collaboration.js:718:20)
-    at fn (/home/son/daykem/collaboration/node_modules/async/lib/async.js:582:34)
-    at Object._onImmediate (/home/son/daykem/collaboration/node_modules/async/lib/async.js:498:34)
-    at processImmediate [as _immediateCallback] (timers.js:336:15)
