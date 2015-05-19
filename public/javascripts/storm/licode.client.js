@@ -354,6 +354,13 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             }
             if($(this).hasClass('board-icon-micro-on')) {
                 licode.publishAudio(false);
+		 //colse record file
+                if (recording&&storm.user.isTeacher()) {
+                        room.stopRecording(recordId);
+                        recording = false;
+                        console.log("da dung nghi am...........id la: "+recordId);
+                        storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
+                }
             } else if($(this).hasClass('board-icon-micro-off')){
                 licode.publishAudio(true);
             }
