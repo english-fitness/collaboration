@@ -1,6 +1,6 @@
 public/uploads
-/config/*
-/nbproject/private/
+config/*
+nbproject/private/
 public/built/*
 logs/*
 restart

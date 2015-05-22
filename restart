@@ -1,5 +1,0 @@
-#!/bin/bash
-export NODE_ENV=production
-cd /home/tutor/collaboration
-forever stop app.js
-forever start app.js
