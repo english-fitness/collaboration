@@ -9,10 +9,10 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
 
         setMicroStatus: function(userId, status) {
             var user = storm.users[userId];
-            if(user === undefined) return;
+            if(user == undefined) return;
             //if(storm.user.userId == userId) return;
             var microClass = status && status != '' ? 'micro board-icon-micro-'+status : 'micro board-icon-micro-nospeaking';
-            if(user.role === storm.roles.TEACHER) {
+            if(user.role == storm.roles.TEACHER) {
                 $('#teacher_area .micro').attr('class', microClass);
                 
             } else {
@@ -22,15 +22,15 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
         setGioTayStatus: function(userId, status) {
             var user = storm.users[userId];
             if(user == undefined) return;
-            if (userId === storm.user.userId){
-                if(status===''){
+            if (userId == storm.user.userId){
+                if(status==''){
                     raising=false;
                 }else{
                     raising=true;
                 }
             }
             // console.log('Status rase: '+status);
-            if(status===''){
+            if(status==''){
                  document.getElementById('myTune-off').play();
                  //console.log('Bo gio tay');
             }
@@ -100,10 +100,10 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
                 $('#teacher_area').attr('data', user.userId);
                 $('#teacher_area .name').attr('style', 'color: red');
             } else {
-                if($('li#user'+ user.userId).length === 0){
+                if($('li#user'+ user.userId).length == 0&&user.role!=storm.roles.ADMIN){
                     ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' 
                             + name + '</span><div class="action"><div class="micro board-icon-micro-nospeaking"></div><div class="raisehand"></div></div></li>');
-                    if(user.userId === storm.user.userId) {
+                    if(user.userId == storm.user.userId) {
                         $('#user'+user.userId).attr('style', 'color: #245ba7');
                     }
                     bindPopover(user.userId);
@@ -142,7 +142,7 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
                     if($(element).html() != $(span).html()) $(element).popover('hide');
                 });
                 $(this).popover('toggle');
-            } else if (storm.user.isTeacher()&&util.getMode()==='1'&&storm.sync) {
+            } else if (storm.user.isTeacher()&&util.getMode()=='1'&&storm.sync) {
                 var userId = $(this).attr('id').substring(4);
                 storm.comm.socket.emit('changeSpeakingStudent', storm.parentBoardId, {userId:userId});
                 listUsers.setGioTayStatus(userId,'');

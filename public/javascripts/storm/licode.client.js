@@ -1,6 +1,6 @@
 define(["storm", "features/list-users","storm.util", "underscore", "erizo"], function (storm, listUsers, util, _) {
     var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, sessionId,
-    DISCONNECTED=0, CONNECTING=1, CONNECTED=2, recordId, recording=false,recordMode=undefined;
+    DISCONNECTED=0, CONNECTING=1, CONNECTED=2, recordId, recording=false,recordMode=undefined,array_video=new Array();;
     var licode = {
         init: function() {
             
@@ -116,10 +116,17 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     $('#'+id_video).css({'margin': "1px",'overflow': "hidden"});
                     //remove link licode
                     document.getElementById('bar_'+stream.getID()).remove();
-                    console.log('rong:'+$('#'+id_video).innerWidth());
-                    console.log('cao:'+$('#'+id_video).innerHeight());
-                    
-                    console.log('so videos: '+$('#video').find('.video').length);
+                    //console.log('rong:'+$('#'+id_video).innerWidth());
+                    //console.log('cao:'+$('#'+id_video).innerHeight());
+                    //console.log('so videos: '+$('#video').find('.video').length);
+		    //video on firefox
+		    var firefox_video='stream'+stream.getID();
+                    array_video.push(firefox_video);
+                    console.log(array_video);
+                    var i;
+                    for(i=0;i<array_video.length;i++){
+                        $('#'+array_video[i]).css({'height': "100%",'left':"auto",'width':"100%"});
+                    }
                     
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
