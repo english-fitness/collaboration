@@ -69,7 +69,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 setMicroStatus('off');
 
                 // Auto subscribe only if student or teacher
-                if(storm.user.isTeacher()||storm.user.isStudent()) {
+                if(storm.user.isTeacher()||(storm.user.isStudent()&&util.getMode()!='1')) {
                     licode.publishAudio(true);
 		    //console.log('giao vien tu bat');
                     $('#button_thumb_raisehand').attr('id','button_thumb_raisehand_off');
