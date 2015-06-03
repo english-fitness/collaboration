@@ -673,7 +673,12 @@ var stopSession = function(boardId, data, socket) {
                 board.p('timeStopped', timeStopped);
 
                 board.save();
-                SessionHandle.endSession(board.p('sessionId'), board.p('totalTime') / 60);
+				if (data.forceEnd)
+				{
+					SessionHandle.forceEndSession(board.p('sessionId'), board.p('totalTime') / 60);
+				}
+				else
+					SessionHandle.endSession(board.p('sessionId'), board.p('totalTime') / 60);
                 socket.broadcast.to(boardId).emit('toggleBoard', data);
 
                 sendFeedback(boardId, board.p('sessionId'));
@@ -802,6 +807,5 @@ var getSessionId = function(boardId, data, socket){
     BoardModel.loadByBoardId(boardId, function(err, board) {
         var sessionId = board.p('sessionId');
         socket.emit('setSessionId', {sessionId:sessionId});
-        console.log('da len server sessionId:'+sessionId);
     });
 }

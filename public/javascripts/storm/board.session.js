@@ -69,7 +69,7 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
                     }
                 } else {
                     if(confirm('Are you sure you want to end the class?')) {
-                        sendToggleBoard({status:'stop'});
+                        sendToggleBoard({status:'stop', forceEnd:true});
                         endSession();
                     }
                 }

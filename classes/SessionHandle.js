@@ -55,6 +55,32 @@ exports.endSession = function(sessionId, actualDuration, callback){
     if (callback) callback();
 }
 
+exports.forceEndSession = function(sessionId, actualDuration, callback){
+    if (!actualDuration) actualDuration = 0;
+    var params = {sessionId: sessionId, actualDuration: actualDuration, forceEnd:true};
+    var url = config['phpUrl'] + '/session/end?' + qs.stringify(params);
+    var options = {url: url, rejectUnauthorized: false};
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            try {
+                var result = JSON.parse(body);
+                if(result.success == true) {
+                    logger.debug('endSession::End session successfully with sessionId:'+sessionId);
+                } else {
+                    logger.debug('endSession::Can not end sessionId:'+sessionId);
+                }
+            } catch(e) {
+                callback && callback('exception from php');
+                logger.error('endSession: exception from php, session:'+sessionId);
+            }
+        } else {
+            logger.error('endSession::error with sessionId:'+sessionId);
+        }
+    });
+
+    if (callback) callback();
+}
+
 exports.getFeedbackUrls = function(sessionId, callback){
     var params = {sessionId: sessionId};
     var url = config['phpUrl'] + '/session/getFeedbackUrls?' + qs.stringify(params);
