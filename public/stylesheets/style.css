@@ -1055,6 +1055,7 @@ ul#chattext li{word-wrap:break-word;}
     margin: 0;
     padding-left: 0px;
     overflow-y: auto;
+    height: 90px;
 }
 .list-user li{
     margin: 0;
