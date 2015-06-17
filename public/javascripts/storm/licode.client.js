@@ -130,7 +130,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
-                    $('#video').append("<div class='audio' id='subscriber-"+stream.getID()+"'></div>");
+                    $('#video').append("<div class='audio' style='float:left;' id='subscriber-"+stream.getID()+"'></div>");
                     stream.show("subscriber-" + stream.getID(), {speaker: false});
                     var userId = stream.getAttributes().userId;
                     listUsers.setMicroStatus(userId, 'speaking');
