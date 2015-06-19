@@ -155,6 +155,16 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     }
                 }
             });
+		//neu loading qua lau se reload lai
+	    setTimeout(function() {
+               console.log('disabled mic: '+$('#button_mic').hasClass('board-icon-micro-disabled'));
+               console.log('loading mic: '+$('#button_mic').hasClass('board-icon-micro-loading'));
+               if($('#button_mic').hasClass('board-icon-micro-loading')){
+                   location.reload();
+               }
+               console.log('off mic: '+$('#button_mic').hasClass('board-icon-micro-off'));
+               console.log('on mic: '+$('#button_mic').hasClass('board-icon-micro-on'));
+            }, 10000);
         },
 
         stop: function() {
