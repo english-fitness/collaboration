@@ -160,7 +160,9 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                console.log('disabled mic: '+$('#button_mic').hasClass('board-icon-micro-disabled'));
                console.log('loading mic: '+$('#button_mic').hasClass('board-icon-micro-loading'));
                if($('#button_mic').hasClass('board-icon-micro-loading')){
-                   location.reload();
+                   	console.log('Da re load lai do loading qua lau');
+                   	storm.reloadConfirm = false;
+			location.reload();
                }
                console.log('off mic: '+$('#button_mic').hasClass('board-icon-micro-off'));
                console.log('on mic: '+$('#button_mic').hasClass('board-icon-micro-on'));
