@@ -24,7 +24,6 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                         url: "/api/session/getSettings",
                         type: "GET", dataType: 'json', data: data,
                         success: function(data) {
-                            console.log("data::::::::");
                             console.log(data.settings.record);
                             recordMode=data.settings.record;
                             modeRecord();
