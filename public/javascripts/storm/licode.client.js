@@ -129,7 +129,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     
                 } else if(stream.hasAudio()){
                     stream.state = CONNECTED;
-                    $('#video').append("<div class='audio' id='subscriber-"+stream.getID()+"'></div>");
+                    $('#video').append("<div class='audio' style='float:left;' id='subscriber-"+stream.getID()+"'></div>");
                     stream.show("subscriber-" + stream.getID(), {speaker: false});
                     var userId = stream.getAttributes().userId;
                     listUsers.setMicroStatus(userId, 'speaking');
@@ -154,6 +154,18 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     }
                 }
             });
+		//neu loading qua lau se reload lai
+	    setTimeout(function() {
+               console.log('disabled mic: '+$('#button_mic').hasClass('board-icon-micro-disabled'));
+               console.log('loading mic: '+$('#button_mic').hasClass('board-icon-micro-loading'));
+               if($('#button_mic').hasClass('board-icon-micro-loading')){
+                   	console.log('Da re load lai do loading qua lau');
+                   	storm.reloadConfirm = false;
+			location.reload();
+               }
+               console.log('off mic: '+$('#button_mic').hasClass('board-icon-micro-off'));
+               console.log('on mic: '+$('#button_mic').hasClass('board-icon-micro-on'));
+            }, 10000);
         },
 
         stop: function() {
