@@ -1652,6 +1652,20 @@ span.sender{font-weight: bold; margin-right: 4px}
     height: 30px;
 }
 
+
+.board-icon-exit {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background-position: -129px -49px;
+    border: 1px solid black;
+    margin-top: -2px;
+}
+.board-icon-exit:hover {
+    border-radius: 50%;
+    background-position: -129px -65px;
+    border: 1px solid;
+}
 .board-icon-play {
     background-position: -104px -37px;
 }
