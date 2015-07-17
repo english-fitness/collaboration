@@ -35,7 +35,7 @@ define(["storm","storm.ui","storm.util"], function (storm, ui, util) {
 
         this.socket.on('error', function (reason) {
             if(reason == "handshake unauthorized") {
-                alert("Tài khoản bạn đang đăng nhập đã tham gia vào buổi học này ở một nơi khác. Xin vui lòng thử lại sau!");
+                alert(" The account you are logging in has entered this session in a different place. Please try again later!");
             }
             console.log('connect error, reason: ' + reason);
         });
@@ -44,7 +44,7 @@ define(["storm","storm.ui","storm.util"], function (storm, ui, util) {
         	if('booted' != reason) {
         		setTimeout(ui.showDisconnecting,1000);
         	} else {
-        		alert('Bạn đã được Quản lý học tập mời ra khỏi lớp. Mọi thắc mắc xin vui lòng liên hệ 0969496795');
+        		alert('You have been invited out of the classroom by the administrator. If you have any questions, please contact 0936125050 / 0961005057');
         		storm.reloadConfirm = false;
         		window.location.reload();
         	}
