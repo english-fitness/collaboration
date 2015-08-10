@@ -17,14 +17,11 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             
             storm.comm.socket.on('setSessionId', function(data) {
                 sessionId = data.sessionId;
-                console.log('sessssssss: '+sessionId);
-                console.log('client co sessionId la: '+sessionId);
                 var data = {'id': sessionId};
                  $.ajax({
                         url: "/api/session/getSettings",
                         type: "GET", dataType: 'json', data: data,
                         success: function(data) {
-                            console.log(data.settings.record);
                             recordMode=data.settings.record;
                             modeRecord();
                         }
@@ -70,7 +67,6 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 // Auto subscribe only if student or teacher
                 if(storm.user.isTeacher()||(storm.user.isStudent()&&util.getMode()!='1')) {
                     licode.publishAudio(true);
-		    //console.log('giao vien tu bat');
                     $('#button_thumb_raisehand').attr('id','button_thumb_raisehand_off');
                 }
 
@@ -119,9 +115,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                     //console.log('cao:'+$('#'+id_video).innerHeight());
                     //console.log('so videos: '+$('#video').find('.video').length);
 		    //video on firefox
-		    var firefox_video='stream'+stream.getID();
+					var firefox_video='stream'+stream.getID();
                     array_video.push(firefox_video);
-                    console.log(array_video);
                     var i;
                     for(i=0;i<array_video.length;i++){
                         $('#'+array_video[i]).css({'height': "100%",'left':"auto",'width':"100%"});
@@ -156,15 +151,10 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             });
 		//neu loading qua lau se reload lai
 	    setTimeout(function() {
-               console.log('disabled mic: '+$('#button_mic').hasClass('board-icon-micro-disabled'));
-               console.log('loading mic: '+$('#button_mic').hasClass('board-icon-micro-loading'));
                if($('#button_mic').hasClass('board-icon-micro-loading')){
-                   	console.log('Da re load lai do loading qua lau');
                    	storm.reloadConfirm = false;
-			location.reload();
+					location.reload();
                }
-               console.log('off mic: '+$('#button_mic').hasClass('board-icon-micro-off'));
-               console.log('on mic: '+$('#button_mic').hasClass('board-icon-micro-on'));
             }, 10000);
         },
 
@@ -174,7 +164,6 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 if (recording&&storm.user.isTeacher()) {
                         room.stopRecording(recordId);
                         recording = false;
-                        console.log("da dung nghi am...........id la: "+recordId);
                         storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
                 }
             }
@@ -366,17 +355,14 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         });
 
         $('#button_mic').click(function(event) {
-            //console.log(util.getMode());
             if(util.getMode()=='1'){
                 if(storm.user.isStudent()) return ;
             }
             if($(this).hasClass('board-icon-micro-on')) {
                 licode.publishAudio(false);
-		 //colse record file
                 if (recording&&storm.user.isTeacher()) {
                         room.stopRecording(recordId);
                         recording = false;
-                        console.log("da dung nghi am...........id la: "+recordId);
                         storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
                 }
             } else if($(this).hasClass('board-icon-micro-off')){
@@ -429,13 +415,11 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
         });
     }
     function modeRecord() {
-        console.log('Che do nghi am la: '+recordMode+'trang thai ghi am: '+recording);
         if(!recording&&storm.user.isTeacher()&&recordMode==1){
             
             room.startRecording(audioStream, function(id) {
                 recording = true;
                 recordId = id;
-                console.log("dang nghi am ...........id la: "+recordId+"stream audio: ");
                 //console.log(audioStream);
             });
         }

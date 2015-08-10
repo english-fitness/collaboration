@@ -32,27 +32,41 @@ define(["storm","storm.ui","storm.util"], function (storm, ui, util) {
         this.socket.on('connect_failed', function () {
             console.log('connect failed');
         });
-
+		
+		this.socket.on('sessionId', function(data){
+			storm.sessionId = data.sessionId;
+		});
+		
         this.socket.on('error', function (reason) {
             if(reason == "handshake unauthorized") {
-                alert("Tài khoản bạn đang đăng nhập đã tham gia vào buổi học này ở một nơi khác. Xin vui lòng thử lại sau!");
+				if (window.navigator.language == 'vi-VN'){
+					alert("Tài khoản bạn đang đăng nhập đã tham gia vào buổi học này ở một nơi khác. \
+					Nếu bạn bị thoát ra do mất kết nối, vui lòng đợi một vài phút và thử lại.");
+				} else {
+					alert("This account is logged in from another computer. \
+					If you see this after being disconnected from the session, \
+					you may be able to re-enter the session after a few minutes, please try again later!");
+				}
             }
             console.log('connect error, reason: ' + reason);
         });
 
         this.socket.on('disconnect', function (reason) {
+			console.log('socket disconnected, reason: ' + reason);
         	if('booted' != reason) {
         		setTimeout(ui.showDisconnecting,1000);
-        	} else {
-        		alert('Bạn đã được Quản lý học tập mời ra khỏi lớp. Mọi thắc mắc xin vui lòng liên hệ 0969496795');
-        		storm.reloadConfirm = false;
-        		window.location.reload();
         	}
         });
 
         this.socket.on('kickUser', function() {
-        	storm.comm.socket.disconnect();
+			alert('Bạn đã được Quản lý học tập mời ra khỏi lớp. Mọi thắc mắc xin vui lòng liên hệ bộ phận hỗ trợ khách hàng.');
+			storm.reloadConfirm = false;
+			window.location.reload();
         });
+		
+		this.socket.on('requestSurvey', function(data){
+			ui.showSurveyForm();
+		});
     }
 	(function () {
 		// Handler functions

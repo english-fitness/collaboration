@@ -74,7 +74,7 @@ define(["storm", "storm.ui", "storm.util", "board.pdf"], function(storm, ui, uti
             if(_(value).isString()) {
                 var extension = value.substr(value.lastIndexOf('.') + 1).toLowerCase();
                 if(extension == 'pdf'){
-                    $('.list-files').append('<li><div class="board-icon-pdf"></div><a class="load-pdf-file" href="'+root + value +'">'+key+'</a><div class="board-icon-close rightFloater"></div></li>');
+                    $('.list-files').append('<li><div class="board-icon-pdf"></div><a class="load-pdf-file" href="'+root + value +'">'+key+'</a></li>');
                 }
             }
         });
@@ -83,7 +83,7 @@ define(["storm", "storm.ui", "storm.util", "board.pdf"], function(storm, ui, uti
             if(_(value).isString()) {
                 var extension = value.substr(value.lastIndexOf('.') + 1).toLowerCase();
                 if($.inArray(extension,allowImageExtensions) != -1){
-                    $('.list-files').append('<li><div class="board-icon-image"></div><a class="load-picture-file" href="'+ root + value +'">'+key+'</a><div class="board-icon-close rightFloater"></div></li>');
+                    $('.list-files').append('<li><div class="board-icon-image"></div><a class="load-picture-file" href="'+ root + value +'">'+key+'</a></div></li>');
                 }
             }
         });

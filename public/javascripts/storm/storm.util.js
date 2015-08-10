@@ -382,7 +382,10 @@ define(["storm", "underscore"], function (storm, _) {
 
         isAllowBoard: function(boardId) {
 			//change according to board setting change
-            var students = storm.dataBoards[boardId].students ? storm.dataBoards[boardId].students : [];
+            var students = storm.dataBoards[boardId].students;
+			if (!students){
+				students = [];
+			}
             if(storm.user.role == storm.roles.STUDENT && _(students).size() > 0
                 && _(students).contains(storm.user.userId)) {
                 return false;

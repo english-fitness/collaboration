@@ -1,5 +1,7 @@
 define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf","licode.client","underscore"],
     function (storm,ui,util,mfabric,events,boardPdf,licode,_) {
+		
+	var viewOnlyMode = false;
 
     var boards = {
         init: function() {
@@ -25,6 +27,26 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
                     boards.removeChildBoard(data.boardId, data.activeBoardId);
                 }
             });
+			
+			storm.comm.socket.on('expirationTime', function(remainingTime){
+				if (remainingTime <= 0){
+					activateViewOnlyMode();
+				} else {
+					setClassEndTimer(remainingTime);
+				}
+			});
+			
+			storm.comm.socket.on('doneLoadingBoard', function(data){
+				storm.boardLoaded[data.boardId] = true;
+
+				console.log('another board has done loading');
+				if (allBoardLoaded()){
+					console.log('all board loaded');
+					storm.comm.socket.disconnect();
+				} else {
+					console.log('still something left');
+				}
+			})
 
             bindEvents();
         },
@@ -113,7 +135,7 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 
             ui.resizeWindow();
 			
-			if (!util.isAllowBoard(boardId))
+			if (!util.isAllowBoard(boardId) || viewOnlyMode)
 				toggleDrawing(false);
 			else 
 				toggleDrawing(true);
@@ -457,7 +479,6 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 
     function sendLoadBoard(data) {
         storm.comm.socket.emit("loadBoard", storm.parentBoardId, data);
-        storm.boardLoaded[data.boardId] = true;
     }
 
     function sendSetActive(data) {
@@ -475,12 +496,21 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 		if (!status) {
 			/*  disable all  */
 			var leftdiv = $("#leftdiv");
-			leftdiv.find(".dropdown").css("opacity", 0.3);
-			leftdiv.find(".shape-holder").css("opacity", 0.3);
-			$("#colorTools").css("opacity", 0.3);
 			
 			leftdiv.css("pointer-events", "none");
 			
+			if (viewOnlyMode){
+				$('#upload_pdf_image').hide();
+				$('#upload_image_from_link').hide();
+				$('#chat').prop('disabled', true);
+				$('.rightdiv').css("pointer-events", "none");
+				$('.rightdiv > .ui-widget-content > .bdrT > .slimScrollDiv').css("pointer-events", "auto");
+				leftdiv.find(".dropdown").css("pointer-events", "auto");
+			} else {
+				leftdiv.find(".dropdown").css("opacity", 0.3);
+			}
+			leftdiv.find(".shape-holder").css("opacity", 0.3);
+			$("#colorTools").css("opacity", 0.3);
 			
 			// var clickButton = $("*[data-shape=click]")
 			// clickButton.css("opacity", 1);
@@ -527,6 +557,74 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 			storm.enableDraw = true;
 		}
 		
+	}
+	
+	function activateViewOnlyMode(){
+		console.log('view only mode activated');
+		viewOnlyMode = true;
+		toggleDrawing(false);
+		storm.reloadConfirm = false;
+		if (window.navigator.language == 'vi'){
+			alert('Buổi học này đã hết thời gian. Bạn đang ở chế độ xem.');
+		} else {
+			alert('This session has ran out of time. You are in view only mode.');
+		}
+		//disable drawing, messaging
+		//draw everything on the board
+		var dataBoard = storm.dataBoards;
+		for (var boardId in dataBoard){
+			if(!storm.boardLoaded[boardId]) {
+				sendLoadBoard({ boardId: boardId, notifyWhenDone:true });
+
+				boardPdf.loadPdfOnBoard(boardId);
+
+				if(dataBoard && dataBoard.background){
+					canvas.setBackgroundColor({source:$.trim(dataBoard.background)},function() {
+						canvas.renderAll();
+					});
+					storm.loadedBackground[boardId] = true;
+				}
+			} else {
+				if((dataBoard && dataBoard.docUrl) || storm.loadedPdf[boardId]) {
+					boardPdf.appendPagination(storm.totalPages[boardId]);
+					$('input.c-percent').val(Math.round(storm.currentScale[boardId]*100));
+					$('.navication .currentPage').val(storm.currentPages[boardId]);
+					$('.navication .totalPage').html(storm.totalPages[boardId]);
+					$('.navication').show();
+				}else{
+					$('.navication').hide();
+				}
+			}
+		}
+		$('.board-icon-add').css('pointer-events', 'none');
+		$('.board-icon-remove').css('pointer-events', 'none');
+		$('.board-icon-setting').css('pointer-events', 'none');
+	}
+	
+	function forceSessionEnd(){
+		console.log('timeout');
+		storm.reloadConfirm = false;
+		ui.showForceEndSession();
+		//we really want to just reload and enter the view only mode but there are still some concern.
+		//So let's just force them out
+		// setTimeout(function(){window.location.reload()}, 10000);
+		setTimeout(function(){window.close()}, 10000);
+	}
+	
+	function setClassEndTimer(remainingTime){
+		if (remainingTime > 0 && remainingTime < 45*60){
+			setTimeout(forceSessionEnd, remainingTime*1000);
+			console.log('timer set for ' + remainingTime + ' seconds');
+		}
+	}
+	
+	function allBoardLoaded(){
+		var dataBoards = storm.dataBoards;
+		for (var boardId in dataBoards){
+			if (!storm.boardLoaded[boardId])
+				return false;
+		}
+		return true;
 	}
 
     return boards;

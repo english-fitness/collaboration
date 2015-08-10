@@ -43,8 +43,9 @@ exports.endSession = function(sessionId, actualDuration, callback){
                 } else {
                     logger.debug('endSession::Can not end sessionId:'+sessionId);
                 }
+				callback(result.success);
             } catch(e) {
-                callback && callback('exception from php');
+                // callback && callback('exception from php');
                 logger.error('endSession: exception from php, session:'+sessionId);
             }
         } else {
@@ -52,12 +53,12 @@ exports.endSession = function(sessionId, actualDuration, callback){
         }
     });
 
-    if (callback) callback();
+    // if (callback) callback();
 }
 
 exports.forceEndSession = function(sessionId, actualDuration, callback){
     if (!actualDuration) actualDuration = 0;
-    var params = {sessionId: sessionId, actualDuration: actualDuration, forceEnd:true};
+    var params = {sessionId: sessionId, actualDuration: actualDuration, forceEnd:1};
     var url = config['phpUrl'] + '/session/end?' + qs.stringify(params);
     var options = {url: url, rejectUnauthorized: false};
     request(options, function (error, response, body) {
@@ -69,8 +70,9 @@ exports.forceEndSession = function(sessionId, actualDuration, callback){
                 } else {
                     logger.debug('endSession::Can not end sessionId:'+sessionId);
                 }
+				callback(result.success);
             } catch(e) {
-                callback && callback('exception from php');
+                // callback && callback('exception from php');
                 logger.error('endSession: exception from php, session:'+sessionId);
             }
         } else {
@@ -78,7 +80,7 @@ exports.forceEndSession = function(sessionId, actualDuration, callback){
         }
     });
 
-    if (callback) callback();
+    // if (callback) callback();
 }
 
 exports.getFeedbackUrls = function(sessionId, callback){
@@ -139,4 +141,15 @@ exports.setRecordFile = function(sessionId, filename, callback){
 		//do something
 		//may be print the error
     });
+}
+
+exports.getSessionTimeUntilExpiration = function(sessionId, callback){
+	var url = config['phpUrl'] + '/session/getTimeUntilExpiration?' + qs.stringify({sessionId: sessionId});
+	var options = {url:url, rejectUnauthorized: false};
+	request(options, function(error, response, body){
+		if (!error && response.statusCode == 200) {
+			var result = JSON.parse(body);
+			callback(result.remainingTime);
+		}
+	});
 }

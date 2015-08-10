@@ -29,13 +29,10 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
                     raising=true;
                 }
             }
-            // console.log('Status rase: '+status);
             if(status==''){
                  document.getElementById('myTune-off').play();
-                 //console.log('Bo gio tay');
             }
             else{
-              //  console.log('Gio tay');
                 document.getElementById('myTune-on').play();
             }
             var gioTayClass = status && status != '' ? 'raisehand board-icon-raisehand-'+status : 'raisehand';

@@ -1,7 +1,10 @@
+
 @import url("./../javascripts/thirdparty/mathquill/mathquill.css");
 @import url("./thirdparty/farbtastic/farbtastic.css");
 @import url("./thirdparty/mscrollbar/jquery.mCustomScrollbar.css");
+@import url("./thirdparty/jquery/jquery.rating.css");
 @import url("./thirdparty/bootstrap/bootstrap.min.css");
+@import url("./thirdparty/bootstrap/bootstrap-dialog.min.css");
 @import url("./style.css");
 @import url("./board.css");
 @import url("./emoticon.css");

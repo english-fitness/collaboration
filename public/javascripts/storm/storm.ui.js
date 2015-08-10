@@ -1,4 +1,4 @@
-define(["storm"], function (storm) {
+define(["storm", "bootstrap-dialog"], function (storm, BootstrapDialog) {
 	"use strict";
 	var ui = {
 		/** width and height of panels for resize */
@@ -210,12 +210,198 @@ define(["storm"], function (storm) {
 		        '2. System will try to reconnect <br /> ' +
 		        '3. Please <span style="color: red">refresh, reload (Press F5)</span> if it takes too long<br>' +
 		        '4. Call our support team if the problem still persists <br>' +
-		        '<b>Điện thoại hỗ trợ: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
+		        '<b>Support Hotline: </b> <span style="color: red;">0961.00.50.57</span> <br>' +
 		        'Error Code: MEDIA#2</div></div>');
         },
+		showForceEndSession: function(){
+			$('body').append('<div class="modal-backdrop fade in disconnecting"><div class="alert-reconnecting">\
+		        <b style="color: red">Session has ran out of time</b><br/>\
+				This session has ran out of time and will be terminated. You can still enter view only mode.\
+				<br>In view only mode, you are not be able to use the audio or video communication or using the whiteboard.\
+				<br>The browser will reload and enter view-only mode in a few seconds.\
+				<br>If you have any problem or concern, please contact with our customer supports.\
+		        <b>Support Hotline: </b> <span style="color: red;">0961.00.50.57</span> <br>\
+				</div></div>');
+		},
         hideDisconnecting: function(){
             $('body .modal-backdrop').remove();
         },
+		showSurveyForm: function(){
+			if (storm.user.isTeacher()){
+				window.onbeforeunload = function(){
+					return  'Please fill in the reminders for this session before leaving\nIf you can\'t do it now, please do it later. '+
+							'You can access unfilled reminders from your main account screen.';
+				};
+				
+				var surveySubmitSuccess = new BootstrapDialog({
+					title:'Thank you',
+					message:'Thank you for completing the session. This page will now reload and switch to view only mode.',
+					closable:false,
+					autodestroy:true,
+					buttons:[
+						{
+							label:'Close',
+							action:function(dialog){
+								dialog.close();
+								window.onbeforeunload = null;
+								window.location.reload();
+							}
+						}
+					],
+				});
+				
+				var surveySubmitFailed = new BootstrapDialog({
+					title:'Error',
+					message:'There were unexpected errors happened. The reminders were not saved. This window will now close, please add the reminders later',
+					closable:false,
+					autodestroy:true,
+					buttons:[
+						{
+							label:'Close',
+							action:function(dialog){
+								dialog.close();
+								window.onbeforeunload = null;
+							}
+						}
+					],
+				});
+				
+				var surveyDialog = new BootstrapDialog({
+					id:'surveyForm',
+					title:'Session Reminder',
+					message:'<span>Thank you for being with us. The following reminders will be sent to the student</span>\
+							<form>\
+								<fieldset>\
+									<p>Please input you note here</p>\
+									<textarea style="resize:none;width:100%" name="sessionComment" id="sessionComment" rows="15" class="text ui-corner-all"></textarea>\
+								</fieldset>\
+							</form>\
+							<p id="fillReminderNotice" style="color:red; display:none">Please fill in the reminder and submit before you leave. If you cannot do it now, please do it later. You can access unfilled reminders from your main screen</p>',
+					closable:false,
+					autodestroy:true,
+					buttons:[
+						{
+							id:'saveComment',
+							label:'Save',
+							action:function(dialog){
+								var comments = document.getElementById("sessionComment").value;
+								if (comments == ""){
+									$('#fillReminderNotice').show();
+									$('#surveyForm').find(".modal-content").effect("shake", {}, 100);
+								} else {
+									// this.spin();
+									$.ajax({
+										url:'/api/session/addComment',
+										type:'post',
+										data:{
+											session_id: storm.sessionId,
+											user_id: storm.user.userId,
+											comment: comments,
+										},
+										success:function(response){
+											dialog.close();
+											if(response.success){
+												surveySubmitSuccess.open();
+											} else {
+												surveySubmitFailed.open();
+											}
+										}
+									});
+								}
+							}
+						}
+					]
+				});
+				
+				surveyDialog.open();
+				surveyDialog.getModalBody().css('padding-bottom', 0);
+			} else if (storm.user.isStudent()){
+				var ratingSubmitted = new BootstrapDialog({
+					title: 'Đánh giá buổi học',
+					message: '<div>Cám ơn bạn đã tham gia buổi học. Bạn có thể đóng cửa sổ này hoặc xem lại bài học.</div>',
+					autodestroy: true,
+					closable: false,
+					buttons:[
+						{
+							label:'Đóng',
+							action:function(dialog){
+								dialog.close();
+								window.onbeforeunload = null;
+							}
+						}
+					]
+				});
+				
+				var surveyDialog = new BootstrapDialog({
+					title: 'Buổi học đã kết thúc',
+					closable: false,
+					message:function(dialog){
+						var content = $('<div></div>');
+						var title = $('<div><span>Cảm ơn bạn đã đồng hành cùng Speak up. Vui lòng cho biết mức độ hài lòng của bạn với bài học hôm nay</span>');
+						content.append(title);
+						var rating = $('<div id="rating" style="width:105px; margin:0 auto"></div>');
+						rating.rating({
+							scale: 5,
+							titles: ["Rất kém", "Kém", "Bình thường", "Tốt", "Rất tốt"],
+							eventClick: function(score){
+								document.getElementById('ratingInput').value = score;
+							}
+						});
+						content.append(rating);
+						var comment = $('<form>\
+								<fieldset>\
+									<p>Ý kiến khác</p>\
+									<textarea style="resize:none;width:100%" name="sessionComment" id="sessionComment" rows="15" class="text ui-corner-all"></textarea>\
+									<input type="hidden" id="ratingInput" name="rating"></input>\
+								</fieldset>\
+								<p id="fillReminderNotice" style="color:red; display:none">Vui lòng chọn mức độ hài lòng của bạn. Nếu bạn không muốn gửi đánh giá, bạn có thể chọn \"Bỏ qua\"</p>\
+							</form>');
+						content.append(comment);
+						
+						return content;
+					},
+					buttons: [
+						{
+							label: 'Gửi đánh giá',
+							action: function(dialog) {
+								// this.spin();
+								var rating = document.getElementById('ratingInput').value;
+								if (rating != ''){
+									$.ajax({
+										url:'/api/session/addComment',
+										type:'post',
+										data:{
+											session_id: storm.sessionId,
+											user_id: storm.user.userId,
+											rating: rating,
+											comment: document.getElementById('sessionComment').value,
+										},
+										success:function(){
+											dialog.close();
+											ratingSubmitted.open();
+										}
+									});
+								} else {
+									$('#fillReminderNotice').show();
+								}
+							},
+						},
+						{
+							label: 'Bỏ qua',
+							action: function(dialog){
+								dialog.close();
+								ratingSubmitted.open();
+							}
+						}
+					]
+				});
+				
+				surveyDialog.open();
+				surveyDialog.getModalBody().css('padding-bottom', 0);
+			}
+		},
+		
+		
 		/**
 		 * Update accordion
 		 * @method updateAccordian

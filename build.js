@@ -5,5 +5,5 @@
     mainConfigFile: "./public/javascripts/main.js",
     generateSourceMaps: false,
   	preserveLicenseComments: false,
-    optimize: "none"
+    optimize: "uglify2"
 })

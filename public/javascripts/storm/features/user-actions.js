@@ -36,8 +36,6 @@ define(["storm", "features/chat","features/list-users","storm.util"], function(s
         });
         
         $('#button_thumb_raisehand').click(function(event) {
-            console.log('Da bam nut gio tay');
-            console.log(util.getMode());
             if(util.getMode()==='2'){
                 return ;
             }

@@ -90,10 +90,17 @@ collaboration = module.exports = {
                     socket.emit('joined', usersInBoard);
                 });
 
-                loadBoards(boardId, socket);
+				BoardModel.loadByBoardId(boardId, function (err, board){
+					if (err){
+						logger.error("error loading board:" + err);
+					}  else {
+						loadAllBoardsInfo(board, socket);
+						createTokenForBoard(board, socket);
+						io.sockets.in(boardId).emit('sessionId', {sessionId:board.p('sessionId')});
+					}
+				});
+				
                 loadMessages(boardId, socket);
-
-                createToken(boardId, data, socket);
 
                 if(infoOfBoards[boardId]['teacherActiveBoard'] != undefined) {
                     var data = {};
@@ -214,10 +221,67 @@ collaboration = module.exports = {
                 getSessionId(boardId, data, this);
             });
         });
-    }
+    },
 }
 
+//use a board object to avoid calling loadByBoardId multiple times, and still preserve api
+var loadAllBoardsInfo = function(board, socket){
+	var data = {};
+	var boardId = board.p('boardId');
+	
+	var parent = board.allProperties();
+	data['parent'] = parent;
 
+	infoOfBoards[boardId]['boards'][boardId] = parent;
+
+
+	if(parent['sessionStatus'] == 1) {
+		var currentTotalTime = parseInt(parent['totalTime']);
+		var now = new Date().getTime();
+		parent['totalTime'] = (now - parent['timeStarted']) / 1000 + currentTotalTime;
+	}
+
+	if(parent['sessionStatus'] == 0) {
+		var now = new Date().getTime();
+		parent['totalTime'] = parent['sessionPlanStart'] > now ? (parent['sessionPlanStart']-now)/1000 : 0;
+	}
+
+	socket.get('user', function(err, user) {
+		var sync = parseInt(parent['sync']);
+		if(sync) {
+			infoOfBoards[boardId]['users'][user.userId]['active'] = parent['active'];
+
+		} else {
+			if(infoOfBoards[boardId]['users'][user.userId]['active'] != undefined){
+				parent['active'] = infoOfBoards[boardId]['users'][user.userId]['active'];
+			}
+
+			if(infoOfBoards[boardId]['boards'][data.boardId] != undefined) {
+				parent['docPage'] = infoOfBoards[boardId]['boards'][data.boardId]['docPage'];
+				parent['docScale'] = infoOfBoards[boardId]['boards'][data.boardId]['docScale'];
+			}
+		}
+	});
+
+	data['children'] = [];
+
+	BoardModel.findAndLoad({parentId: parent['boardId']}, function(err, children) {
+		if(err) {
+		} else {
+			children.forEach(function(child) {
+
+				// consider if this user can join this board child
+				var students = child.p('students');
+				var childId = child.p('boardId');
+
+				data['children'].push(child.allProperties());
+
+				infoOfBoards[boardId]['boards'][childId] = child.allProperties();
+			});
+		}
+		socket.emit('containerDraw', data);
+	});
+}
 
 var loadBoards = function(boardId, socket) {
     var data = {};
@@ -226,58 +290,9 @@ var loadBoards = function(boardId, socket) {
         if(err) {
             logger.error("loadBoards load board error:" + err);
         } else {
-            var parent = board.allProperties();
-            data['parent'] = parent;
-
-            infoOfBoards[boardId]['boards'][boardId] = parent;
-
-
-            if(parent['sessionStatus'] == 1) {
-                var currentTotalTime = parseInt(parent['totalTime']);
-                var now = new Date().getTime();
-                parent['totalTime'] = (now - parent['timeStarted']) / 1000 + currentTotalTime;
-            }
-
-            if(parent['sessionStatus'] == 0) {
-                var now = new Date().getTime();
-                parent['totalTime'] = parent['sessionPlanStart'] > now ? (parent['sessionPlanStart']-now)/1000 : 0;
-            }
-
-            socket.get('user', function(err, user) {
-                var sync = parseInt(parent['sync']);
-                if(sync) {
-                    infoOfBoards[boardId]['users'][user.userId]['active'] = parent['active'];
-
-                } else {
-                    if(infoOfBoards[boardId]['users'][user.userId]['active'] != undefined){
-                        parent['active'] = infoOfBoards[boardId]['users'][user.userId]['active'];
-                    }
-
-                    if(infoOfBoards[boardId]['boards'][data.boardId] != undefined) {
-                        parent['docPage'] = infoOfBoards[boardId]['boards'][data.boardId]['docPage'];
-                        parent['docScale'] = infoOfBoards[boardId]['boards'][data.boardId]['docScale'];
-                    }
-                }
-            });
-
-            data['children'] = [];
-
-            BoardModel.findAndLoad({parentId: parent['boardId']}, function(err, children) {
-                if(err) {
-                } else {
-                    children.forEach(function(child) {
-
-                        // consider if this user can join this board child
-                        var students = child.p('students');
-                        var childId = child.p('boardId');
-
-                        data['children'].push(child.allProperties());
-
-                        infoOfBoards[boardId]['boards'][childId] = child.allProperties();
-                    });
-                }
-                socket.emit('containerDraw', data);
-            });
+			//wrap the load by board object function
+			//it is shorter this way, but keep all those things inline may be faster (?)
+			loadAllBoardsInfo(board, socket);
         }
     });
 };
@@ -302,6 +317,10 @@ var loadBoard = function(boardId, data, socket) {
                     args: [props.args]
                 }));
             });
+			
+			if (data.notifyWhenDone){
+				socket.emit('doneLoadingBoard', {boardId: data.boardId});
+			}
         }
     });
 };
@@ -669,16 +688,29 @@ var stopSession = function(boardId, data, socket) {
                 var totalTime = (timeStopped - board.p('timeStarted')) / 1000 + currentTotalTime;
 
                 board.p('totalTime',totalTime);
-                board.p('sessionStatus', 2);
+                // board.p('sessionStatus', 2);
                 board.p('timeStopped', timeStopped);
 
-                board.save();
-				if (data.forceEnd)
-				{
-					SessionHandle.forceEndSession(board.p('sessionId'), board.p('totalTime') / 60);
+                // board.save();
+				if (data.forceEnd) {
+					SessionHandle.forceEndSession(board.p('sessionId'), board.p('totalTime') / 60, function(success){
+						if (success){
+							board.p('sessionStatus', 2);
+							io.sockets.in(boardId).emit('requestSurvey');
+							//this case if for when the session is manually ended. The user will end up exiting or
+							//being forced to get out when the session is expired, thus we rely on those two cases to remove the room
+						}
+					});
+				} else {
+					SessionHandle.endSession(board.p('sessionId'), board.p('totalTime') / 60, function(success){
+						if(success){
+							board.p('sessionStatus', 2);
+							//this case is for when everyone left the board, so if it succeed, let's remove the licode room
+							removeLicodeRoom(board);
+						}
+					});
 				}
-				else
-					SessionHandle.endSession(board.p('sessionId'), board.p('totalTime') / 60);
+				board.save();
                 socket.broadcast.to(boardId).emit('toggleBoard', data);
 
                 sendFeedback(boardId, board.p('sessionId'));
@@ -704,57 +736,72 @@ var sendFeedback = function(boardId, sessionId) {
     });
 }
 
+//use a board object to avoid calling loadByBoardId multiple times and still preserve API
+var createTokenForBoard = function(board, socket){
+	SessionHandle.getSessionTimeUntilExpiration(board.p('sessionId'), function(remainingTime){
+		var licodeActive = remainingTime > 0;
+		
+		socket.emit('expirationTime', remainingTime);
+		
+		if (licodeActive){
+			async.waterfall([
+				function(callback) {
+					if(config['media'])callback(null)
+					else callback('no media');
+				},
+				function(callback) {
+					var roomId = board.p('roomId');
+					var nuveId = board.p('nuve') ? board.p('nuve') : 0;
+					var nuve = config.nuves[nuveId] ? config.nuves[nuveId] : config.nuves[0];
+					N.API.init(nuve.serviceId, nuve.serviceKey, nuve.host);
+					if(roomId == "") {
+						var p2p = board.p('p2p') == 1 ? true : false;
+						N.API.createRoom('myRoom', function (roomID) {
+							var roomId = roomID._id;
+							board.p('roomId', roomId);
+							board.save(function (err) {
+								if (err) {
+									logger.error('Creating Licode Room Error for Board: ' + boardId + ", err:" + err);
+									callback('save room error');
+								} else {
+									callback(null, roomId);
+								}
+							});
+						}, function() {callback('create room error')}, {p2p: p2p});
+					} else {
+						callback(null, roomId);
+					}
+				},
+				function(roomId, callback) {
+					socket.get('user', function(err, user) {
+						N.API.createToken(roomId, user.userId, "presenter", function (token) {
+							callback(null, token);
+						}, function(err) {
+							logger.error("create token error: "+err);
+							callback('create token error');
+						});
+					});
+				},
+			], function (err, token) {
+				if(token == undefined) token = "";
+				socket.emit('token', token);
+			});
+		} else {
+			removeLicodeRoom(board);
+		}
+	});
+}
+
 var createToken = function(boardId, data, socket) {
-    async.waterfall([
-        function(callback) {
-            if(config['media'])callback(null)
-            else callback('no media');
-        },
-        function(callback) {
-            BoardModel.loadByBoardId(boardId, function(err, board) {
-                if(err) {
-                    logger.error("createToken load board error:" + err);
-                    callback(err);
-                } else {
-                    var roomId = board.p('roomId');
-                    var nuveId = board.p('nuve') ? board.p('nuve') : 0;
-                    var nuve = config.nuves[nuveId] ? config.nuves[nuveId] : config.nuves[0];
-                    N.API.init(nuve.serviceId, nuve.serviceKey, nuve.host);
-                    if(roomId == "") {
-                        var p2p = board.p('p2p') == 1 ? true : false;
-                        N.API.createRoom('myRoom', function (roomID) {
-                            var roomId = roomID._id;
-                            board.p('roomId', roomId);
-                            board.save(function (err) {
-                                if (err) {
-                                    logger.error('Creating Licode Room Error for Board: ' + boardId + ", err:" + err);
-                                    callback('save room error');
-                                } else {
-                                    callback(null, roomId);
-                                    logger.debug('Phong tao ra la:'+roomId);
-                                }
-                            });
-                        }, function() {callback('create room error')}, {p2p: p2p});
-                    } else {
-                        callback(null, roomId);
-                    }
-                }
-            });
-        },
-        function(roomId, callback) {
-            socket.get('user', function(err, user) {
-                N.API.createToken(roomId, user.userId, "presenter", function (token) {
-                    callback(null, token);
-                }, function(err) {
-                    logger.error("create token error: "+err);
-                    callback('create token error');
-                });
-            });
-        },
-    ], function (err, token) {
-        if(token == undefined) token = "";
-        socket.emit('token', token);
-    });
+	BoardModel.loadByBoardId(boardId, function(err, board){
+		if (err){
+			//do something
+		} else {
+			createTokenForBoard(board, socket);
+		}
+	});
+	
+	
 }
 
 var getUserInBoard = function(boardId, callback) {
@@ -808,4 +855,21 @@ var getSessionId = function(boardId, data, socket){
         var sessionId = board.p('sessionId');
         socket.emit('setSessionId', {sessionId:sessionId});
     });
+}
+
+var removeLicodeRoom = function(board){
+	var licodeRoom = board.p('roomId');
+	if (licodeRoom != ''){
+		console.log('We are about to delete the licode room ' + licodeRoom)
+		var nuveId = board.p('nuve') ? board.p('nuve') : 0;
+		var nuve = config.nuves[nuveId] ? config.nuves[nuveId] : config.nuves[0];
+		
+		N.API.init(nuve.serviceId, nuve.serviceKey, nuve.host);
+		N.API.deleteRoom(licodeRoom, function(result){
+			console.log(result);
+		});
+		
+		board.p('roomId', '');
+		board.save();
+	}
 }

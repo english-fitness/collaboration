@@ -1,4 +1,4 @@
-define(["jquery", "storm", "licode.client", "jquery.mousewheel", "jquery.mCustomScrollbar", "jquery.form", "jquery.slimscroll", "jquery.cookie",
+define(["jquery", "jquery-ui", "jquery.rating", "storm", "licode.client", "jquery.mousewheel", "jquery.mCustomScrollbar", "jquery.form", "jquery.slimscroll", "jquery.cookie",
 	"pdfjs", "socket.io", "fabric","bootstrap", "storm.setup","mathquill"], function($, storm, licode) {
 	$(document).ready(function() {
 		PDFJS.workerSrc = baseUrl +'javascripts/thirdparty/pdfjs/pdf.worker.js';

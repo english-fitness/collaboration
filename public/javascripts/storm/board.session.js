@@ -65,7 +65,7 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
                         sendToggleBoard({status:'start'});
                         startSession();
                     }else{
-                        alert('There must be at least on teacher and one student in order to start the class!');
+                        alert('There must be at least one teacher and one student in order to start the class!');
                     }
                 } else {
                     if(confirm('Are you sure you want to end the class?')) {

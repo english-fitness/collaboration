@@ -1,0 +1,28 @@
+.rating {
+	text-align:center;
+	width: 105px;
+	margin: 0 auto 0;
+	font-size: 25px;
+	overflow:hidden;
+}
+.rating a,
+.rating p {
+	float:right;
+	color: #aaa;
+	text-decoration: none;
+	-webkit-transition: color .6s;
+	-moz-transition: color .6s;
+	-o-transition: color .6s;
+	transition: color .6s;
+	outline:0;
+}
+.rating p:hover ~ p,
+.rating input:focus ~ p,
+.rating:hover,
+.rating a:hover,
+.rating a:hover ~ a,
+.rating a:focus,
+.rating a:focus ~ a{
+	color: orange;
+	cursor: pointer;
+}

@@ -23,6 +23,7 @@ define(function () {
         roles: {TEACHER: 'role_teacher', STUDENT: 'role_student', MONITOR: 'role_monitor', ADMIN: 'role_admin'},
         teachers: {},
         students: {},
+		sessionId: null,
         sessionStatus: 0,
         enableDraw: true,
         timer_started: false,

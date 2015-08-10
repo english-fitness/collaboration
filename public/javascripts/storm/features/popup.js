@@ -6,7 +6,7 @@ define(["storm"], function(storm) {
             storm.comm.socket.on('feedback', function (data) {
                 popup.showFeedback(data);
             });
-
+			
             bindEvents();
         },
 
