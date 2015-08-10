@@ -1652,6 +1652,18 @@ span.sender{font-weight: bold; margin-right: 4px}
     height: 30px;
 }
 
+.board-icon-exit {
+    margin: -2px 0px 0px -5px;
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/icon/exit.png');
+}
+.board-icon-exit:hover {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    border: 1px solid;
+}
 .board-icon-play {
     background-position: -104px -37px;
 }

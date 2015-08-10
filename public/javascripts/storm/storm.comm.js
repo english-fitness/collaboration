@@ -40,12 +40,12 @@ define(["storm","storm.ui","storm.util"], function (storm, ui, util) {
         this.socket.on('error', function (reason) {
             if(reason == "handshake unauthorized") {
 				if (window.navigator.language == 'vi-VN'){
-					alert("Tài khoản bạn đang đăng nhập đã tham gia vào buổi học này ở một nơi khác. \
-					Nếu bạn bị thoát ra do mất kết nối, vui lòng đợi một vài phút và thử lại.");
+					alert("Tài khoản bạn đang đăng nhập đã tham gia vào buổi học này ở một nơi khác. "+
+					"Nếu bạn bị thoát ra do mất kết nối, vui lòng đợi một vài phút và thử lại.");
 				} else {
-					alert("This account is logged in from another computer. \
-					If you see this after being disconnected from the session, \
-					you may be able to re-enter the session after a few minutes, please try again later!");
+					alert("This account was logged in from another computer." +
+					"If you see this after being disconnected from the session, " +
+					"you may be able to re-enter the session after a few minutes, please try again later!");
 				}
             }
             console.log('connect error, reason: ' + reason);

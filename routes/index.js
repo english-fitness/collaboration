@@ -467,7 +467,7 @@ module.exports = {
 
         var headers = req.headers;
 
-        if(headers['content-length'] && headers['content-length'] > 4 * 1024 * 1024) {
+        if(headers['content-length'] && headers['content-length'] > 128 * 1024 * 1024) {
             res.json({'success': false, 'reason': 'File quá lớn, chỉ được tải lên file nhỏ hơn 4MB'});
         } else {
             req.pipe(req.busboy);
