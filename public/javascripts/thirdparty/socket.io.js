@@ -1627,7 +1627,8 @@ var io = ('undefined' === typeof module ? {} : module.exports);
         , io.protocol
         , io.util.query(this.options.query, 't=' + +new Date)
       ].join('/');
-
+	
+	//console.log("duong dan la: "+url);
     if (this.isXDomain() && !io.util.ua.hasCORS) {
       var insertAt = document.getElementsByTagName('script')[0]
         , script = document.createElement('script');
