@@ -126,7 +126,7 @@ define(["storm", "storm.palettes", "board.sync"], function(storm, palettes, boar
     function disableBoard() {
         if($('body').find('.board-disabled').length == 0){
             if(storm.user.role == storm.roles.STUDENT){
-                $('body').append('<div class="board-disabled"><div class="alert-start">Waiting for teacher to start the class<br/> If you have problem using the board, audio or video... <br> Please  <span style="color: red;">reload</span> reload the browser <span style="color: red;">(Press F5)</span> to try again</div></div>');
+                $('body').append('<div class="board-disabled"><div class="alert-start">Waiting for teacher to start the class<br/> If you have problem using the board, audio or video... <br> Please  <span style="color: red;">reload</span> the browser <span style="color: red;">(Press F5)</span> to try again</div></div>');
             }else{
                 $('body').append('<div class="board-disabled"><div class="alert-start">Press \“Start\” or \“Continue\” to start the class</div></div>');
             }
