@@ -16,7 +16,8 @@ requirejs.config({
         "socket.io": "../thirdparty/socket.io",
         "pdfjs": "../thirdparty/pdfjs/pdf",
         "underscore": "../thirdparty/underscore-min",
-        "mathquill": "../thirdparty/mathquill/mathquill"
+        "mathquill": "../thirdparty/mathquill/mathquill",
+        "webrtcsupport": "../thirdparty/webrtcsupport.bundle"
     },
     "shim": {
         "jquery": {exports: "jQuery"},

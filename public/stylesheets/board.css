@@ -3,10 +3,11 @@ body{
     background: #e8e8e8;
 }
 .logo {
-    background-image: url("../images/logo_daykem_30x30.png");
-    width: 30px;
+    background-image: url("../images/logo_speakup.png");
     height: 30px;
-    margin-left: 50px;
+    width: 60px;
+    margin: 0 auto;
+    background-size: contain;
     background-repeat: no-repeat;
 }
 .modified-user {

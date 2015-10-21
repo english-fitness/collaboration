@@ -1,10 +1,8 @@
-define(["storm", "features/list-users","storm.util", "underscore", "erizo"], function (storm, listUsers, util, _) {
+define(["storm", "features/list-users","storm.util", "underscore", "erizo", "voice.control"], function (storm, listUsers, util, _, erizo, voiceController) {
     var speaking = false, audioStream, videoStream, room, retry, teacherActiveBoard, syncTimeout, sessionId,
     DISCONNECTED=0, CONNECTING=1, CONNECTED=2, recordId, recording=false,recordMode=undefined,array_video=new Array();;
     var licode = {
         init: function() {
-            
-            
             storm.comm.socket.on('token', function(token) {
                 if(token != "") {
                     licode.start(token);
@@ -162,9 +160,9 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
             if(audioStream != undefined) {
                 audioStream.close();
                 if (recording&&storm.user.isTeacher()) {
-                        room.stopRecording(recordId);
-                        recording = false;
-                        storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
+                    room.stopRecording(recordId);
+                    recording = false;
+                    storm.comm.socket.emit("setRecordFile", storm.parentBoardId, {filename:recordId+".mkv"});
                 }
             }
 
@@ -176,7 +174,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 room.disconnect();
             }
         },
-
+        gainController: undefined,
         publishAudio: function(status) {
             
             if(status == true && audioStream == undefined) {
@@ -184,6 +182,8 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 audioStream.init();
                 setMicroStatus('loading');
                 audioStream.addEventListener("access-accepted", function () {
+                    gainController = voiceController.gainController(audioStream.stream);
+                    gainController.setGain(1.5);
                     room.publish(audioStream, {}, function(){
                         console.log("published audio stream");
                         
@@ -192,7 +192,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                         //neu lop hoc co che do ghi am
 //                        
                         if (!recording&&storm.user.isTeacher()){
-                                storm.comm.socket.emit("getSessionId", storm.parentBoardId, {});
+                            storm.comm.socket.emit("getSessionId", storm.parentBoardId, {});
                         } 
                         
                     }, function(anwser) {
@@ -205,6 +205,7 @@ define(["storm", "features/list-users","storm.util", "underscore", "erizo"], fun
                 });
             } else {
                 if(audioStream !== undefined) {
+                    gainController.restoreTrack();
                     audioStream.close();
                     audioStream = undefined;
                     setMicroStatus('off');

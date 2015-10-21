@@ -1,4 +1,4 @@
-define(["storm", "underscore"], function(storm, _) {
+define(["storm", "underscore", "webrtcsupport"], function(storm, _, webrtcsupport) {
     var voiceTable = {}, users = {};
     var voiceControl = {
 
@@ -67,7 +67,57 @@ define(["storm", "underscore"], function(storm, _) {
             return html;
         },
 
+        gainController: function(stream){
+            return new GainController(stream);
+        }
     };
+
+    function GainController(stream){
+        this.support = webrtcsupport.webAudio && webrtcsupport.mediaStream;
+
+        this.gain = 1;
+
+        if (this.support){
+            var context = this.context = new webrtcsupport.AudioContext();
+            this.microphone = context.createMediaStreamSource(stream);
+            this.gainFilter = context.createGain();
+            this.destination = context.createMediaStreamDestination();
+            this.outputStream = this.destination.stream;
+            this.microphone.connect(this.gainFilter);
+            this.gainFilter.connect(this.destination);
+            stream.addTrack(this.outputStream.getAudioTracks()[0]);
+            this.originalTrack = stream.getAudioTracks()[0];
+            stream.removeTrack(this.originalTrack);
+        }
+        this.stream = stream;
+    }
+
+    GainController.prototype.setGain = function(value){
+        if (!this.support)
+            return;
+        this.gainFilter.gain.value = value;
+        this.gain = value;
+    }
+
+    GainController.prototype.getGain = function(){
+        return this.gain;
+    }
+
+    GainController.prototype.resetGain = function(){
+        this.setGain(1);
+    }
+
+    GainController.prototype.mute = function(){
+        this.setGain(0);
+    }
+
+    GainController.prototype.restoreTrack = function(){
+        if (this.support){
+            var stream = this.stream;
+            stream.removeTrack(stream.getAudioTracks()[0]);
+            stream.addTrack(this.originalTrack);
+        }
+    }
 
     function bindButtons() {
         $("#voiceTable").on("click","#userCheckAll",function() {
