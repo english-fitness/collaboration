@@ -600,9 +600,28 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 		$('.board-icon-remove').css('pointer-events', 'none');
 		$('.board-icon-setting').css('pointer-events', 'none');
 	}
+
+    function checkSessionTime(){
+        console.log("Session time out check");
+        $.ajax({
+            type:"get",
+            url:"/api/session/getTimeUntilExpiration?sessionId="+storm.sessionId,
+            success:function(response){
+                if (response.remainingTime < 0){
+                    forceSessionEnd();
+                } else {
+                    console.log("Reset timer");
+                    setClassEndTimer(response.remainingTime);
+                }
+            },
+            error:function(){
+                return;
+            }
+        })
+    }
 	
 	function forceSessionEnd(){
-		console.log('timeout');
+		console.log('Session timed out. Terminating in 10 seconds');
 		storm.reloadConfirm = false;
 		ui.showForceEndSession();
 		//we really want to just reload and enter the view only mode but there are still some concern.
@@ -613,8 +632,8 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 	
 	function setClassEndTimer(remainingTime){
 		if (remainingTime > 0 && remainingTime < 45*60){
-			setTimeout(forceSessionEnd, remainingTime*1000);
-			console.log('timer set for ' + remainingTime + ' seconds');
+			setTimeout(checkSessionTime, remainingTime*1000);
+			console.log('Timer set for ' + remainingTime + ' seconds');
 		}
 	}
 	
