@@ -602,6 +602,9 @@ define(["storm","storm.ui","storm.util","storm.fabric","storm.events","board.pdf
 	}
 
     function checkSessionTime(){
+        //Recheck to make sure timer is set correctly
+        //since browser may set the wrong timer in weird case
+        //and cause the session to terminate sooner than planned time
         console.log("Session time out check");
         $.ajax({
             type:"get",

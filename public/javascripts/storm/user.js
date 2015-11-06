@@ -14,6 +14,9 @@ define(["storm"], function(storm) {
 		},
 		isTeacher: function() {
 			return storm.user.role == storm.roles.TEACHER;
+		},
+		isMonitor: function() {
+			return $.inArray(storm.user.role, ['role_admin', 'role_monitor', 'role_telesales']) !== -1;
 		}
 	};
 

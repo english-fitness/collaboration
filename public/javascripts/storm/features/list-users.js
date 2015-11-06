@@ -97,7 +97,8 @@ define(["storm", "boards", "underscore", "features/popup","storm.util"], functio
                 $('#teacher_area').attr('data', user.userId);
                 $('#teacher_area .name').attr('style', 'color: red');
             } else {
-                if($('li#user'+ user.userId).length == 0 && user.role != storm.roles.ADMIN && user.role != storm.roles.MONITOR){
+                // console.log("user.isMonitor()" + user.isMonitor());
+                if($('li#user'+ user.userId).length == 0 && $.inArray(user.role, ['role_admin', 'role_monidor', 'role_telesales']) === -1){
                     ul.append('<li id="user' + user.userId + '"><span id="'+user.userId+'">' 
                             + name + '</span><div class="action"><div class="micro board-icon-micro-nospeaking"></div><div class="raisehand"></div></div></li>');
                     if(user.userId == storm.user.userId) {
