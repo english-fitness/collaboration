@@ -26,6 +26,10 @@ application = (function () {
         RedisStore = require ( 'connect-redis' ) ( session ),
         sessionStore = new RedisStore ({client: redisClient});
 
+    if (config['db']['pw']){
+        redisClient.auth(config['db']['pw']);
+    }
+
     var app = module.exports = express();
 
     var server = require('http').createServer(app);
