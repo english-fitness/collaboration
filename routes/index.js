@@ -359,7 +359,6 @@ module.exports = {
             } else {
                 var boardId = req.param('boardId');
                 var mode=req.param('mode')?req.param('mode'):'1';//set mode
-                //console.log('che do:'+mode);
                 var response = {'success': false};
 
                 var sessionId = req.param('sessionId') != undefined ? req.param('sessionId') : 0;
@@ -437,7 +436,9 @@ module.exports = {
 
             if(allowExtensions.indexOf(extension) >= 0 && allowFileTypes.indexOf(mimetype) >= 0) {
                 success = true;
-                fs.mkdir(__dirname + "/../public/uploads/users/" + req.user.userId,function(err){
+                var old_umask = process.umask();
+                process.umask(0);
+                fs.mkdir(__dirname + "/../public/uploads/users/" + req.user.userId, 0775, function(err){
                     if(!err || (err && err.code === 'EEXIST')) {
                         var saveTo = __dirname + "/../public/uploads/users/" + req.user.userId + "/" + filename;
                         var writeStream = fs.createWriteStream(saveTo);
@@ -452,6 +453,7 @@ module.exports = {
                         res.json({'success': false, 'reason': 'Lỗi thư mục'});
                     }
                 });
+                process.umask(old_umask);
 
             } else {
                 success = false;
