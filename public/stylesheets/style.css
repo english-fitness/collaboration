@@ -805,6 +805,10 @@ ul.newFeatureList li {
     margin: 4px auto;
     position: relative;
 }
+.shape-holder.lite{
+    height: 25px;
+    margin: 0 auto;
+}
 .shape-holder:hover,
 .shape-selected{
     background: rgba(49, 142, 254, 0.64);
@@ -864,6 +868,9 @@ hr{margin: 5px 0!important;}
     background-image: url('../images/icon.png');
     background-repeat:  no-repeat;
     margin:auto;
+}
+.shape-holder.lite .basic-shape{
+    height: 25px;
 }
 .s-label{background-position:0 -776px;}
 .s-txt_button{background-position:0 -628px;}
@@ -1098,6 +1105,9 @@ ul#chattext li{word-wrap:break-word;}
     height: 35px;
     margin: 5px auto 5px auto;
 }
+#color.lite ul li{
+    height: 25px;
+}
 #color ul li span.cBg,
 #color ul li span.cBd{
     position: absolute;
@@ -1118,6 +1128,9 @@ ul#chattext li{word-wrap:break-word;}
     padding:5px;
     width: 122px;
     display: none;
+}
+#color.lite ul ul{
+    top: -10px;
 }
 #color ul li:hover ul{
     display: block;

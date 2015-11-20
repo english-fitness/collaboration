@@ -305,11 +305,33 @@ module.exports = {
                     if((req.user.role == 'role_student' || req.user.role == 'role_teacher') &&  !_(allowedUsers).has(req.user.userId)) {
                         res.status(403).send('You are not allowed to enter this class');
                     } else {
-                        var jsFile = config['optimized'] ? 'built/'+config['js'] : "javascripts/main.js";
+                        var jsFile = config['optimized'] ? 'built/'+config['main-js'] : "javascripts/main.js";
                         var cssFile = config['optimized'] ? 'built/'+config['css'] : "stylesheets/main.css";
                         var googleTag  = config['googleTag'];
                         var baseUrl = config['baseUrl'];
                         res.render('board.html', {baseUrl: baseUrl, jsFile: jsFile, cssFile: cssFile,googleTag: googleTag});
+                    }
+                }
+            });
+        },
+        hangouts: function(req, res, next){
+            var boardId = req.params.boardId.replace(/[^a-zA-Z 0-9]+/g,'').toString();
+
+            BoardModel.loadByBoardId(boardId, function(err, board) {
+                if(err) {
+                    logger.debug("Board not found:" + boardId + ", err: " + err);
+                    res.status(404).send('Not found!');
+                } else {
+                    var allowedUsers = board.p('users');
+
+                    if((req.user.role == 'role_student' || req.user.role == 'role_teacher') &&  !_(allowedUsers).has(req.user.userId)) {
+                        res.status(403).send('You are not allowed to enter this class');
+                    } else {
+                        var jsFile = config['optimized'] ? 'built/'+config['hangouts-js'] : "javascripts/hangouts.js";
+                        var cssFile = config['optimized'] ? 'built/'+config['css'] : "stylesheets/main.css";
+                        var googleTag  = config['googleTag'];
+                        var baseUrl = config['baseUrl'];
+                        res.render('hangouts-iframe.html', {baseUrl: baseUrl, jsFile: jsFile, cssFile: cssFile,googleTag: googleTag});
                     }
                 }
             });

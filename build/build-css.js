@@ -10,6 +10,6 @@
         mangle : true
     },
     optimizeCss: "standard",
-    cssIn: "./public/stylesheets/main.css",
-    out: "./public/built/main.css"
+    cssIn: "../public/stylesheets/main.css",
+    out: "../public/built/main.css"
 })

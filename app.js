@@ -94,8 +94,14 @@ application = (function () {
     if(config['optimized']) {
          var files = fs.readdirSync('./public/built/');
         _(files).each(function(file) {
-            if(file.indexOf('.js') > 0) config['js'] = file;
-            else if(file.indexOf('.css') > 0) config['css'] = file
+            if(file.indexOf('.js') > -1){
+                if (file.indexOf('hangouts') > -1){
+                    config['hangouts-js'] = file;
+                } else if (file.indexOf('main') > -1) {
+                    config['main-js'] = file;
+                }
+            }
+            else if(file.indexOf('.css') > -1) config['css'] = file
         });
     }
 
